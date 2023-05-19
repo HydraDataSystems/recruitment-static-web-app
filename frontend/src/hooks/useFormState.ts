@@ -28,7 +28,7 @@ function useFormState() {
       window.scrollTo(0, 0);
     }
 
-  }, [location]);
+  }, [location, actions, state.currentSection]);
 
   const nextSection = () => {
     const { currentSection, sections } = state;

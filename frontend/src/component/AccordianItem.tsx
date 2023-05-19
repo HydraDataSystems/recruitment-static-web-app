@@ -17,17 +17,20 @@ type AccordianItemProps = {
 const AccordianItem = ({ title, active, onToggle, removeItem, error = false, children }: PropsWithChildren<AccordianItemProps>) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const [height, setHeight] = useState(0);
+  const [, setHeight] = useState(0);
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
       const { height } = entries[0].contentRect;
       setHeight(height);
     })
+
+    const ref = contentRef.current;
+
     setHeight(contentRef.current?.scrollHeight || 0);
-    observer.observe(contentRef.current!);
+    observer.observe(ref!);
     return () => { 
-      contentRef.current && observer.unobserve(contentRef.current) 
+      ref && observer.unobserve(ref) 
     };
   }, []);
 

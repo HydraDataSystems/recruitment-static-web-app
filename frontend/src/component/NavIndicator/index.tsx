@@ -13,7 +13,7 @@ const NavIndicator = () => {
     const nav = sectionKeys.map((section) => {
         return (
         <Fragment key={section}>    
-            <li className={ section === currentSection ? 'nav-indicator__item active' : 'nav-indicator__item'}><a>{section}</a></li>
+            <li className={ section === currentSection ? 'nav-indicator__item active' : 'nav-indicator__item'}><button>{section}</button></li>
         </Fragment>   
         )
     });
