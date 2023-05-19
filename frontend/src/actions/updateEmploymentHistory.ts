@@ -1,5 +1,4 @@
 import { GlobalState } from "little-state-machine";
-import { SECTION_ORDER } from '../constants';
 import { EmploymentGap, EmploymentHistory } from '../global';
 import { MIN_EMPLOYMENT_GAP_IN_DAYS } from '../constants';
 export default function updateEmploymentHistorySection(state: GlobalState, payload: EmploymentHistory) {
