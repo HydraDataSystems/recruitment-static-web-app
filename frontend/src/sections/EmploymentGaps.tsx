@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useFormState from "../hooks/useFormState";
 import {useForm, useFieldArray } from "react-hook-form";
-import { EmploymentGaps, EmploymentGapReason } from "../global";
+import { EmploymentGaps } from "../global";
 
 const EmploymentGapsComponent = () => {
 
@@ -38,7 +38,7 @@ const EmploymentGapsComponent = () => {
 
   useEffect(() => {
     if (isValid && isSubmitSuccessful) nextSection();
-  }, [isValid, isSubmitSuccessful]);
+  }, [isValid, isSubmitSuccessful, nextSection]);
 
   return (
     <form onSubmit={onSubmit}>

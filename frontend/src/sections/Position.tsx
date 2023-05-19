@@ -28,7 +28,7 @@ const PositionComponent = () => {
 
   useEffect(() => {
     if(isValid && isSubmitSuccessful ) nextSection();
-  }, [isValid, isSubmitSuccessful]);
+  }, [isValid, isSubmitSuccessful, nextSection]);
 
   const watchPosition = watch('position');
 

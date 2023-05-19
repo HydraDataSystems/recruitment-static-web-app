@@ -24,7 +24,7 @@ const PersonalDetailsComponent = () => {
 
   useEffect(() => { 
     if(isValid && isSubmitSuccessful) nextSection();
-  }, [isValid, isSubmitSuccessful]);
+  }, [isValid, isSubmitSuccessful, nextSection]);
 
   const isDriver = watch('driver');
   const isNational = watch('uk_ec_eea_resident');

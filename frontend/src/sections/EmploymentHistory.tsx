@@ -80,7 +80,7 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
         }
       });
     }
-  }, [employmentRecords]);
+  }, [employmentRecords, setValue]);
 
   return (
     <>
@@ -268,13 +268,13 @@ const EmploymentHistoryComponent = () => {
 
   useEffect(() => {
     if(isValid && isSubmitSuccessful) nextSection();
-  }, [isValid, isSubmitSuccessful]);
+  }, [isValid, isSubmitSuccessful, nextSection]);
 
   const onAddSection = useCallback(() => {
     // if(formRef.current) {
     //   onSubmit();
     // }
-  }, [formRef.current]);
+  }, []);
 
   const onSubmit = handleSubmit((data) => {
     updateEmploymentHistorySection(data as EmploymentHistory);

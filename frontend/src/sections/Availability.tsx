@@ -27,7 +27,7 @@ const AvailabilityComponent = () => {
 
   useEffect(() => {
     if(isValid && isSubmitSuccessful) nextSection();
-  },[isValid, isSubmitSuccessful]);
+  },[isValid, isSubmitSuccessful, nextSection]);
 
   const checkSelection: Validate<AvailabilityOption[], Availability> | Record<string, Validate<AvailabilityOption[], Availability>> | undefined = (value, formValues) => {
     if(value.length > 1 && value.find((v) => v === 'NONE')) return false;

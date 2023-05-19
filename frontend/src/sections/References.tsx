@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useFormState from "../hooks/useFormState";
-import { References } from "../global";
-
 
 const RefereesComponent = () => {
   
@@ -20,7 +18,7 @@ const RefereesComponent = () => {
 
   useEffect(() => {
     if(isValid && isSubmitSuccessful) nextSection();
-  }, [isValid, isSubmitSuccessful]);
+  }, [isValid, isSubmitSuccessful, nextSection]);
 
   return (
     <form onSubmit={onSubmit}>

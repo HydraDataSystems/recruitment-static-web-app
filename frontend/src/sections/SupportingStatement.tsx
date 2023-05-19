@@ -19,7 +19,7 @@ const SupportingStatementComponent = () => {
 
   useEffect(() => { 
     if(isValid && isSubmitSuccessful) nextSection();
-  }, [isValid, isSubmitSuccessful]);
+  }, [isValid, isSubmitSuccessful, nextSection]);
 
   return (
     <form onSubmit={onSubmit}>
