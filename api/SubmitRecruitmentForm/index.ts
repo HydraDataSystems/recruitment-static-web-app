@@ -50,7 +50,7 @@ const sendFile = async (file: Buffer, fileName: string, toItem: number, colId: s
 const createItem = async (firstName: string, lastName: string): Promise<number> => {
     const url = 'https://api.monday.com/v2';
     const query = `mutation {
-        create_item (board_id: ${process.env["BOARD_ID"]}, item_name: "${firstName} ${lastName}") {
+    create_item (board_id: ${process.env["BOARD_ID"]}, item_name: "${firstName} ${lastName}") {
             id
         }
     }`;
@@ -68,31 +68,24 @@ const createItem = async (firstName: string, lastName: string): Promise<number> 
 }
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    // set filename
-    var upfile = 'sample.pdf';
-
-    // set auth token and query
-    var API_KEY = process.env["MONDAY_API_KEY"];
-    var query = 'mutation ($file: File!) { add_file_to_column (file: $file, item_id: 4534763120, column_id: "files") { id } }';
-
-    // set URL and boundary
-    var url = "https://api.monday.com/v2/file";
-    var boundary = "xxxxxxxxxx";
-    var data = "";
     
     const { fields, files } = await parseMultipartFormData(req);
     const firstName = fields.filter(field => field.name === "firstName")[0].value;
     const lastName = fields.filter(field => field.name === "lastName")[0].value;
 
     let pdfFile = files.filter(file => file.name === "pdf")[0];
+    let cvFile = files.filter(file => file.name === "cv")[0];
 
     await fs.writeFile(path.join(os.tmpdir(), pdfFile.filename), pdfFile.bufferFile);
+    await fs.writeFile(path.join(os.tmpdir(), cvFile.filename), cvFile.bufferFile);
 
     const content = await fs.readFile(path.join(os.tmpdir(), pdfFile.filename));
+    const contentCV = await fs.readFile(path.join(os.tmpdir(), cvFile.filename));
 
     const itemId = await createItem(firstName, lastName);
 
     await sendFile(content, pdfFile.filename, itemId, "files");
+    await sendFile(contentCV, cvFile.filename, itemId, "files6");
 
     context.res = {
         body: "Item may have been created and file might of been sent, add error handling to be sure.",

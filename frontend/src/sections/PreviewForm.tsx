@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState, ChangeEvent } from 'react';
 import { PDFViewer, pdf, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
 import { useStateMachine } from 'little-state-machine';
 import { Section, SectionRow } from '../PreviewPDF';
@@ -42,6 +42,8 @@ const PreviewForm = () => {
       whiteSpace: 'nowrap',
     }
   });
+
+  const [cv, setCv] = useState<File | null>(null);
 
   const getAddress = (address: Address) => 
     `${address.addressLine1}, ${address.addressLine2}, ${address.town}, ${address.county}, ${address.postcode}`;
@@ -230,11 +232,18 @@ const PreviewForm = () => {
     const blob = await subjectPDF.toBlob();
     const file = new File([blob], `${state.sections.personalDetails.firstName}-${state.sections.personalDetails.lastName}-application.pdf`, {lastModified: (new Date()).getTime()});
     
-    createEntry(state, file);
+    createEntry(state, file, cv);
   }
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    setCv(file);
+  }
+
 
   return (
     <>
+      <input type="file" onChange={handleFileChange} />
       <button onClick={() => submitApplication()}>Submit Your Application</button>
       <PDFViewer width={`100%`} height={`1000px`}>
         {renderDoc()}
