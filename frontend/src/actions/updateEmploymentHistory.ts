@@ -34,7 +34,8 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
       ...state.sections,
       employmentHistory: {
         employmentRecords: [...payload.employmentRecords],
-        employmentGaps: [...gaps]
+        employmentGaps: [...gaps],
+        status: payload.status
       }
     },
     //currentSection: SECTION_ORDER[SECTION_ORDER.indexOf(state.currentSection) + 1]

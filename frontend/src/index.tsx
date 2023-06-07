@@ -1,8 +1,9 @@
+import './index.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { StateMachineProvider, createStore } from 'little-state-machine';
-import './index.css';
 import NavIndicator from './component/NavIndicator';
 import Position from './sections/Position';
 import PersonalDetails from './sections/PersonalDetails';
@@ -28,6 +29,8 @@ createStore({
       otherPosition: '',
       location: '',
       workingPattern: '',
+      hoursRequested: '',
+      status: "INCOMPLETE"
     },
     availability: {
       mon: [],
@@ -37,10 +40,12 @@ createStore({
       fri: [],
       sat: [],
       sun: [],
+      status: "INCOMPLETE"
     },
     personalDetails: { 
       firstName: '',
       lastName: '',
+      additionalNames: '',
       maidenName: '',
       previousNames: '',
       gender: '',
@@ -66,17 +71,21 @@ createStore({
       national_insurance_number: '',
       related_to_employee: '',
       disability: '',
+      status: "INCOMPLETE"
     },
     educationTraining: {
       educationRecords: [],
-      trainingRecords: []
+      trainingRecords: [],
+      status: "INCOMPLETE"
     },
     employmentHistory: {
       employmentRecords: [],
       employmentGaps: [],
+      status: "INCOMPLETE"
     },
     employmentGaps: {
       placements: [],
+      status: "INCOMPLETE"
     },
     supportingStatement: {
       statement: '',
@@ -87,6 +96,7 @@ createStore({
       active: '',
       diverse: '',
       enjoy: '',
+      status: "INCOMPLETE"
     },
     references: {
       currentOrMostRecentEmployer: {
@@ -145,12 +155,17 @@ createStore({
           postcode: '',
         },
       },
+      status: "INCOMPLETE"
     },
     safeguarding: {
       convictions: '',
       cautions: '',
       preScreening: '',
-    }  
+      status: "INCOMPLETE"
+    },
+    previewForm: {
+      status: "INCOMPLETE"
+    }
   },
   currentSection: 'position',
 });
@@ -158,9 +173,11 @@ createStore({
 root.render(
   <React.StrictMode>
     <StateMachineProvider>
-      <div className='app-container'>
-        <h1>Cascade Application Form</h1>
-        
+      <div>
+        <div className="p-2">
+          <h1 className="text-md text-center">Cascade Application Form</h1>
+        </div>
+        <div className="px-2 max-w-sm mx-auto">
         <Router>
         <NavIndicator />
           <Routes>
@@ -176,6 +193,7 @@ root.render(
             <Route path={SECTION_ROUTES.previewForm} element={<PreviewForm />} />
           </Routes>
         </Router>
+        </div>
       </div>  
     </StateMachineProvider>
   </React.StrictMode>

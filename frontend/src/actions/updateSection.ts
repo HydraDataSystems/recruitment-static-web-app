@@ -5,7 +5,10 @@ export default function updateSection<T>(state: GlobalState, payload: T) {
     ...state,
     sections: {
       ...state.sections,
-      [state.currentSection]: payload
+      [state.currentSection]: {
+        ...payload,
+        status: "COMPLETE"
+      }
     }
   }
 }

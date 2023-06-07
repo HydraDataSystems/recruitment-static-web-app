@@ -5,10 +5,13 @@ export type Position = {
   otherPosition: string;
   location: string;
   workingPattern: string;
+  hoursRequested: string;
+  status: SectionStatus;
 }
 
 type YesNo = "YES" | "NO" | "";
 type AvailabilityOption = "AM" | "PM" | "NIGHT" | "NONE";
+type SectionStatus = "COMPLETE" | "CURRENT" | "INCOMPLETE"
 
 export type Availability = {  
   mon: Array<AvailabilityOption>;
@@ -18,11 +21,13 @@ export type Availability = {
   fri: Array<AvailabilityOption>;
   sat: Array<AvailabilityOption>;
   sun: Array<AvailabilityOption>;
+  status: SectionStatus;
 }
 
 export type PersonalDetails = {
   firstName: string;
   lastName: string;
+  additionalNames: YesNo;
   maidenName: string;
   previousNames: string;
   gender: string;
@@ -42,6 +47,7 @@ export type PersonalDetails = {
   national_insurance_number: string;
   related_to_employee: YesNo;
   disability: YesNo;
+  status: SectionStatus;
 }
 
 export type Address = {
@@ -67,10 +73,12 @@ export type EmploymentRecord = {
 export type EmploymentHistory = {
   employmentRecords: Array<EmploymentRecord>;
   employmentGaps: Array<EmploymentGap>;
+  status: SectionStatus;
 }
 
 export type EmploymentGaps = {
   placements: Array<EmploymentGapReason>;
+  status: SectionStatus;
 }
 
 export type EmploymentGap = {
@@ -97,6 +105,7 @@ export type SupportingStatement = {
   active: string;
   diverse: string;
   enjoy: string;
+  status: SectionStatus;
 }
 
 export type Reference = {
@@ -122,17 +131,20 @@ export type References = {
   previousEmployer: Reference;
   characterReference: CharaterReference;
   characterReference2: CharaterReference;
+  status: SectionStatus;
 }
 
 export type Safeguarding = {
   convictions: YesNo;
   cautions: YesNo;
   preScreening: YesNo;
+  status: SectionStatus;
 }
 
 export type EducationTraining = {
   educationRecords: Array<EducationRecord>;
   trainingRecords: Array<TrainingRecord>;
+  status: SectionStatus;
 }
 
 export type EducationRecord = {
@@ -149,6 +161,10 @@ export type TrainingRecord = {
   qualification: string;
 }
 
+export type PreviewForm = {
+  status: SectionStatus;
+}
+
 type Sections = {
   position: Position;
   availability: Availability;
@@ -159,11 +175,12 @@ type Sections = {
   supportingStatement: SupportingStatement;
   references: References;
   safeguarding: Safeguarding;
+  previewForm: PreviewForm;
 }
 
 declare module 'little-state-machine' {
   interface GlobalState {
     sections: Sections;
-    currentSection: keyof Sections | "previewForm";
+    currentSection: keyof Sections;
   }
 }

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import useFormState from '../hooks/useFormState';
 import { useForm, Validate } from 'react-hook-form';
 import { Availability, AvailabilityOption } from '../global';
+import { Checkbox, CheckboxContainer, InputErrorMsgClass, Btn } from '../helpers';
 
 const AvailabilityComponent = () => {
 
@@ -36,140 +37,224 @@ const AvailabilityComponent = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2>Availability</h2>
-      <p>I undestand this role may include: Shift work, Unsociable Hours, Lone working. Please tell us your availability.</p>
-      <div className='flex-fieldset'>
+      <h2 className='text-sm font-bold my-2'>Availability</h2>
+      <p className='text-sm my-2'>I undestand this role may include: Shift work, Unsociable Hours, Lone working involved. Please select your availability.</p>
+      <div>
       <fieldset
-        className={errors.mon ? 'error' : ''} >
-        <legend>Monday</legend>
+        className={`p-4 border flex mb-2 ${errors.mon ? 'border-red-500' : ''}`}>
+        <legend className='text-sm font-bold'>Monday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('mon', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="AM" {...register('mon', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('mon', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="PM" {...register('mon', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('mon', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="NIGHT" {...register('mon', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('mon', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="NONE" {...register('mon', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
       <fieldset
-        className={errors.tue ? 'error' : ''} >
-        <legend>Tuesday</legend>
+        className={`p-4 border flex mb-2 ${errors.tue ? 'border-red-500' : ''}`} >
+        <legend className='text-sm font-bold'>Tuesday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('tue', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="AM" {...register('tue', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('tue', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="PM" {...register('tue', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('tue', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NIGHT" {...register('tue', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('tue', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NONE" {...register('tue', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
       <fieldset
-        className={errors.wed ? 'error' : ''} >
-        <legend>Wednesday</legend>
+        className={`p-4 border flex mb-2 ${errors.wed ? 'border-red-500' : ''}`} >
+        <legend className='text-sm font-bold'>Wednesday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('wed', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="AM" {...register('wed', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('wed', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="PM" {...register('wed', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('wed', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NIGHT" {...register('wed', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('wed', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NONE" {...register('wed', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
       <fieldset
-        className={errors.thu ? 'error' : ''} >
-        <legend>Thursday</legend>
+        className={`p-4 border flex mb-2 ${errors.thu ? 'border-red-500' : ''}`} >
+        <legend className='text-sm font-bold'>Thursday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('thu', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="AM" {...register('thu', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('thu', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="PM" {...register('thu', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('thu', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NIGHT" {...register('thu', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('thu', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NONE" {...register('thu', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
       <fieldset
-        className={errors.fri ? 'error' : ''} >
-        <legend>Friday</legend>
+        className={`p-4 border flex mb-2 ${errors.fri ? 'border-red-500' : ''}`} >
+        <legend className='text-sm font-bold'>Friday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('fri', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="AM" {...register('fri', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('fri', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="PM" {...register('fri', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('fri', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NIGHT" {...register('fri', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('fri', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NONE" {...register('fri', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
       <fieldset
-        className={errors.sat ? 'error' : ''} >
-        <legend>Saturday</legend>
+        className={`p-4 border flex mb-2 ${errors.sat ? 'border-red-500' : ''}`} >
+        <legend className='text-sm font-bold'>Saturday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('sat', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="AM" {...register('sat', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('sat', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input 
+            className={Checkbox}
+            type="checkbox" 
+            value="PM" {...register('sat', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('sat', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NIGHT" {...register('sat', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('sat', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NONE" {...register('sat', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
       <fieldset
-        className={errors.sun ? 'error' : ''} >
-        <legend>Sunday</legend>
+        className={`p-4 border flex mb-2 ${errors.sun ? 'border-red-500' : ''}`} >
+        <legend className='text-sm font-bold'>Sunday</legend>
 
-        <label className="checkbox-control">
-          <input type="checkbox" value="AM" {...register('sun', { required: true, validate: checkSelection })} />AM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="AM" {...register('sun', { required: true, validate: checkSelection })} /><span className='indent-1'>AM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="PM" {...register('sun', { required: true, validate: checkSelection })} />PM
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="PM" {...register('sun', { required: true, validate: checkSelection })} /><span className='indent-1'>PM</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NIGHT" {...register('sun', { required: true, validate: checkSelection })} />NIGHT
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NIGHT" {...register('sun', { required: true, validate: checkSelection })} /><span className='indent-1'>NIGHT</span>
         </label>
-        <label className="checkbox-control">
-          <input type="checkbox" value="NONE" {...register('sun', { required: true, validate: checkSelection })} />NONE
+        <label className={CheckboxContainer}>
+          <input
+            className={Checkbox} 
+            type="checkbox" 
+            value="NONE" {...register('sun', { required: true, validate: checkSelection })} /><span className='indent-1'>NONE</span>
         </label>
       </fieldset>
 
-      {errors.mon || errors.tue || errors.wed || errors.thu || errors.fri || errors.sat || errors.sun ? <p className="error-msg">Please select at least one time slot for each day or none if you can't work any time that day.</p> : null}
+      {errors.mon || errors.tue || errors.wed || errors.thu || errors.fri || errors.sat || errors.sun ? <p className={InputErrorMsgClass}>Please select at least one time slot for each day or none if you can't work any time that day.</p> : null}
       </div>
       
       <button
-        className='btn'
+        className={Btn}
         onSubmit={onSubmit}
         type="submit">Next</button>
       

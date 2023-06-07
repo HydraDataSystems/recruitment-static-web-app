@@ -26,7 +26,7 @@ const EducationTrainingComponent = () => {
     name: "trainingRecords"
   });
 
-  const onSubmit = handleSubmit((data: EducationTraining) => {
+  const onSubmit = handleSubmit((data: Omit<EducationTraining, "status">) => {
     updateSection(data);
   });
 

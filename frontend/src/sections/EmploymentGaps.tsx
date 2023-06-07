@@ -9,7 +9,7 @@ const EmploymentGapsComponent = () => {
 
   const { sections : { employmentGaps, employmentHistory: { employmentGaps: employmentGapsCapture } } } = state;
   
-  const defaultValues:EmploymentGaps = {
+  const defaultValues:Omit<EmploymentGaps, "status"> = {
     placements: employmentGapsCapture.map((employmentGap) => 
       ({
         leaving: employmentGap.nameA,

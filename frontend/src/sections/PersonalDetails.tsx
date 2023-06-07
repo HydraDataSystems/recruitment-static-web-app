@@ -3,6 +3,17 @@ import { useForm } from 'react-hook-form';
 import useFormState from '../hooks/useFormState';
 import { PersonalDetails } from '../global';
 
+import { 
+  LblClass, 
+  SelectClass, 
+  SelectClassError, 
+  InputContainerClass, 
+  InputClass, 
+  InputClassError,
+  InputErrorMsgClass,
+  Btn
+ } from '../helpers';
+
 const PersonalDetailsComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
@@ -31,27 +42,40 @@ const PersonalDetailsComponent = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2>Personal Details</h2>
+      <h2 className='text-sm font-bold my-2'>Personal Details</h2>
+
+      <div className='my-2'>
+        <label
+          htmlFor='firstName'
+          className={LblClass}
+        >
+          First Name
+        </label>
+        <div className={InputContainerClass}>
+          <input
+            className={errors.firstName ? InputClassError : InputClass}
+            {...register('firstName', { required: true })} />
+        </div>
+        {errors.firstName && <p className={InputErrorMsgClass}>First Name is required</p>}
+      </div>
+
+      <div className='my-2'>
+        <label
+          htmlFor='lastName'
+          className={LblClass}
+        >
+          Last Name
+        </label>
+        <div className={InputContainerClass}>
+          <input
+            className={errors.lastName ? InputClassError : InputClass}
+            {...register('lastName', { required: true })} />
+        </div>
+        {errors.lastName && <p className={InputErrorMsgClass}>Last Name is required</p>}
+      </div>
 
       <label
-        className={errors.firstName ? 'error' : ''}
-      >
-        First Name
-        <input
-          {...register('firstName', { required: true })} />
-      </label>
-      {errors.firstName && <p className='error-msg'>First Name is required</p>}
-      
-      <label
-        className={errors.lastName ? 'error' : ''}
-      >
-        Last Name
-        <input
-          {...register('lastName', { required: true })} />
-      </label>
-      {errors.lastName && <p className='error-msg'>Last Name is required</p>}
-
-      <label
+        htmlFor='maidenName'
         className={errors.maidenName ? 'error' : ''}
       >
         Maiden Name
