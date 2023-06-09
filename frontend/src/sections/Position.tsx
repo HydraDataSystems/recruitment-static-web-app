@@ -59,8 +59,8 @@ const PositionComponent = () => {
             className={errors.position ? SelectClassError : SelectClass}
             {...register('position', { required: true })}>
               <option value="" disabled>Please Select</option>
-              <option value="Support Worker - Adult Care">Care Support Worker - Adult Care</option>
-              <option value="Support Worker - Child Care">Care Support Worker - Child Care</option>
+              <option value="Support Worker - Adult Care">Support Worker - Adult Care</option>
+              <option value="Support Worker - Child Care">Support Worker - Child Care</option>
               <option value="Deputy Manager - Adult Residential Care">Deputy Manager - Adult Residential Care</option>
               <option value="Team Leader - Adult Care">Team Leader - Adult Care</option>
               <option value="Team Leader - Child Care">Team Leader - Child Care</option>

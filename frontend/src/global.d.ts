@@ -12,6 +12,7 @@ export type Position = {
 type YesNo = "YES" | "NO" | "";
 type AvailabilityOption = "AM" | "PM" | "NIGHT" | "NONE";
 type SectionStatus = "COMPLETE" | "CURRENT" | "INCOMPLETE"
+type LicenseType = "FULL" | "PROVISIONAL" | "OTHER" | "";
 
 export type Availability = {  
   mon: Array<AvailabilityOption>;
@@ -24,12 +25,16 @@ export type Availability = {
   status: SectionStatus;
 }
 
+export type PreviousNameRecord = {
+  firstName: string;
+  lastName: string;
+}
+
 export type PersonalDetails = {
   firstName: string;
   lastName: string;
-  additionalNames: YesNo;
-  maidenName: string;
-  previousNames: string;
+  otherNames: YesNo;
+  otherNamesDetails: Array<PreviousNameRecord>;
   gender: string;
   nationality: string;
   placeOfBirth: string;
@@ -38,15 +43,16 @@ export type PersonalDetails = {
   mobile: string;
   email: string;
   driver: YesNo;
+  licenceType: LicenseType;
   licenceHeld: string;
+  licenceOther: string;
   ownTransport: YesNo;
   drivingEndorsements: string;
-  uk_ec_eea_resident: YesNo;
-  immigration_status: string;
-  visa_number: string;
+  visaRequired: YesNo;
+  visaType: string;
   national_insurance_number: string;
   related_to_employee: YesNo;
-  disability: YesNo;
+  related_to_employee_details: string;
   status: SectionStatus;
 }
 
@@ -71,6 +77,7 @@ export type EmploymentRecord = {
 }
 
 export type EmploymentHistory = {
+  currentEmployment: EmploymentRecord;
   employmentRecords: Array<EmploymentRecord>;
   employmentGaps: Array<EmploymentGap>;
   status: SectionStatus;
@@ -134,6 +141,13 @@ export type References = {
   status: SectionStatus;
 }
 
+export type EqualityAct = {
+  disability: YesNo;
+  adjustments: YesNo;
+  meetRequirements: YesNo;
+  status: SectionStatus;
+}
+
 export type Safeguarding = {
   convictions: YesNo;
   cautions: YesNo;
@@ -174,6 +188,7 @@ type Sections = {
   employmentGaps: EmploymentGaps;
   supportingStatement: SupportingStatement;
   references: References;
+  equalityAct: EqualityAct;
   safeguarding: Safeguarding;
   previewForm: PreviewForm;
 }

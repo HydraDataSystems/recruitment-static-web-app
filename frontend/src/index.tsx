@@ -13,6 +13,7 @@ import EmploymentGaps from './sections/EmploymentGaps';
 import Availability from './sections/Availability';
 import SupportingStatement from './sections/SupportingStatement';
 import References from './sections/References';
+import EqualityAct from './sections/EqualityAct';
 import Safeguarding from './sections/Safeguarding';
 import PreviewForm from './sections/PreviewForm';
 import { SECTION_ROUTES } from './constants';
@@ -45,9 +46,8 @@ createStore({
     personalDetails: { 
       firstName: '',
       lastName: '',
-      additionalNames: '',
-      maidenName: '',
-      previousNames: '',
+      otherNames: '',
+      otherNamesDetails: [],
       gender: '',
       nationality: '',
       placeOfBirth: '',
@@ -62,15 +62,16 @@ createStore({
       mobile: '',
       email: '',
       driver: '',
+      licenceType: '',
+      licenceOther: '',
       licenceHeld: '',
       ownTransport: '',
       drivingEndorsements: '',
-      uk_ec_eea_resident: '',
-      immigration_status: '',
-      visa_number: '',
+      visaRequired: '',
+      visaType: '',
       national_insurance_number: '',
       related_to_employee: '',
-      disability: '',
+      related_to_employee_details: '',
       status: "INCOMPLETE"
     },
     educationTraining: {
@@ -79,6 +80,23 @@ createStore({
       status: "INCOMPLETE"
     },
     employmentHistory: {
+      currentEmployment: {
+        name: '',
+        address: {
+          addressLine1: '',
+          addressLine2: '',
+          town: '',
+          county: '',
+          postcode: ''
+        },
+        contact: '',
+        telephone: '',
+        email: '',
+        position: '',
+        reasonForLeaving: '',
+        startDate: '',
+        endDate: '',
+      },
       employmentRecords: [],
       employmentGaps: [],
       status: "INCOMPLETE"
@@ -157,6 +175,12 @@ createStore({
       },
       status: "INCOMPLETE"
     },
+    equalityAct: {
+      disability: '',
+      adjustments: '',
+      meetRequirements: '',
+      status: "INCOMPLETE"
+    },
     safeguarding: {
       convictions: '',
       cautions: '',
@@ -189,6 +213,7 @@ root.render(
             <Route path={SECTION_ROUTES.employmentGaps} element={<EmploymentGaps />} />
             <Route path={SECTION_ROUTES.supportingStatement} element={<SupportingStatement />} />
             <Route path={SECTION_ROUTES.references} element={<References />} />
+            <Route path={SECTION_ROUTES.equalityAct} element={<EqualityAct />} />
             <Route path={SECTION_ROUTES.safeguarding} element={<Safeguarding />} />
             <Route path={SECTION_ROUTES.previewForm} element={<PreviewForm />} />
           </Routes>

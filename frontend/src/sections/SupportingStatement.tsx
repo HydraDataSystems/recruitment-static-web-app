@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useFormState from "../hooks/useFormState";
 import { SupportingStatement } from "../global";
-
+import { Btn, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass, LblClass, SelectClass, SelectClassError } from "../helpers";
 const SupportingStatementComponent = () => {
   
   const { state, updateSection, nextSection } = useFormState();
@@ -23,95 +23,143 @@ const SupportingStatementComponent = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2>Supporting Statement</h2>
+      <h2 className='text-sm font-bold my-2'>Supporting Statement</h2>
       
-      <p>Please add here your reasons for applying. You should refer to the job description and person specification to guide you. It would also be of value to describe particular strengths and talents that set you apart from others as well as including skills gained from work, home and other activities.</p>
+      <p className='text-sm my-2'>Please add here your reasons for applying. You should refer to the job description and person specification to guide you. It would also be of value to describe particular strengths and talents that set you apart from others as well as including skills gained from work, home and other activities.</p>
       
-      <label
-        className={errors.statement ? "error" : ""}
-      >
-        Supporting Statement
-        <textarea
-          rows={10}
-          {...register("statement", { required: true })}
-        />
-      </label>
-      {errors.statement && <p className="error-msg">This field is required</p>}
+      <div className='my-2'>
+        <label
+          htmlFor='statement'
+          className={LblClass}
+        >
+          Supporting Statement
+        </label>
+        <div className={InputContainerClass}>
+          <textarea
+            rows={10}
+            className={errors.statement ? InputClassError : InputClass}
+            {...register("statement", { required: true })}
+          />
+        </div>
+        {errors.statement && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
+      <p className='text-sm my-2'>Please also write a short statement about how you have met, achieved or taken part in the cascade values.</p>
 
-      <p>Please also write a short statement about how you have met, achieved or taken part in the cascade values.</p>
-
+      <div className='my-2'>
       <label
-        className={errors.care ? "error" : ""}>
+        htmlFor="care"
+        className={LblClass}>
         <strong>Care</strong> For &amp; respect yourself, your peers &amp; the environment.
+      </label>
+      <div className={InputContainerClass}>
         <textarea
           rows={3}
+          className={errors.care ? InputClassError : InputClass}
           {...register("care", { required: true })}
         />
-      </label>
-      {errors.care && <p className="error-msg">This field is required</p>}
+      </div>
+      {errors.care && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
-      <label
-        className={errors.achieve ? "error" : ""}>
-        <strong>Achieve</strong> Beyond previous expectations &amp; compete for equality.
-        <textarea
-          rows={3}
-          {...register("achieve", { required: true })}
-        />
-      </label>
-      {errors.achieve && <p className="error-msg">This field is required</p>}
+      <div className='my-2'>
+        <label
+          htmlFor="achieve"
+          className={LblClass}>
+          <strong>Achieve</strong> Beyond previous expectations &amp; compete for equality.
+        </label>
+        <div className={InputContainerClass}>
+          <textarea
+            rows={3}
+            className={errors.achieve ? InputClassError : InputClass}
+            {...register("achieve", { required: true })}
+          />
+        </div>
+        {errors.achieve && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
-      <label
-        className={errors.safe ? "error" : ""}>
-        <strong>Safe</strong> Keep everyonse safe, take positive &amp; appropriate risks.
-        <textarea
-          rows={3}
-          {...register("safe", { required: true })}
-        />
-      </label>
-      {errors.safe && <p className="error-msg">This field is required</p>}
+      <div className='my-2'>
+        <label
+          htmlFor="safe"
+          className={LblClass}>
+          <strong>Safe</strong> Keep everyonse safe, take positive &amp; appropriate risks.
+        </label>
+        <div className={InputContainerClass}>
+          <textarea
+            rows={3}
+            className={errors.safe ? InputClassError : InputClass}
+            {...register("safe", { required: true })}
+          />
+        </div>
+        {errors.safe && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
-      <label
-        className={errors.consistent ? "error" : ""}>
-        <strong>Consistent</strong> Establish clear channels of communication to enable consistency.
-        <textarea
-          rows={3}
-          {...register("consistent", { required: true })}
-        />
-      </label>
-      {errors.consistent && <p className="error-msg">This field is required</p>}
+      <div className='my-2'>
+        <label
+          htmlFor="consistent"
+          className={LblClass}>
+          <strong>Consistent</strong> Establish clear channels of communication to enable consistency.
+        </label>
+        <div className={InputContainerClass}>
+          <textarea
+            rows={3}
+            className={errors.consistent ? InputClassError : InputClass}
+            {...register("consistent", { required: true })}
+          />
+        </div>
+        {errors.consistent && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
+      <div className='my-2'>
       <label
-        className={errors.active ? "error" : ""}>
+        htmlFor="active"
+        className={LblClass}>
         <strong>Active</strong> Be active &amp; have a healthy approach to everything we do.
+      </label>
+      <div className={InputContainerClass}>
         <textarea
           rows={3}
+          className={errors.active ? InputClassError : InputClass}
           {...register("active", { required: true })}
         />
-      </label>
-      {errors.active && <p className="error-msg">This field is required</p>}
+      </div>
+      {errors.active && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
+      <div className='my-2'>
       <label
-        className={errors.diverse ? "error" : ""}>
+        htmlFor="diverse"
+        className={LblClass}>
         <strong>Diverse</strong> Embrace uniqueness &amp; engage in the diversity of British values.
+      </label>
+      <div className={InputContainerClass}>
         <textarea
           rows={3}
+          className={errors.diverse ? InputClassError : InputClass}
           {...register("diverse", { required: true })}
         />
-      </label>
-      {errors.diverse && <p className="error-msg">This field is required</p>}
+      </div>
+      {errors.diverse && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
+      <div className='my-2'>
       <label
-        className={errors.enjoy ? "error" : ""}>
+        htmlFor="enjoy"
+        className={LblClass}>
         <strong>Enjoy</strong> Living, learning &amp; challenging ourselves.
+      </label>
+      <div className={InputContainerClass}>
         <textarea
+          className={errors.enjoy ? InputClassError : InputClass}
           rows={3}
           {...register("enjoy", { required: true })}
         />
-      </label>
-      {errors.enjoy && <p className="error-msg">This field is required</p>}
+      </div>
+      {errors.enjoy && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
+    
       <button
-        className='btn'
+        className={Btn}
         onSubmit={onSubmit}
         type="submit">Next</button>
     </form>

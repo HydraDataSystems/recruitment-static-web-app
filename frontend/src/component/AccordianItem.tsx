@@ -6,6 +6,7 @@ import {
 
 import { MdOutlineError } from 'react-icons/md'
 
+import { Btn } from '../helpers';
 type AccordianItemProps = {
   title: string;
   active: boolean;
@@ -35,29 +36,29 @@ const AccordianItem = ({ title, active, onToggle, removeItem, error = false, chi
   }, []);
 
   return (
-    <li className={`accordian-item ${ active ? "accordian-item--active" : ""}`}>
+    <li className={`bg-gray-200 overflow-hidden border-gray-200 border ${ active ? "accordian-item--active" : ""}`}>
       <div
-        className='accordian-item__toggle'
+        className="flex justify-between items-center accordian-item__header"
         onClick={onToggle}
       >
-        <span className='accordian-item__toggle-icon'>{ active ? "-" : "+" }</span>
+        <span className="bg-gray-400 p-3 w-8">{ active ? "-" : "+" }</span>
         {title}
         {error && !active && <span className='accordian-item__error'><MdOutlineError /></span>}
         <button 
-          className='btn btn--remove'
+          className="p-3 w-8 font-bold text-white bg-red-600 hover:bg-red-500"
           type="button" 
           onClick={removeItem}> 
-          Delete
+          X
         </button>
         
       </div>
       <div
-        className='accordian-item__content__wrapper'
+        className='overflow-hidden transition-all duration-500 ease-in-out'
         style={{ height: active ? contentRef.current?.scrollHeight : "0px" }}
       >
         <div 
           ref={contentRef}
-          className='accordian-item__content'>
+          className='bg-gray-100 p-2'>
           {children}
         </div>
       </div>

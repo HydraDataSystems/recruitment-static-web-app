@@ -33,6 +33,7 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
     sections: {
       ...state.sections,
       employmentHistory: {
+        currentEmployment: { ...payload.currentEmployment }, //state.sections.employmentHistory.currentEmployment,
         employmentRecords: [...payload.employmentRecords],
         employmentGaps: [...gaps],
         status: payload.status

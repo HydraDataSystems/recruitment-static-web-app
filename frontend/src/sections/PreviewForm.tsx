@@ -77,8 +77,6 @@ const PreviewForm = () => {
         <Section title="Personal Details">
           <SectionRow title="Name">{state.sections.personalDetails.firstName}</SectionRow>
           <SectionRow title="Surname">{state.sections.personalDetails.lastName}</SectionRow>
-          <SectionRow title="Maiden Name">{state.sections.personalDetails.maidenName}</SectionRow>
-          <SectionRow title="Previous Name(s)">{state.sections.personalDetails.previousNames}</SectionRow>
           <SectionRow title="Gender">{state.sections.personalDetails.gender}</SectionRow>
           <SectionRow title="Place of Birth">{state.sections.personalDetails.placeOfBirth}</SectionRow>
           <SectionRow title="Nationality">{state.sections.personalDetails.nationality}</SectionRow>
@@ -90,11 +88,7 @@ const PreviewForm = () => {
           <SectionRow title="License duration">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.licenceHeld : "Not Applicable"}</SectionRow>
           <SectionRow title="Own Transport">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.ownTransport : "Not Applicable"}</SectionRow>
           <SectionRow title="Driving Endorsements">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.drivingEndorsements : "Not Applicable"}</SectionRow>
-          <SectionRow title="UK, EC or EEA national?">{state.sections.personalDetails.uk_ec_eea_resident}</SectionRow>
-          <SectionRow title="Immigration Status">{state.sections.personalDetails.uk_ec_eea_resident === "NO" ? state.sections.personalDetails.immigration_status : "Not Applicable"}</SectionRow>
-          <SectionRow title="Visa Number">{state.sections.personalDetails.uk_ec_eea_resident === "NO" ? state.sections.personalDetails.visa_number : "Not Applicable"}</SectionRow>
           <SectionRow title="Related to a Cascade employee?">{state.sections.personalDetails.related_to_employee}</SectionRow>
-          <SectionRow title="Equality Act 2010, According to the definition of disability do you consider yourself to have a disability?">{state.sections.personalDetails.disability}</SectionRow>
         </Section>
       </Page>
       <Page size="A4" style={styles.page}>

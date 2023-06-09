@@ -9,6 +9,7 @@ export const SECTION_ORDER: Array<keyof Sections | "previewForm"> = [
   'employmentGaps',
   'supportingStatement',
   'references',
+  'equalityAct',
   'safeguarding',
   'previewForm'
 ];
@@ -22,6 +23,7 @@ export const SECTION_ROUTES: Record<keyof Sections | "previewForm", string> = {
   employmentGaps: '/employment-gaps',
   supportingStatement: '/supporting-statement',
   references: '/references',
+  equalityAct: '/equality-act',
   safeguarding: '/safeguarding',
   previewForm: '/preview'
 };
