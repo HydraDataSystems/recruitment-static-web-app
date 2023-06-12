@@ -47,8 +47,10 @@ const PersonalDetailsComponent = () => {
   }, [isValid, isSubmitSuccessful, nextSection]);
 
   const isDriver = watch('driver');
+  const isOtherLicence = watch('licenceType');
   const hasMoreNames = watch('otherNames');
   const isVisaRequired = watch('visaRequired');
+  const relatedToEmployee = watch('related_to_employee');
 
   return (
     <form onSubmit={onSubmit}>
@@ -370,7 +372,7 @@ const PersonalDetailsComponent = () => {
             {errors.licenceType && <p className={InputErrorMsgClass}>Licence Type is required</p>}
           </div>
 
-          {personalDetails.licenceType === "OTHER" && (
+          {isOtherLicence === "OTHER" && (
             <div className='my-2'>
               <label
                 htmlFor='licenceOther'
@@ -497,7 +499,7 @@ const PersonalDetailsComponent = () => {
         {errors.related_to_employee && <p className={InputErrorMsgClass}>Related to employee is required</p>}
       </div>
 
-      {personalDetails.related_to_employee === "YES" && (
+      {relatedToEmployee === "YES" && (
         <div className='my-2'>
           <label
             htmlFor='related_to_employee_details'
