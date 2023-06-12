@@ -278,7 +278,10 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
                     required: true,
                     validate: {
                       isBeforeEndDate: (value) => getValues(`employmentRecords.${index}.endDate`) ? isDateBefore(value, getValues(`employmentRecords.${index}.endDate`)) : true,
-                      isBeforePreviousStartDate: (value) => getValues(`employmentRecords.${index - 1}.startDate`) ? isDateBefore(value, getValues(`employmentRecords.${index - 1}.startDate`)) : true
+                      isBeforePreviousStartDate: (value) => {
+                        const startDate = index === 0 ? getValues('currentEmployment.startDate') : getValues(`employmentRecords.${index - 1}.startDate`); 
+                        return isDateBefore(value, startDate);
+                      }
                     }
                   })} />
               </div>
@@ -528,7 +531,7 @@ const EmploymentHistoryComponent = () => {
         {errors.currentEmployment?.position && <p className={InputErrorMsgClass}>Position is required</p>}
       </div>
 
-      <div className="my-2">
+      {/* <div className="my-2">
         <label
           htmlFor={`currentEmployment.reasonForLeaving`}
           className={LblClass}
@@ -541,7 +544,7 @@ const EmploymentHistoryComponent = () => {
             {...register(`currentEmployment.reasonForLeaving`)} />
         </div>
         {errors.currentEmployment?.reasonForLeaving && <p className={InputErrorMsgClass}>Reason For Leaving is required</p>}
-      </div>
+      </div> */}
 
       <div className="my-2">
         <label
@@ -561,8 +564,16 @@ const EmploymentHistoryComponent = () => {
                 trigger(`currentEmployment.endDate`) },
               required: true,
               validate: {
-                isBeforeEndDate: (value) => getValues(`currentEmployment.endDate`) ? isDateBefore(value, getValues(`currentEmployment.endDate`)) : true,
-                isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
+                isBeforeEndDate: (value) => {
+                  const endDate = getValues(`currentEmployment.endDate`);
+                  
+                  if(endDate) {
+                    return isDateBefore(value, getValues(`currentEmployment.endDate`));
+                  }
+
+                  return true;
+                }
+                //isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
               }
             })} />
         </div>
@@ -587,10 +598,17 @@ const EmploymentHistoryComponent = () => {
               onChange: (e) => { 
                 trigger(`currentEmployment.startDate`) 
                 trigger(`currentEmployment.endDate`) },
-              required: true,
+              //required: true,
               validate: {
-                isAfterStartDate: async (value) => getValues(`currentEmployment.startDate`) ? isDateAfter(value, getValues(`currentEmployment.startDate`)) : true,
-                isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
+                isAfterStartDate: async (value) => {
+                  const startDate = getValues(`currentEmployment.startDate`); 
+                  if(startDate && value) {
+                    console.log(startDate);
+                    return isDateAfter(value, getValues(`currentEmployment.startDate`))
+                  }
+                  return true;
+                },
+                //isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
               } 
             })} />
         </div>

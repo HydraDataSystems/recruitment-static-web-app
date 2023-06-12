@@ -42,7 +42,7 @@ const EmploymentGapsComponent = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2>Employment Gaps</h2>
+      <h2 className='text-sm font-bold my-2'>Employment Gaps</h2>
       <ul className="employment-gap-list">
         {fields.map((item, index) => (
           <li

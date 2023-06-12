@@ -29,11 +29,11 @@ export default function NavIndicator() {
                     <Link to={SECTION_ROUTES[`${name as keyof Sections}`]} className="block h-2.5 w-2.5 rounded-full bg-indigo-600 hover:bg-indigo-900">
                         <span className="sr-only">{name}</span>
                     </Link>
-                    ) : (
-                    <Link to={SECTION_ROUTES[`${name as keyof Sections}`]} className="block h-2.5 w-2.5 rounded-full bg-gray-200 hover:bg-gray-400">
+                    ) : sections[name as keyof Sections].status === "INCOMPLETE" ? (
+                    <span className="block h-2.5 w-2.5 rounded-full bg-gray-200 hover:bg-gray-400 cursor-not-allowed">
                         <span className="sr-only">{name}</span>
-                    </Link>
-                    )}
+                    </span>
+                    ) : null }
                 </li>
                 ))}
             </ol>
