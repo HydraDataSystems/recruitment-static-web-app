@@ -149,9 +149,7 @@ export type EqualityAct = {
 }
 
 export type Safeguarding = {
-  convictions: YesNo;
-  cautions: YesNo;
-  preScreening: YesNo;
+  outsideUK: YesNo;
   status: SectionStatus;
 }
 

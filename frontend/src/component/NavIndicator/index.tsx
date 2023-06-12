@@ -12,7 +12,7 @@ export default function NavIndicator() {
     return (
         <nav className="flex items-center justify-center p-2 bg-gray-50" aria-label="Progress">
             <p className="text-sm font-medium">
-                Step {sectionKeys.findIndex((section) => section === currentSection) + 1} of {sectionKeys.length}
+                {sectionKeys.findIndex((section) => section === currentSection) + 1} of {sectionKeys.length}
             </p>
             <ol className="ml-6 flex items-center space-x-4">
                 {sectionKeys.map((name) => (

@@ -213,9 +213,7 @@ const PreviewForm = () => {
           <Text style={styles.pageTitle}>Cascade Application Form</Text>
         </View>
         <Section title="Safeguarding">
-          <SectionRow title={`Are you currently bound over or do you have any current UNSPENT convictions that have been issued by a Court or Court-Martial in the United Kingdom or in any other country?`}>{state.sections.safeguarding.convictions}</SectionRow>
-          <SectionRow title={`Do you have any current UNSPENT police cautions, reprimands or final warnings in the United Kingdom or in any other country?`}>{state.sections.safeguarding.cautions}</SectionRow>
-          <SectionRow title={`I am happy for a pre-screen check on any social media platforms I hold to be carried out.`}>{state.sections.safeguarding.preScreening}</SectionRow> 
+          <SectionRow title={`In the last 10 years have you spent over a year, either in one stay or cumulatively (e.g. one month or week every so often, amounting to a year in total) outside of the UK?`}>{state.sections.safeguarding.outsideUK}</SectionRow>
         </Section>
       </Page>
     </Document>

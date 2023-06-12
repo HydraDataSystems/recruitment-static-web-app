@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useFormState from "../hooks/useFormState";
 import {useForm, useFieldArray } from "react-hook-form";
 import { EmploymentGaps } from "../global";
-
+import { Btn, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass, LblClass, SelectClass, SelectClassError } from "../helpers";
 const EmploymentGapsComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
@@ -45,23 +45,27 @@ const EmploymentGapsComponent = () => {
       <h2>Employment Gaps</h2>
       <ul className="employment-gap-list">
         {fields.map((item, index) => (
-          <li 
+          <li
+            className="my-2" 
             key={item.id}>
             <label
-              className={errors.placements?.[index]?.reason ? 'error' : ''}>
+              htmlFor={`placements.${index}.leaving`}
+              className={LblClass}>
               {`Between leaving "${item.leaving}" and arriving at "${item.arriving}" there was a gap of ${item.duration} days. Please explain why.`}
+            </label>
+            <div className={InputContainerClass}>
               <textarea
                 defaultValue={item.reason}
-                className="form-control"
+                className={errors.placements?.[index]?.reason ? InputClassError : InputClass}
                 {...register(`placements.${index}.reason`, { required: true })} />
-            </label>
-            {errors.placements?.[index]?.reason && <p className="error-msg">This field is required</p>}
+            </div>
+            {errors.placements?.[index]?.reason && <p className={InputErrorMsgClass}>This field is required</p>}
           </li>
         ))}
       </ul>
     
       <button
-        className='btn'
+        className={Btn}
         onSubmit={onSubmit}
         type="submit">Next</button>
     </form> 

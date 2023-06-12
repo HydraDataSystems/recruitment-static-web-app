@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useFormState from "../hooks/useFormState";
 import { SupportingStatement } from "../global";
-import { Btn, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass, LblClass, SelectClass, SelectClassError } from "../helpers";
+import { Btn, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass, LblClass } from "../helpers";
 const SupportingStatementComponent = () => {
   
   const { state, updateSection, nextSection } = useFormState();

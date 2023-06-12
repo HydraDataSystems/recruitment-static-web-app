@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useFormState from "../hooks/useFormState";
-
+import { Btn, LblClass, SelectClass, SelectClassError, InputErrorMsgClass, InputContainerClass } from "../helpers";
 const SafeguardingComponent = () => {
   
   const { state, updateSection, nextSection } = useFormState();
@@ -22,49 +22,32 @@ const SafeguardingComponent = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2>Safeguarding</h2>
-      <p>Cascade  aims to promote equality of opportunity and is committed to treating
-         all applicants fairly regardless of ethnicity, disability, age, gender or gender
-          reassignment, religion or belief, sexual orientation, pregnancy or maternity and
-           marriage or civil partnership. Cascade  undertakes not to discriminate unfairly
-            against applicants on the basis of a criminal conviction or other information
-             declared.</p>
-      <p>Answering 'yes' to the question below will not necessarily prevent your employment.
-         This will depend on the relevance of the information you provide in respect of 
-         the nature of the position and the particular circumstances.</p>
+      <h2 className='text-sm font-bold my-2'>Safeguarding</h2>
+      <p className='text-sm my-2'>The application process for criminal records checks or ‘Certificates of Good Character’ for a candidate from overseas varies from country to country. Cascade can apply to the relevant embassy in the UK where this is required. Where further help or support is needed, the Disclosure & Barring Service can be contacted for support.</p>
+      <p className='text-sm my-2'>A certificate is required for all candidates to Cascade who have lived outside of the UK for 12 months or more (whether continuously or in total) in the last ten years, while aged 18 or over.</p>
+      
 
-      <label>
-      Are you currently bound over or do you have any current UNSPENT convictions that have been issued by a Court or Court-Martial in the United Kingdom or in any other country?
-        <select {...register("convictions", { required: true })}>
+      <div className='my-2'>
+      <label
+        htmlFor="outsideUK"
+        className={LblClass}
+      >
+      In the last 10 years have you spent over a year, either in one stay or cumulatively (e.g. one month or week every so often, amounting to a year in total) outside of the UK?
+      </label>
+      <div className={InputContainerClass}>
+        <select 
+          className={errors.outsideUK ? SelectClassError : SelectClass}
+          {...register("outsideUK", { required: true })}>
           <option disabled value="">Please select</option>
           <option value="YES">Yes</option>
           <option value="NO">No</option>
         </select>
-      </label>
-      {errors.convictions && <p className="error-msg">This field is required</p>}
-
-      <label>
-      Do you have any current UNSPENT police cautions, reprimands or final warnings in the United Kingdom or in any other country?
-        <select {...register("cautions", { required: true })}>
-          <option disabled value="">Please select</option>
-          <option value="YES">Yes</option>
-          <option value="NO">No</option>
-        </select>
-      </label>
-      {errors.cautions && <p className="error-msg">This field is required</p>}
-
-      <label>
-      I am happy for a pre-screen check on any social media platforms I hold to be carried out.
-        <select {...register("preScreening", { required: true })}>
-          <option disabled value="">Please select</option>
-          <option value="YES">Yes</option>
-          <option value="NO">No</option>
-        </select>
-      </label>
-      {errors.preScreening && <p className="error-msg">This field is required</p>}
+      </div>
+      {errors.outsideUK && <p className={InputErrorMsgClass}>This field is required</p>}
+      </div>
 
       <button
-        className='btn'
+        className={Btn}
         onSubmit={onSubmit}
         type="submit">Next</button>
     </form>

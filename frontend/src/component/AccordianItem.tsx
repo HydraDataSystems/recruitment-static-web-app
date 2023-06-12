@@ -6,7 +6,6 @@ import {
 
 import { MdOutlineError } from 'react-icons/md'
 
-import { Btn } from '../helpers';
 type AccordianItemProps = {
   title: string;
   active: boolean;

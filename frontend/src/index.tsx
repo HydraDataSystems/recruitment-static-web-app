@@ -182,9 +182,7 @@ createStore({
       status: "INCOMPLETE"
     },
     safeguarding: {
-      convictions: '',
-      cautions: '',
-      preScreening: '',
+      outsideUK: '',
       status: "INCOMPLETE"
     },
     previewForm: {
