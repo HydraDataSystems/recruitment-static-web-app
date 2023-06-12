@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useFormState from "../hooks/useFormState";
 import {useForm, useFieldArray } from "react-hook-form";
 import { EmploymentGaps } from "../global";
-import { Btn, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass, LblClass, SelectClass, SelectClassError } from "../helpers";
+import { Btn, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass, LblClass } from "../helpers";
 const EmploymentGapsComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
