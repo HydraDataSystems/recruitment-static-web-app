@@ -3,6 +3,8 @@ import useFormState from '../hooks/useFormState';
 import { useForm, Validate } from 'react-hook-form';
 import { Availability, AvailabilityOption } from '../global';
 import { Checkbox, CheckboxContainer, InputErrorMsgClass, Btn } from '../helpers';
+import { Link } from 'react-router-dom';
+import { SECTION_ROUTES } from '../constants';
 
 const AvailabilityComponent = () => {
 
@@ -12,7 +14,7 @@ const AvailabilityComponent = () => {
     nextSection,
   } = useFormState();
 
-  const { sections: { availability } } = state;
+  const { sections: { availability, position: { status: positionStatus } } } = state;
 
   const { 
     register, 
@@ -33,6 +35,17 @@ const AvailabilityComponent = () => {
   const checkSelection: Validate<AvailabilityOption[], Availability> | Record<string, Validate<AvailabilityOption[], Availability>> | undefined = (value, formValues) => {
     if(value.length > 1 && value.find((v) => v === 'NONE')) return false;
     return true;
+  }
+
+  if(positionStatus !== "COMPLETE") {
+    return (
+      <>
+      <h2 className='text-sm font-bold my-2'>Please complete the previous section: Position</h2>
+      <Link
+        className={Btn}  
+        to={SECTION_ROUTES.position}>Position</Link>
+      </>
+    )
   }
 
   return (

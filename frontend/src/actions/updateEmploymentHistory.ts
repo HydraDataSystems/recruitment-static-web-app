@@ -1,73 +1,109 @@
 import { GlobalState } from "little-state-machine";
-import { EmploymentGap, EmploymentHistory, EmploymentRecord, SectionStatus } from '../global';
+import { EmploymentGap, EmploymentOverlap, EmploymentHistory, EmploymentRecord, SectionStatus } from '../global';
 import { MIN_EMPLOYMENT_GAP_IN_DAYS } from '../constants';
 export default function updateEmploymentHistorySection(state: GlobalState, payload: EmploymentHistory) {
+  const currentEmployment = payload.currentEmployment;
+  const employmentRecords = payload.employmentRecords;
+  const sortedRecords = [currentEmployment, ...employmentRecords].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
 
-  const gaps: Array<EmploymentGap> = [];
+  type GroupedRecords = {
+    entries: Array<EmploymentRecord>;
+    startDateRef: EmploymentRecord;
+    endDateRef: EmploymentRecord;
+  }
 
-  function groupOverlappingDates(dateRanges: Array<EmploymentRecord>) {
-    const groups = [];
+  /* 
+    Write a function that groups EmploymentRecord typed objects that have date ranges that are overlapping, do not modify 
+    the original EmploymentRecord typed object. Return an array of GroupedRecords typed objects.
+  */
+
+  function groupOverlappingDates(records: Array<EmploymentRecord>): Array<GroupedRecords> {
+    const groups: Array<GroupedRecords> = [];
     
     // Sort the date ranges by their start dates
-    const sortedRanges = dateRanges.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-    
+    const sortedRanges = records.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+
     // Iterate through the sorted ranges and group overlapping ones
-    let currentGroup = [sortedRanges[0]];
+    let currentGroup: GroupedRecords = {
+      entries: [sortedRanges[0]],
+      startDateRef: sortedRanges[0],
+      endDateRef: sortedRanges[0]
+    };
+
     groups.push(currentGroup);
-    
+
     for (let i = 1; i < sortedRanges.length; i++) {
       const currentRange = sortedRanges[i];
-      const previousRange = currentGroup[currentGroup.length - 1];
-      
+      const previousRange = currentGroup.endDateRef;
+
       if (currentRange.startDate <= previousRange.endDate) {
         // The current range overlaps with the previous range
+
+        currentGroup.entries.push(currentRange);
+        
         if (currentRange.endDate > previousRange.endDate) {
           // Extend the previous range if the current range's end is later
-          previousRange.endDate = currentRange.endDate;
+          currentGroup.endDateRef = currentRange;
         }
       } else {
         // The current range does not overlap with the previous range
-        currentGroup = [currentRange];
+        currentGroup = {
+          entries: [currentRange],
+          startDateRef: currentRange,
+          endDateRef: currentRange
+        };
         groups.push(currentGroup);
       }
     }
-    
+
     return groups;
   }
-  
-  const groupedRecords = groupOverlappingDates([payload.currentEmployment, ...payload.employmentRecords]);
 
-  /* Get the earliest start date and the latest end date from each group */
+  function getGapsFromGroupedRecords(groupedRecords: Array<GroupedRecords>): Array<EmploymentGap> {
+    const gaps: Array<EmploymentGap> = [];
 
-  const orderedRecords = groupedRecords.map((group) => {
-    const startDate = new Date(group[0].startDate);
-    const endDate = new Date(group[group.length - 1].endDate);
+    for (let i = 0; i < groupedRecords.length - 1; i++) {
+      const currentGroup = groupedRecords[i];
+      const nextGroup = groupedRecords[i + 1];
 
-    return {
-      name: group[0].name,
-      startDate: startDate,
-      endDate: endDate
+      const gapStartDate = new Date(currentGroup.endDateRef.endDate);
+      const gapEndDate = new Date(nextGroup.startDateRef.startDate);
+      const gapInDays = (gapEndDate.getTime() - gapStartDate.getTime()) / (1000 * 3600 * 24);
+
+      if (gapInDays >= MIN_EMPLOYMENT_GAP_IN_DAYS) {
+        gaps.push({
+          nameA: currentGroup.endDateRef.name,
+          nameB: nextGroup.startDateRef.name,
+          startDate: gapStartDate.toISOString().split('T')[0],
+          endDate: gapEndDate.toISOString().split('T')[0],
+          gapInDays: gapInDays
+        });
+      }
     }
-  })
 
-  /* Get the gaps between each group */
-
-  for (let i = 1; i < orderedRecords.length; i++) {
-    const startDate = new Date(orderedRecords[i - 1].endDate);
-    const endDate = new Date(orderedRecords[i].startDate);
-
-    const diffInDays = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-
-    if(diffInDays > MIN_EMPLOYMENT_GAP_IN_DAYS) {
-      gaps.push({
-        nameA: orderedRecords[i - 1].name,
-        nameB: orderedRecords[i].name,
-        startDate: orderedRecords[i - 1].endDate.toISOString(),
-        endDate: orderedRecords[i].startDate.toISOString(),
-        gapInDays: diffInDays
-      })
-    }
+    return gaps;
   }
+
+  function getOverlapFromGroupedRecords(groupedRecords: Array<GroupedRecords>): Array<EmploymentOverlap> {
+    const overlaps: Array<EmploymentOverlap> = [];
+
+    for (let i = 0; i < groupedRecords.length - 1; i++) {
+      const currentGroup = groupedRecords[i];
+      const placements = currentGroup.entries.map((record) => record.name);
+
+      overlaps.push({
+        placesOfEmployment: placements,
+        startDate: new Date(currentGroup.startDateRef.startDate).toLocaleDateString('en-GB'),
+        endDate: new Date(currentGroup.endDateRef.endDate).toLocaleDateString('en-GB')
+      });
+    }
+
+    return overlaps;
+  }
+
+  const groupedRecords = groupOverlappingDates(sortedRecords);
+  const gaps = getGapsFromGroupedRecords(groupedRecords);
+  const overlaps = getOverlapFromGroupedRecords(groupedRecords);
 
   return {
     ...state,
@@ -77,9 +113,11 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
         currentEmployment: { ...payload.currentEmployment }, //state.sections.employmentHistory.currentEmployment,
         employmentRecords: [...payload.employmentRecords],
         employmentGaps: [...gaps],
+        employmentOverlap: [...overlaps],
         status: "COMPLETE" as SectionStatus
       }
     },
     //currentSection: SECTION_ORDER[SECTION_ORDER.indexOf(state.currentSection) + 1]
   }
+
 }

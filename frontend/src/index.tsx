@@ -99,9 +99,11 @@ createStore({
       },
       employmentRecords: [],
       employmentGaps: [],
+      employmentOverlap: [],
       status: "INCOMPLETE"
     },
     employmentGaps: {
+      employmentOverlap: [],
       placements: [],
       status: "INCOMPLETE"
     },

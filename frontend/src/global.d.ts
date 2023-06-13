@@ -80,12 +80,20 @@ export type EmploymentHistory = {
   currentEmployment: EmploymentRecord;
   employmentRecords: Array<EmploymentRecord>;
   employmentGaps: Array<EmploymentGap>;
+  employmentOverlap: Array<EmploymentOverlap>;
   status: SectionStatus;
 }
 
 export type EmploymentGaps = {
+  employmentOverlap: Array<EmploymentOverlap>;
   placements: Array<EmploymentGapReason>;
   status: SectionStatus;
+}
+
+export type EmploymentOverlap = {
+  placesOfEmployment: Array<string>;
+  startDate: string;
+  endDate: string;
 }
 
 export type EmploymentGap = {

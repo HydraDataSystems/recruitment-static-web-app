@@ -277,11 +277,11 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
                       trigger(`employmentRecords.${index}.endDate`) },
                     required: true,
                     validate: {
-                      isBeforeEndDate: (value) => getValues(`employmentRecords.${index}.endDate`) ? isDateBefore(value, getValues(`employmentRecords.${index}.endDate`)) : true,
-                      isBeforePreviousStartDate: (value) => {
-                        const startDate = index === 0 ? getValues('currentEmployment.startDate') : getValues(`employmentRecords.${index - 1}.startDate`); 
-                        return isDateBefore(value, startDate);
-                      }
+                      // isBeforeEndDate: (value) => getValues(`employmentRecords.${index}.endDate`) ? isDateBefore(value, getValues(`employmentRecords.${index}.endDate`)) : true,
+                      // isBeforePreviousStartDate: (value) => {
+                      //   const startDate = index === 0 ? getValues('currentEmployment.startDate') : getValues(`employmentRecords.${index - 1}.startDate`); 
+                      //   return isDateBefore(value, startDate);
+                      // }
                     }
                   })} />
               </div>
@@ -308,8 +308,8 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
                       trigger(`employmentRecords.${index}.endDate`) },
                     required: true,
                     validate: {
-                      isAfterStartDate: async (value) => getValues(`employmentRecords.${index}.startDate`) ? isDateAfter(value, getValues(`employmentRecords.${index}.startDate`)) : true,
-                      isBeforePreviousStartDate: (value) => getValues(`employmentRecords.${index - 1}.startDate`) ? isDateBefore(value, getValues(`employmentRecords.${index - 1}.startDate`)) : true
+                      //isAfterStartDate: async (value) => getValues(`employmentRecords.${index}.startDate`) ? isDateAfter(value, getValues(`employmentRecords.${index}.startDate`)) : true,
+                      //isBeforePreviousStartDate: (value) => getValues(`employmentRecords.${index - 1}.startDate`) ? isDateBefore(value, getValues(`employmentRecords.${index - 1}.startDate`)) : true
                     } 
                   })} />
               </div>
@@ -603,7 +603,6 @@ const EmploymentHistoryComponent = () => {
                 isAfterStartDate: async (value) => {
                   const startDate = getValues(`currentEmployment.startDate`); 
                   if(startDate && value) {
-                    console.log(startDate);
                     return isDateAfter(value, getValues(`currentEmployment.startDate`))
                   }
                   return true;

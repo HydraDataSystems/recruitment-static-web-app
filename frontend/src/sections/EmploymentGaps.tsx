@@ -7,9 +7,10 @@ const EmploymentGapsComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
 
-  const { sections : { employmentGaps, employmentHistory: { employmentGaps: employmentGapsCapture } } } = state;
+  const { sections : { employmentGaps, employmentHistory: { employmentGaps: employmentGapsCapture, employmentOverlap: employmentOverlapCapture } } } = state;
   
   const defaultValues:Omit<EmploymentGaps, "status"> = {
+    employmentOverlap: [...employmentOverlapCapture],
     placements: employmentGapsCapture.map((employmentGap) => 
       ({
         leaving: employmentGap.nameA,
@@ -42,6 +43,20 @@ const EmploymentGapsComponent = () => {
 
   return (
     <form onSubmit={onSubmit}>
+      
+      {employmentOverlapCapture.length > 0 && (
+        <>
+          <h2 className='text-sm font-bold my-2'>Employment Overlap</h2>
+          <p className='text-sm my-2'>You have indicated that you have overlapping employment.</p>
+          
+            {employmentOverlapCapture.map((item, index) => (
+              <div className="my-2" key={index}>
+                <p className='text-sm my-2'>from {item.startDate} to {item.endDate} there was overlap in your employment at these locations: {item.placesOfEmployment.join(", ")}</p>
+              </div>
+            ))}
+        </>
+      )}
+
       <h2 className='text-sm font-bold my-2'>Employment Gaps</h2>
       <ul className="employment-gap-list">
         {fields.map((item, index) => (
