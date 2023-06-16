@@ -1,7 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import useFormState from '../hooks/useFormState';
-import { LblClass, SelectClass, SelectClassError, InputContainerClass, InputErrorMsgClass } from '../helpers';
+import {
+    Title,
+    Para, 
+    Btn, 
+    LblClass, 
+    SelectClass, 
+    SelectClassError, 
+    InputContainerClass, 
+    InputErrorMsgClass } from '../helpers';
 
 const EqualityActComponent = () => {
 
@@ -30,18 +38,20 @@ const EqualityActComponent = () => {
     }, [isValid, isSubmitSuccessful, nextSection]);
 
     return (
-        <form onSubmit={onSubmit}>
-            <h2 className='text-sm font-bold my-2'>Equality Act 2010</h2>
-            <p className='text-sm my-2'>
-                Under the Equality Act 2010 the definition of disability is if you have a physical or mental impairment that has a{' '} 
-                'substantial' and 'long-term' adverse effect on your ability to carry out normal day to day activities. Further{' '}
-                information regarding the definition of disability can be found at:
-                <a href="https://www.gov.uk/definition-of-disability-under-equality-act-2010">https://www.gov.uk/definition-of-disability-under-equality-act-2010</a>
-            </p>
-            
-            <fieldset className='my-2'>
+        <form className='space-y-12' onSubmit={onSubmit}>
+            <div>
+                <h2 className={Title}>Equality Act 2010</h2>
+                <p className={Para}>
+                    Under the Equality Act 2010 the definition of disability is if you have a physical or mental impairment that has a{' '} 
+                    'substantial' and 'long-term' adverse effect on your ability to carry out normal day to day activities. Further{' '}
+                    information regarding the definition of disability can be found at:
+                    <a className="text-indigo-700 hover:text-indigo-500" href="https://www.gov.uk/definition-of-disability-under-equality-act-2010">https://www.gov.uk/definition-of-disability-under-equality-act-2010</a>
+                </p>
+            </div>
+
+            <fieldset className='space-y-6'>
                 <legend className='text-sm font-bold'>Your disabled status</legend>
-                <div className='my-2'>
+                <div>
                     <label
                         htmlFor='disability'
                         className={LblClass}
@@ -60,7 +70,7 @@ const EqualityActComponent = () => {
                     </div>
                     {errors.disability && <p className={InputErrorMsgClass}>Please select an option</p>}
                 </div>
-                <div className='my-2'>
+                <div>
                     <label
                         htmlFor='adjustments'
                         className={LblClass}
@@ -79,7 +89,7 @@ const EqualityActComponent = () => {
                     </div>
                     {errors.adjustments && <p className={InputErrorMsgClass}>Please select an option</p>}
                 </div>
-                <div className='my-2'>
+                <div>
                     <label
                         htmlFor='meetRequirements'
                         className={LblClass}
@@ -99,16 +109,22 @@ const EqualityActComponent = () => {
                     {errors.meetRequirements && <p className={InputErrorMsgClass}>Please select an option</p>}
                 </div>
             </fieldset>
+            
+            <div>
+                <h2 className={Title}>Information about arrangements to discuss reasonable adjustments</h2>
 
-            <h2 className='text-sm font-bold my-2'>Information about arrangements to discuss reasonable adjustments</h2>
+                <p className={Para}>
+                You will be contacted to arrange a convenient time for you to meet to discuss the reasonable adjustments you may need in order to carry out the role and for you to discuss any issues or concerns you may have.
+                </p>
 
-            <p className='text-sm my-2'>
-            You will be contacted to arrange a convenient time for you to meet to discuss the reasonable adjustments you may need in order to carry out the role and for you to discuss any issues or concerns you may have.
-            </p>
-
-            <p className='text-sm my-2'>
-            It would be helpful if you could consider what sort of adjustments may assist you in the roles before this meeting but if you are not sure about this, or do not identify everything you might need at the meeting don’t worry. Once you have taken up your role, your manager will give you the opportunity to discuss further adjustments.
-            </p>
+                <p className={Para}>
+                It would be helpful if you could consider what sort of adjustments may assist you in the roles before this meeting but if you are not sure about this, or do not identify everything you might need at the meeting don’t worry. Once you have taken up your role, your manager will give you the opportunity to discuss further adjustments.
+                </p>
+            </div>
+            <button
+                className={Btn}
+                onSubmit={onSubmit}
+                type="submit">Next</button>
         </form>
     )
 }

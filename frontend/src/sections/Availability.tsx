@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import useFormState from '../hooks/useFormState';
 import { useForm, Validate } from 'react-hook-form';
 import { Availability, AvailabilityOption } from '../global';
-import { Checkbox, CheckboxContainer, InputErrorMsgClass, Btn } from '../helpers';
+import { Title, Para, Checkbox, CheckboxContainer, InputErrorMsgClass, Btn, LblClass } from '../helpers';
 import { Link } from 'react-router-dom';
 import { SECTION_ROUTES } from '../constants';
 
@@ -40,7 +40,7 @@ const AvailabilityComponent = () => {
   if(positionStatus !== "COMPLETE") {
     return (
       <>
-      <h2 className='text-sm font-bold my-2'>Please complete the previous section: Position</h2>
+      <h2 className={Title}>Please complete the previous section: Position</h2>
       <Link
         className={Btn}  
         to={SECTION_ROUTES.position}>Position</Link>
@@ -49,13 +49,15 @@ const AvailabilityComponent = () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2 className='text-sm font-bold my-2'>Availability</h2>
-      <p className='text-sm my-2'>I undestand this role may include: Shift work, Unsociable Hours, Lone working involved. Please select your availability.</p>
+    <form className='space-y-12' onSubmit={onSubmit}>
       <div>
+      <h2 className={Title}>Availability</h2>
+      <p className={Para}>I undestand this role may include: Shift work, Unsociable Hours, Lone working involved. Please select your availability.</p>
+      </div>
+      <div className='space-y-6'>
       <fieldset
         className={`p-4 border flex mb-2 ${errors.mon ? 'border-red-500' : ''}`}>
-        <legend className='text-sm font-bold'>Monday</legend>
+        <legend className={LblClass}>Monday</legend>
 
         <label className={CheckboxContainer}>
           <input 
@@ -85,7 +87,7 @@ const AvailabilityComponent = () => {
 
       <fieldset
         className={`p-4 border flex mb-2 ${errors.tue ? 'border-red-500' : ''}`} >
-        <legend className='text-sm font-bold'>Tuesday</legend>
+        <legend className={LblClass}>Tuesday</legend>
 
         <label className={CheckboxContainer}>
           <input 
@@ -115,7 +117,7 @@ const AvailabilityComponent = () => {
 
       <fieldset
         className={`p-4 border flex mb-2 ${errors.wed ? 'border-red-500' : ''}`} >
-        <legend className='text-sm font-bold'>Wednesday</legend>
+        <legend className={LblClass}>Wednesday</legend>
 
         <label className={CheckboxContainer}>
           <input
@@ -145,7 +147,7 @@ const AvailabilityComponent = () => {
 
       <fieldset
         className={`p-4 border flex mb-2 ${errors.thu ? 'border-red-500' : ''}`} >
-        <legend className='text-sm font-bold'>Thursday</legend>
+        <legend className={LblClass}>Thursday</legend>
 
         <label className={CheckboxContainer}>
           <input
@@ -175,7 +177,7 @@ const AvailabilityComponent = () => {
 
       <fieldset
         className={`p-4 border flex mb-2 ${errors.fri ? 'border-red-500' : ''}`} >
-        <legend className='text-sm font-bold'>Friday</legend>
+        <legend className={LblClass}>Friday</legend>
 
         <label className={CheckboxContainer}>
           <input
@@ -205,7 +207,7 @@ const AvailabilityComponent = () => {
 
       <fieldset
         className={`p-4 border flex mb-2 ${errors.sat ? 'border-red-500' : ''}`} >
-        <legend className='text-sm font-bold'>Saturday</legend>
+        <legend className={LblClass}>Saturday</legend>
 
         <label className={CheckboxContainer}>
           <input
@@ -235,7 +237,7 @@ const AvailabilityComponent = () => {
 
       <fieldset
         className={`p-4 border flex mb-2 ${errors.sun ? 'border-red-500' : ''}`} >
-        <legend className='text-sm font-bold'>Sunday</legend>
+        <legend className={LblClass}>Sunday</legend>
 
         <label className={CheckboxContainer}>
           <input

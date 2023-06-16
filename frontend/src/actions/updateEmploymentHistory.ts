@@ -91,11 +91,13 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
       const currentGroup = groupedRecords[i];
       const placements = currentGroup.entries.map((record) => record.name);
 
-      overlaps.push({
-        placesOfEmployment: placements,
-        startDate: new Date(currentGroup.startDateRef.startDate).toLocaleDateString('en-GB'),
-        endDate: new Date(currentGroup.endDateRef.endDate).toLocaleDateString('en-GB')
-      });
+      if(placements.length > 1) {
+        overlaps.push({
+          placesOfEmployment: placements,
+          startDate: new Date(currentGroup.startDateRef.startDate).toLocaleDateString('en-GB'),
+          endDate: new Date(currentGroup.endDateRef.endDate).toLocaleDateString('en-GB')
+        });
+      }
     }
 
     return overlaps;

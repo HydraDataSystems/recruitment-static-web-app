@@ -11,6 +11,9 @@ export const SECTION_ORDER: Array<keyof Sections | "previewForm"> = [
   'references',
   'equalityAct',
   'safeguarding',
+  'convictions',
+  'saferRecruitment',
+  'consent',
   'previewForm'
 ];
 
@@ -25,6 +28,9 @@ export const SECTION_ROUTES: Record<keyof Sections | "previewForm", string> = {
   references: '/references',
   equalityAct: '/equality-act',
   safeguarding: '/safeguarding',
+  convictions: '/convictions',
+  saferRecruitment: '/safer-recruitment',
+  consent: '/consent',
   previewForm: '/preview'
 };
 

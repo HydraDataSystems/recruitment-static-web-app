@@ -26,6 +26,17 @@ const PreviewForm = () => {
       color: '#5da2da',
       textAlign: 'center',
     },
+    textBlock: {
+      fontSize: 14,
+      fontWeight: 'normal',
+      marginLeft: "auto",
+      marginRight: "auto",
+      color: '#444444',
+      textAlign: 'left',
+      marginBottom: 5,
+      marginTop: 5,
+      padding: "5 10",
+    },
     sectionBreak: {
       display: 'flex',
       flexDirection: 'row',
@@ -58,6 +69,7 @@ const PreviewForm = () => {
           <SectionRow title="Position applied for">{state.sections.position.position}</SectionRow>
           <SectionRow title="Location">{state.sections.position.location}</SectionRow>
           <SectionRow title="Preferred employment type">{state.sections.position.workingPattern}</SectionRow>
+          <SectionRow title="Hours requested">{state.sections.position.hoursRequested}</SectionRow>
         </Section>
         <Section title="Availability">
           <SectionRow title="Monday">{state.sections.availability.mon.join(', ')}</SectionRow>
@@ -77,18 +89,32 @@ const PreviewForm = () => {
         <Section title="Personal Details">
           <SectionRow title="Name">{state.sections.personalDetails.firstName}</SectionRow>
           <SectionRow title="Surname">{state.sections.personalDetails.lastName}</SectionRow>
+          {state.sections.personalDetails.otherNamesDetails.length > 0 && (
+            <SectionRow title="Other Names">
+              {state.sections.personalDetails.otherNamesDetails.map((otherName, index) => (
+                <Fragment key={`other-name-${index}`}>
+                  <Text>{otherName.firstName} {otherName.lastName}</Text>
+                </Fragment>
+              ))}
+            </SectionRow> 
+          )}
           <SectionRow title="Gender">{state.sections.personalDetails.gender}</SectionRow>
           <SectionRow title="Place of Birth">{state.sections.personalDetails.placeOfBirth}</SectionRow>
           <SectionRow title="Nationality">{state.sections.personalDetails.nationality}</SectionRow>
           <SectionRow title="Current Address">{getAddress(state.sections.personalDetails.currentAddress)}</SectionRow>
           <SectionRow title="Telephone Number">{state.sections.personalDetails.phone}</SectionRow>
-          <SectionRow title="Mobile Number">{state.sections.personalDetails.mobile}</SectionRow>
           <SectionRow title="Email Address">{state.sections.personalDetails.email}</SectionRow>
           <SectionRow title="Are you a driver?">{state.sections.personalDetails.driver}</SectionRow>
           <SectionRow title="License duration">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.licenceHeld : "Not Applicable"}</SectionRow>
+          <SectionRow title="License Type">{state.sections.personalDetails.licenceType ? state.sections.personalDetails.licenceType : 'Not Applicable'}</SectionRow>
+          <SectionRow title="License Other">{state.sections.personalDetails.licenceOther ? state.sections.personalDetails.licenceOther : 'Not Applicable'}</SectionRow>
           <SectionRow title="Own Transport">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.ownTransport : "Not Applicable"}</SectionRow>
           <SectionRow title="Driving Endorsements">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.drivingEndorsements : "Not Applicable"}</SectionRow>
-          <SectionRow title="Related to a Cascade employee?">{state.sections.personalDetails.related_to_employee}</SectionRow>
+          <SectionRow title="Do you require a visa to work in the UK?">{state.sections.personalDetails.visaRequired === "YES" ? state.sections.personalDetails.visaRequired : "Not Applicable"}</SectionRow>
+          <SectionRow title="What type of visa do you have?">{state.sections.personalDetails.visaType ? state.sections.personalDetails.visaType : "Not Applicable"}</SectionRow>
+          <SectionRow title="National Insurance Number">{state.sections.personalDetails.national_insurance_number ? state.sections.personalDetails.national_insurance_number : "Not Applicable"}</SectionRow>
+          <SectionRow title="Are you related to a Cascade employee?">{state.sections.personalDetails.related_to_employee === "YES" ? state.sections.personalDetails.related_to_employee : "Not Applicable"}</SectionRow>
+          <SectionRow title="Name of related employee or service user">{state.sections.personalDetails.related_to_employee_details ? state.sections.personalDetails.related_to_employee_details : "Not Applicable"}</SectionRow>
         </Section>
       </Page>
       <Page size="A4" style={styles.page}>
@@ -123,6 +149,17 @@ const PreviewForm = () => {
         <View style={styles.pageTitleSection}>
           <Text style={styles.pageTitle}>Cascade Application Form</Text>
         </View>
+        <Section title="Current or most recent employment">
+          <SectionRow title={`Employer`}>{state.sections.employmentHistory.currentEmployment.name}</SectionRow>
+          <SectionRow title={`Address`}>{getAddress(state.sections.employmentHistory.currentEmployment.address)}</SectionRow>
+          <SectionRow title={`Contact Name`}>{state.sections.employmentHistory.currentEmployment.contact}</SectionRow>
+          <SectionRow title={`Phone`}>{state.sections.employmentHistory.currentEmployment.telephone}</SectionRow>
+          <SectionRow title={`Email`}>{state.sections.employmentHistory.currentEmployment.email}</SectionRow>
+          <SectionRow title={`Start Date`}>{(new Date(state.sections.employmentHistory.currentEmployment.startDate)).toLocaleDateString()}</SectionRow>
+          <SectionRow title={`End Date`}>{state.sections.employmentHistory.currentEmployment.endDate ? (new Date(state.sections.employmentHistory.currentEmployment.endDate)).toLocaleDateString() : "Not Ended"}</SectionRow>
+          <SectionRow title={`Position Held`}>{state.sections.employmentHistory.currentEmployment.position}</SectionRow>
+          <SectionRow title={`Reason for Leaving`}>{state.sections.employmentHistory.currentEmployment.reasonForLeaving}</SectionRow>
+        </Section>
         <Section title="Employment History">
           {state.sections.employmentHistory.employmentRecords.length ? state.sections.employmentHistory.employmentRecords.map((employment, index) => (
             <Fragment key={`employment-${index}`}>
@@ -174,46 +211,96 @@ const PreviewForm = () => {
         <View style={styles.pageTitleSection}>
           <Text style={styles.pageTitle}>Cascade Application Form</Text>
         </View>
-        <Section title="References" />
-        <Section title="Current or Most Recent Employer">
-          <SectionRow title={`Position`}>{state.sections.references.currentOrMostRecentEmployer.jobTitle}</SectionRow>
-          <SectionRow title={`Name`}>{state.sections.references.currentOrMostRecentEmployer.name}</SectionRow>
-          <SectionRow title={`Capacity in which known`}>{state.sections.references.currentOrMostRecentEmployer.capacity}</SectionRow>
-          <SectionRow title={`Address`}>{getAddress(state.sections.references.currentOrMostRecentEmployer.address)}</SectionRow>
-          <SectionRow title={`Contact Number`}>{state.sections.references.currentOrMostRecentEmployer.phone}</SectionRow>
-          <SectionRow title={`Email`}>{state.sections.references.currentOrMostRecentEmployer.email}</SectionRow>
+        <Section title="References">
+            {state.sections.references.entries.map((entry, index) => (
+              <Fragment key={`reference-${index}`}>
+                {entry.referenceType === "CHARACTER" && (
+                  <Section title="Character Reference">
+                    <SectionRow title={`Name`}>{entry.reference.name}</SectionRow>
+                    <SectionRow title={`Relationship`}>{entry.reference.relationship}</SectionRow>
+                    <SectionRow title={`Address`}>{getAddress(entry.reference.address)}</SectionRow>
+                    <SectionRow title={`Contact Number`}>{entry.reference.phone}</SectionRow>
+                    <SectionRow title={`Email`}>{entry.reference.email}</SectionRow>
+                  </Section>
+                )}
+                {entry.referenceType === "PROFESSIONAL" && (
+                  <Section title="Professional Reference">
+                    <SectionRow title={`Position`}>{entry.reference.jobTitle}</SectionRow>
+                    <SectionRow title={`Name`}>{entry.reference.name}</SectionRow>
+                    <SectionRow title={`Capacity in which known`}>{entry.reference.capacity}</SectionRow>
+                    <SectionRow title={`Address`}>{getAddress(entry.reference.address)}</SectionRow>
+                    <SectionRow title={`Contact Number`}>{entry.reference.phone}</SectionRow>
+                    <SectionRow title={`Email`}>{entry.reference.email}</SectionRow>
+                  </Section>
+                )}
+              </Fragment>
+            ))}
         </Section>
-        <Section title="Previous Employer">
-          <SectionRow title={`Position`}>{state.sections.references.previousEmployer.jobTitle}</SectionRow>
-          <SectionRow title={`Name`}>{state.sections.references.previousEmployer.name}</SectionRow>
-          <SectionRow title={`Capacity in which known`}>{state.sections.references.previousEmployer.capacity}</SectionRow>
-          <SectionRow title={`Address`}>{getAddress(state.sections.references.previousEmployer.address)}</SectionRow>
-          <SectionRow title={`Contact Number`}>{state.sections.references.previousEmployer.phone}</SectionRow>
-          <SectionRow title={`Email`}>{state.sections.references.previousEmployer.email}</SectionRow>
-        </Section>
-        <Section title="Character Reference">
-          <SectionRow title={`Name`}>{state.sections.references.characterReference.name}</SectionRow>
-          <SectionRow title={`Relationship`}>{state.sections.references.characterReference.relationship}</SectionRow>
-          <SectionRow title={`Address`}>{getAddress(state.sections.references.characterReference.address)}</SectionRow>
-          <SectionRow title={`Contact Number`}>{state.sections.references.characterReference.phone}</SectionRow>
-          <SectionRow title={`Email`}>{state.sections.references.characterReference.email}</SectionRow>
-        </Section>
-        {state.sections.references.characterReference2.name &&
-          <Section title="Additional Character Reference">
-            <SectionRow title={`Name`}>{state.sections.references.characterReference2.name}</SectionRow>
-            <SectionRow title={`Relationship`}>{state.sections.references.characterReference2.relationship}</SectionRow>
-            <SectionRow title={`Address`}>{getAddress(state.sections.references.characterReference2.address)}</SectionRow>
-            <SectionRow title={`Contact Number`}>{state.sections.references.characterReference2.phone}</SectionRow>
-            <SectionRow title={`Email`}>{state.sections.references.characterReference2.email}</SectionRow>
-          </Section>
-        }
       </Page> 
       <Page size="A4" style={styles.page}>
         <View style={styles.pageTitleSection}>
           <Text style={styles.pageTitle}>Cascade Application Form</Text>
         </View>
+        <Section title="Equality Act 2010">
+          <SectionRow title={`Do you consider that you have a disability as defined by the Equality Act 2010?`}>{state.sections.equalityAct.disability}</SectionRow>
+          <SectionRow title={`I may require reasonable adjustments to be implemented.`}>{state.sections.equalityAct.adjustments}</SectionRow>
+          <SectionRow title={`If I have indicated yes above and I am offered the job, I give my consent for my managers to be advised that I would like a meeting to be arranged to discuss adjustments with me in more detail.`}>{state.sections.equalityAct.meetRequirements}</SectionRow>
+        </Section>
+      </Page>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.pageTitleSection}>
+          <Text style={styles.pageTitle}>Cascade Application Form</Text>
+        </View>
         <Section title="Safeguarding">
-          <SectionRow title={`In the last 10 years have you spent over a year, either in one stay or cumulatively (e.g. one month or week every so often, amounting to a year in total) outside of the UK?`}>{state.sections.safeguarding.outsideUK}</SectionRow>
+          <SectionRow title={`In the last 10 years have you spent over a year, either in one stay or cumulatively (e.g. one month or week every so often, amounting to a year in total) outside of the UK?`}>
+            {state.sections.safeguarding.outsideUK}
+          </SectionRow>
+        </Section>
+      </Page>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.pageTitleSection}>
+          <Text style={styles.pageTitle}>Convictions</Text>
+        </View>
+        <Section title="Convictions">
+          <SectionRow title={`Do you have any convictions or cautions (excluding youth cautions, reprimands or warnings) that are not ‘protected’ as defined by the Ministry of Justice?`}>
+            {state.sections.convictions.declaration}
+          </SectionRow>
+          {state.sections.convictions.declaration === "YES" && (
+            <>
+              <SectionRow title="Name">{state.sections.convictions.name}</SectionRow>
+              <SectionRow title="Surname">{state.sections.convictions.surname}</SectionRow>
+              <SectionRow title="Date">{(new Date(state.sections.convictions.date)).toLocaleDateString()}</SectionRow>
+              <SectionRow title="Details or conviction information">{state.sections.convictions.convictionDetail}</SectionRow>
+            </>
+          )}
+        </Section>
+      </Page>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.pageTitleSection}>
+          <Text style={styles.pageTitle}>Safer Recruitment</Text>
+        </View>
+        <Section title="Safer Recruitment">
+          <Text style={styles.textBlock}>I certify that I am not disqualified from working with children or subject to sanctions imposed by a regulatory body which would restrict me from applying for this post.</Text>
+        </Section>
+        <Section title="Privacy">
+          <Text style={styles.textBlock}>Cascade  will only collect data for specified, explicit and legitimate use in relation to the recruitment process. By signing this application form you consent to Cascade  holding the information contained within this application form. If successfully shortlisted, data will also include shortlisting scoring  and interview records. We would like to keep this data until the vacancy is filled. (We cannot estimate the exact time period, but we will consider this period over when a candidate accepts our job offer for the position for which we are considering you). When that period is over, we will either delete your data or inform you that we would like to keep it in our database for future roles. We have privacy policies that you can request for further information. Please be assured your data will be securely stored by the Registered Manager and only used for the purposes of recruiting for this vacant post. You have a right for your data to be forgotten, to rectify or access data, to restrict processing, to withdraw  consent and to be kept informed about the processing of your data. If you would like to discuss this further or withdraw your consent at any time please contact the Registered Manager or Data Protection Officer on 01603 405051.</Text>
+        </Section>
+        <Section title="Declaration">
+          <Text style={styles.textBlock}>The information in this application form is true and complete. I agree that any deliberate omission, falsification or misrepresentation in the application form will be grounds for rejecting this application or subsequent dismissal if employed by Cascade. Where applicable, I consent that Cascade  can seek clarification regarding professional registration details.</Text>
+        
+          <SectionRow title="I have read and understood the above content and declaration">
+            {state.sections.saferRecruitment.declaration}
+          </SectionRow>
+        </Section>
+      </Page>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.pageTitleSection}>
+          <Text style={styles.pageTitle}>Social Media and Consent</Text>
+        </View>
+        <Section title="Social Media and Consent">
+          <SectionRow title="Pre-screen of Social Media">{state.sections.consent.prescreen}</SectionRow>
+          <SectionRow title="ASDAN">{state.sections.consent.asdan}</SectionRow>
+          <SectionRow title="Social Media (Twitter, Facebook)">{state.sections.consent.social}</SectionRow>
         </Section>
       </Page>
     </Document>

@@ -15,9 +15,13 @@ import SupportingStatement from './sections/SupportingStatement';
 import References from './sections/References';
 import EqualityAct from './sections/EqualityAct';
 import Safeguarding from './sections/Safeguarding';
+import Convictions from './sections/Convictions';
+import SaferRecruitment from './sections/SaferRecruitment';
+import Consent from './sections/Consent';
 import PreviewForm from './sections/PreviewForm';
 import { SECTION_ROUTES } from './constants';
 import reportWebVitals from './reportWebVitals';
+import { Title } from './helpers';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -28,6 +32,7 @@ createStore({
     position: {
       position: '',
       otherPosition: '',
+      isEducation: '',
       location: '',
       workingPattern: '',
       hoursRequested: '',
@@ -75,6 +80,9 @@ createStore({
       status: "INCOMPLETE"
     },
     educationTraining: {
+      qts: '',
+      induction: '',
+      dfeNo: '',
       educationRecords: [],
       trainingRecords: [],
       status: "INCOMPLETE"
@@ -119,62 +127,7 @@ createStore({
       status: "INCOMPLETE"
     },
     references: {
-      currentOrMostRecentEmployer: {
-        company: '',
-        jobTitle: '',
-        name: '',
-        capacity: '',
-        phone: '',
-        email: '',
-        address: {
-          addressLine1: '',
-          addressLine2: '',
-          town: '',
-          county: '',
-          postcode: '',
-        },
-      },
-      previousEmployer: {
-        company: '',
-        jobTitle: '',
-        name: '',
-        capacity: '',
-        phone: '',
-        email: '',
-        address: {
-          addressLine1: '',
-          addressLine2: '',
-          town: '',
-          county: '',
-          postcode: '',
-        },
-      },
-      characterReference: {
-        relationship: '',
-        name: '',
-        phone: '',
-        email: '',
-        address: {
-          addressLine1: '',
-          addressLine2: '',
-          town: '',
-          county: '',
-          postcode: '',
-        },
-      },
-      characterReference2: {
-        relationship: '',
-        name: '',
-        phone: '',
-        email: '',
-        address: {
-          addressLine1: '',
-          addressLine2: '',
-          town: '',
-          county: '',
-          postcode: '',
-        },
-      },
+      entries: [],
       status: "INCOMPLETE"
     },
     equalityAct: {
@@ -187,6 +140,24 @@ createStore({
       outsideUK: '',
       status: "INCOMPLETE"
     },
+    convictions: {
+      declaration: '',
+      name: '',
+      surname: '',
+      date: '',
+      convictionDetail: '',
+      status: "INCOMPLETE"
+    },
+    saferRecruitment: {
+      declaration: '',
+      status: "INCOMPLETE"
+    },
+    consent: {
+      prescreen: '',
+      asdan: '',
+      social: '',
+      status: "INCOMPLETE"
+    },
     previewForm: {
       status: "INCOMPLETE"
     }
@@ -197,29 +168,36 @@ createStore({
 root.render(
   <React.StrictMode>
     <StateMachineProvider>
-      <div>
+      <div className='bg-gray-50'>
+      <div className="container mx-auto sm:px-6 lg:px-8">
         <div className="p-2">
-          <h1 className="text-md text-center">Cascade Application Form</h1>
+          <h1 className={`${Title} text-3xl`}>Cascade Application Form</h1>
         </div>
-        <div className="px-2 max-w-sm mx-auto">
-        <Router>
-        <NavIndicator />
-          <Routes>
-            <Route path={SECTION_ROUTES.position} element={<Position />} />
-            <Route path={SECTION_ROUTES.personalDetails} element={<PersonalDetails />} />
-            <Route path={SECTION_ROUTES.educationTraining} element={<EducationTraining />} />
-            <Route path={SECTION_ROUTES.availability} element={<Availability />} />
-            <Route path={SECTION_ROUTES.employmentHistory} element={<EmploymentHistory />} />
-            <Route path={SECTION_ROUTES.employmentGaps} element={<EmploymentGaps />} />
-            <Route path={SECTION_ROUTES.supportingStatement} element={<SupportingStatement />} />
-            <Route path={SECTION_ROUTES.references} element={<References />} />
-            <Route path={SECTION_ROUTES.equalityAct} element={<EqualityAct />} />
-            <Route path={SECTION_ROUTES.safeguarding} element={<Safeguarding />} />
-            <Route path={SECTION_ROUTES.previewForm} element={<PreviewForm />} />
-          </Routes>
-        </Router>
+        <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-6">
+          <div className="px-4 py-5 sm:p-6">
+          <Router>
+          <NavIndicator />
+            <Routes>
+              <Route path={SECTION_ROUTES.position} element={<Position />} />
+              <Route path={SECTION_ROUTES.personalDetails} element={<PersonalDetails />} />
+              <Route path={SECTION_ROUTES.educationTraining} element={<EducationTraining />} />
+              <Route path={SECTION_ROUTES.availability} element={<Availability />} />
+              <Route path={SECTION_ROUTES.employmentHistory} element={<EmploymentHistory />} />
+              <Route path={SECTION_ROUTES.employmentGaps} element={<EmploymentGaps />} />
+              <Route path={SECTION_ROUTES.supportingStatement} element={<SupportingStatement />} />
+              <Route path={SECTION_ROUTES.references} element={<References />} />
+              <Route path={SECTION_ROUTES.equalityAct} element={<EqualityAct />} />
+              <Route path={SECTION_ROUTES.safeguarding} element={<Safeguarding />} />
+              <Route path={SECTION_ROUTES.convictions} element={<Convictions />} />
+              <Route path={SECTION_ROUTES.saferRecruitment} element={<SaferRecruitment />} />
+              <Route path={SECTION_ROUTES.consent} element={<Consent />} />
+              <Route path={SECTION_ROUTES.previewForm} element={<PreviewForm />} />
+            </Routes>
+          </Router>
+          </div>
         </div>
       </div>  
+      </div>
     </StateMachineProvider>
   </React.StrictMode>
 );

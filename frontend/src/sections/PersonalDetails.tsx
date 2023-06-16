@@ -4,6 +4,8 @@ import useFormState from '../hooks/useFormState';
 import { PersonalDetails } from '../global';
 
 import { 
+  Title,
+  Subtitle,
   LblClass, 
   SelectClass, 
   SelectClassError, 
@@ -53,10 +55,13 @@ const PersonalDetailsComponent = () => {
   const relatedToEmployee = watch('related_to_employee');
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2 className='text-sm font-bold my-2'>Personal Details</h2>
-      
-      <div className='my-2'>
+    <form className='space-y-12' onSubmit={onSubmit}>
+      <div>
+        <h2 className={Title}>Personal Details</h2>
+      </div>
+
+      <div className='space-y-6'>
+      <div>
         <label
           htmlFor='firstName'
           className={LblClass}
@@ -65,13 +70,14 @@ const PersonalDetailsComponent = () => {
         </label>
         <div className={InputContainerClass}>
           <input
+            type="text"
             className={errors.firstName ? InputClassError : InputClass}
             {...register('firstName', { required: true })} />
         </div>
         {errors.firstName && <p className={InputErrorMsgClass}>First Name is required</p>}
       </div>
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='lastName'
           className={LblClass}
@@ -80,13 +86,14 @@ const PersonalDetailsComponent = () => {
         </label>
         <div className={InputContainerClass}>
           <input
+            type="text"
             className={errors.lastName ? InputClassError : InputClass}
             {...register('lastName', { required: true })} />
         </div>
         {errors.lastName && <p className={InputErrorMsgClass}>Last Name is required</p>}
       </div>
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='otherNames'
           className={LblClass}>Have you ever used any other names?</label>
@@ -104,7 +111,7 @@ const PersonalDetailsComponent = () => {
       </div>
 
       {hasMoreNames === "YES" && (
-        <div className='mt-4'>
+        <div>
           <h2 className='text-sm font-medium my-2'>Additional Names</h2>
           {otherNames.map((item, index) => (
             <div
@@ -122,6 +129,7 @@ const PersonalDetailsComponent = () => {
                 </label>
                 <div className={InputContainerClass}>
                   <input
+                    type="text"
                     className={errors.otherNamesDetails && errors.otherNamesDetails[index] && errors.otherNamesDetails[index]?.firstName ? InputClassError : InputClass}
                     {...register(`otherNamesDetails.${index}.firstName`, { required: true })} />
                 </div>
@@ -135,6 +143,7 @@ const PersonalDetailsComponent = () => {
                 </label>
                 <div className={InputContainerClass}>
                   <input
+                    type="text"
                     className={errors.otherNamesDetails && errors.otherNamesDetails[index] && errors.otherNamesDetails[index]?.lastName ? InputClassError : InputClass}
                     {...register(`otherNamesDetails.${index}.lastName`, { required: true })} />
                 </div>
@@ -149,7 +158,7 @@ const PersonalDetailsComponent = () => {
         </div>
       )}
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='gender'
           className={LblClass}>
@@ -169,7 +178,7 @@ const PersonalDetailsComponent = () => {
         {errors.gender && <p className={InputErrorMsgClass}>Gender is required</p>}
       </div>
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='placeOfBirth'
           className={LblClass}
@@ -178,13 +187,14 @@ const PersonalDetailsComponent = () => {
         </label>
         <div className={InputContainerClass}>
           <input
+            type="text"
             className={errors.placeOfBirth ? InputClassError : InputClass}
             {...register('placeOfBirth', { required: true })} />
         </div>
         {errors.placeOfBirth && <p className={InputErrorMsgClass}>Place of Birth is required</p>}
       </div>
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='nationality'
           className={LblClass}
@@ -204,9 +214,9 @@ const PersonalDetailsComponent = () => {
         {errors.nationality && <p className={InputErrorMsgClass}>Nationality is required</p>}
       </div>
 
-      <fieldset>
-        <legend className='font-medium text-sm'>Current Address</legend>
-        <div className='my-2'>
+      <fieldset className='space-y-6'>
+        <legend className={Subtitle}>Current Address</legend>
+        <div>
           <label
             htmlFor='currentAddress.addressLine1'
             className={LblClass}
@@ -215,13 +225,14 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.currentAddress?.addressLine1 ? InputClassError : InputClass}
               {...register('currentAddress.addressLine1', { required: true })} />
           </div>
           {errors.currentAddress?.addressLine1 && <p className={InputErrorMsgClass}>Address Line 1 is required</p>}
         </div>
         
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='currentAddress.addressLine2'
             className={LblClass}
@@ -230,13 +241,14 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.currentAddress?.addressLine2 ? InputClassError : InputClass}
               {...register('currentAddress.addressLine2')} />
           </div>
           {errors.currentAddress?.addressLine2 && <p className={InputErrorMsgClass}>Address Line 2 is required</p>}
         </div>
         
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='currentAddress.town'
             className={LblClass}
@@ -245,13 +257,14 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.currentAddress?.town ? InputClassError : InputClass}
               {...register('currentAddress.town')} />
           </div>
           {errors.currentAddress?.town && <p className={InputErrorMsgClass}>Town is required</p>}
         </div>
         
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='currentAddress.county'
             className={LblClass}
@@ -260,13 +273,14 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.currentAddress?.county ? InputClassError : InputClass}
               {...register('currentAddress.county')} />
           </div>
           {errors.currentAddress?.county && <p className={InputErrorMsgClass}>County is required</p>}
         </div>
         
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='currentAddress.postcode'
             className={LblClass}
@@ -275,6 +289,7 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.currentAddress?.postcode ? InputClassError : InputClass}
               {...register('currentAddress.postcode', { required: true })} />
           </div>
@@ -283,7 +298,7 @@ const PersonalDetailsComponent = () => {
 
       </fieldset>
       
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='email'
           className={LblClass}
@@ -292,13 +307,14 @@ const PersonalDetailsComponent = () => {
         </label>
         <div className={InputContainerClass}>
           <input
+            type="email"
             className={errors.email ? InputClassError : InputClass}
             {...register('email', { required: true })} />
         </div>
         {errors.email && <p className={InputErrorMsgClass}>Email is required</p>}
       </div>
       
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='phone'
           className={LblClass}
@@ -307,13 +323,14 @@ const PersonalDetailsComponent = () => {
         </label>
         <div className={InputContainerClass}>
           <input
+            type="tel"
             className={errors.phone ? InputClassError : InputClass}
             {...register('phone', { required: true })} />
         </div>
         {errors.phone && <p className={InputErrorMsgClass}>Phone is required</p>}
       </div>
       
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='driver'
           className={LblClass}
@@ -335,7 +352,7 @@ const PersonalDetailsComponent = () => {
 
       {isDriver === "YES" && (
         <>
-          <div className='my-2'>
+          <div>
             <label
               htmlFor='licenceHeld'
               className={LblClass}
@@ -351,7 +368,7 @@ const PersonalDetailsComponent = () => {
             {errors.licenceHeld && <p className={InputErrorMsgClass}>Licence Held is required</p>}
           </div>
           
-          <div className='my-2'>
+          <div>
             <label
               htmlFor='licenceType'
               className={LblClass}
@@ -373,7 +390,7 @@ const PersonalDetailsComponent = () => {
           </div>
 
           {isOtherLicence === "OTHER" && (
-            <div className='my-2'>
+            <div>
               <label
                 htmlFor='licenceOther'
                 className={LblClass}
@@ -382,6 +399,7 @@ const PersonalDetailsComponent = () => {
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.licenceOther ? InputClassError : InputClass}
                   {...register('licenceOther', { required: true })} />
               </div>
@@ -389,7 +407,7 @@ const PersonalDetailsComponent = () => {
             </div>
           )}
 
-          <div className='my-2'>
+          <div>
             <label
               htmlFor='ownTransport'
               className={LblClass}
@@ -409,7 +427,7 @@ const PersonalDetailsComponent = () => {
             {errors.ownTransport && <p className={InputErrorMsgClass}>Own Transport is required</p>}
           </div>
           
-          <div className='my-2'>
+          <div>
             <label
               htmlFor='drivingEndorsements'
               className={LblClass}
@@ -418,6 +436,7 @@ const PersonalDetailsComponent = () => {
             </label>
             <div className={InputContainerClass}>
               <input
+                type="text"
                 className={errors.drivingEndorsements ? InputClassError : InputClass}
                 {...register('drivingEndorsements')} />
             </div>
@@ -426,7 +445,7 @@ const PersonalDetailsComponent = () => {
         </>
       )}
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor="visaRequired"
           className={LblClass}
@@ -447,7 +466,7 @@ const PersonalDetailsComponent = () => {
       </div>
 
       {isVisaRequired === "YES" && (
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='visaType'
             className={LblClass}
@@ -456,6 +475,7 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.visaType ? InputClassError : InputClass}
               {...register('visaType', { required: true })} />
           </div>
@@ -464,7 +484,7 @@ const PersonalDetailsComponent = () => {
       )}
       
       {isVisaRequired === "NO" && (
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='national_insurance_number'
             className={LblClass}
@@ -473,13 +493,14 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.national_insurance_number ? InputClassError : InputClass}
               {...register('national_insurance_number', { required: true })} />
           </div>
         </div>
       )}
 
-      <div className='my-2'>
+      <div>
         <label
           htmlFor='related_to_employee'
           className={LblClass}
@@ -500,7 +521,7 @@ const PersonalDetailsComponent = () => {
       </div>
 
       {relatedToEmployee === "YES" && (
-        <div className='my-2'>
+        <div>
           <label
             htmlFor='related_to_employee_details'
             className={LblClass}
@@ -509,12 +530,14 @@ const PersonalDetailsComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              type="text"
               className={errors.related_to_employee_details ? InputClassError : InputClass}
               {...register('related_to_employee_details', { required: true })} />
           </div>
           {errors.related_to_employee_details && <p className={InputErrorMsgClass}>Related to employee details is required</p>}
         </div>
       )}
+      </div>
 
       <button
         className={Btn}

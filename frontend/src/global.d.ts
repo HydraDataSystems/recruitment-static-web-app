@@ -3,6 +3,7 @@ import 'little-state-machine';
 export type Position = {
   position: string;
   otherPosition: string;
+  isEducation: YesNo;
   location: string;
   workingPattern: string;
   hoursRequested: string;
@@ -123,7 +124,7 @@ export type SupportingStatement = {
   status: SectionStatus;
 }
 
-export type Reference = {
+export type EmployerReference = {
   company: string;
   jobTitle: string;
   name: string;
@@ -141,11 +142,15 @@ export type CharaterReference = {
   phone: string;
 }
 
+export type Reference<T extends ReferenceType = ReferenceType> = {
+  referenceType: T;
+  reference: T extends "PROFESSIONAL" ? EmployerReference : CharacterReference;
+}
+
+export type ReferenceType = "CHARACTER" | "PROFESSIONAL";
+
 export type References = {
-  currentOrMostRecentEmployer: Reference;
-  previousEmployer: Reference;
-  characterReference: CharaterReference;
-  characterReference2: CharaterReference;
+  entries: Array<Reference>;
   status: SectionStatus;
 }
 
@@ -162,6 +167,9 @@ export type Safeguarding = {
 }
 
 export type EducationTraining = {
+  qts: YesNo;
+  induction: YesNo;
+  dfeNo: string;
   educationRecords: Array<EducationRecord>;
   trainingRecords: Array<TrainingRecord>;
   status: SectionStatus;
@@ -181,6 +189,27 @@ export type TrainingRecord = {
   qualification: string;
 }
 
+export type Conviction = {
+  declaration: YesNo;
+  name: string;
+  surname: string;
+  date: string;
+  convictionDetail: string;
+  status: SectionStatus;
+}
+
+export type SaferRecruitment = {
+  declaration: YesNo;
+  status: SectionStatus;
+}
+
+export type Consent = {
+  prescreen: YesNo;
+  asdan: YesNo;
+  social: YesNo;
+  status: SectionStatus;
+}
+
 export type PreviewForm = {
   status: SectionStatus;
 }
@@ -196,6 +225,9 @@ type Sections = {
   references: References;
   equalityAct: EqualityAct;
   safeguarding: Safeguarding;
+  convictions: Conviction;
+  saferRecruitment: SaferRecruitment;
+  consent: Consent;
   previewForm: PreviewForm;
 }
 

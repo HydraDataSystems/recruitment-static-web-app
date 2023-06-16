@@ -1,21 +1,35 @@
 import { useEffect } from "react";
 import useFormState from "../hooks/useFormState";
 import { useForm, useFieldArray } from "react-hook-form";
-import { EducationTraining } from "../global";
-import { Btn, LblClass, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass } from "../helpers";
+import { EducationTraining, YesNo } from "../global";
+import { 
+  Btn, 
+  LblClass, 
+  InputClass, 
+  InputClassError, 
+  InputContainerClass, 
+  InputErrorMsgClass, 
+  Title,
+  Para
+ } from "../helpers";
 
 const EducationTrainingComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
 
-  const { sections: { educationTraining } } = state;
+  const { sections: { educationTraining, position: { isEducation } } } = state;
 
-  const { register, control, handleSubmit, formState: { errors, isValid, isSubmitSuccessful } } = useForm({
+  const { register, control, handleSubmit, watch, formState: { errors, isValid, isSubmitSuccessful } } = useForm({
     defaultValues: {
+      qts: educationTraining?.qts || '' as YesNo,
+      induction: educationTraining?.induction || '' as YesNo,
+      dfeNo: educationTraining?.dfeNo || '' as YesNo,
       educationRecords: educationTraining?.educationRecords?.length ? educationTraining.educationRecords : [{ establishment: '', qualification: '', startDate: '', endDate: '' }],
       trainingRecords: educationTraining?.trainingRecords?.length ? educationTraining.trainingRecords : [{ subject: '', qualification: '', startDate: '', endDate: '' }],
     }
   });
+
+  const isQts = watch('qts');
 
   const { fields: education, remove: removeEducation, append: appendEducation } = useFieldArray({
     control,
@@ -36,19 +50,87 @@ const EducationTrainingComponent = () => {
   }, [isValid, isSubmitSuccessful, nextSection]);
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2 className='text-sm font-bold my-2'>Education</h2>
-      <p className='text-sm my-2'>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role. Your entries will be ordered by the most recent first.</p>
+    <form className="space-y-12" onSubmit={onSubmit}>
+      <div> 
+        <h2 className={Title}>Education</h2>
+      </div>
+
+      <div className="space-y-6">
+      {isEducation === 'YES' && (
+        <>
+          <div>
+            <label
+              htmlFor='qts'
+              className={LblClass}
+            >
+              Do you have Qualified Teacher Status (QTS)?
+            </label>
+            <div className={InputContainerClass}>
+              <select
+                className={errors.qts ? InputClassError : InputClass}
+                {...register('qts', { required: true })}
+              >
+                <option value=''>Please select</option>
+                <option value='YES'>Yes</option>
+                <option value='NO'>No</option>
+              </select>
+            </div>
+            {errors.qts && <span className={InputErrorMsgClass}>Please select an option</span>}
+          </div>
+
+          {isQts === 'YES' && (
+            <>
+              <div className="my-2">
+                <label
+                  htmlFor='dfeNo'
+                  className={LblClass}
+                >
+                  Please enter your DfE number
+                </label>
+                <div className={InputContainerClass}>
+                  <input
+                    type="text"
+                    className={errors.dfeNo ? InputClassError : InputClass}
+                    {...register('dfeNo', { required: true })}
+                  />
+                </div>
+                {errors.dfeNo && <span className={InputErrorMsgClass}>Please enter your DfE number</span>}
+              </div>
+              <div className="my-2">
+                <label
+                  htmlFor='induction'
+                  className={LblClass}
+                >
+                  Have you completed your induction year?
+                </label>
+                <div className={InputContainerClass}>
+                  <select
+                    className={errors.induction ? InputClassError : InputClass}
+                    {...register('induction', { required: true })}
+                  >
+                    <option value=''>Please select</option>
+                    <option value='YES'>Yes</option>
+                    <option value='NO'>No</option>
+                  </select>
+                </div>
+                {errors.induction && <span className={InputErrorMsgClass}>Please select an option</span>}
+              </div>
+            </>
+          )}
+        </>
+      )} 
+      <p className={Para}>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role. Your entries will be ordered by the most recent first.</p>
       {education.length < 1 && <h3>No Education to report.</h3>}
-      <ul className="education-list">
+      
+      <ul className="space-y-6">
         {education.map((item, index) => (
-          <li className='p-2 m-2 border border-gray-200 bg-gray-100 rounded relative' key={item.id}>
+          <li className='space-y-6 p-2 border border-gray-200 bg-gray-50 rounded relative' key={item.id}>
             <button
               title="Remove Education"
-              className={`${Btn} my-0 bg-red-600 hover:bg-red-500 top-0 right-0 absolute`} 
+              className={`p-2 w-8 text-white font-bold rounded bg-red-600 hover:bg-red-500 top-0 right-0 absolute`} 
               type="button" 
               onClick={() => removeEducation(index)}>X</button>
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`educationRecords.${index}.establishment`}
                 className={LblClass}>
@@ -63,7 +145,7 @@ const EducationTrainingComponent = () => {
               {errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.establishment && <span className={InputErrorMsgClass}>Please enter a school.</span>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`educationRecords.${index}.startDate`}
                 className={LblClass}>
@@ -78,7 +160,7 @@ const EducationTrainingComponent = () => {
               {errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.startDate && <span className={InputErrorMsgClass}>Please enter a start date</span>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`educationRecords.${index}.endDate`}
                 className={LblClass}>
@@ -94,7 +176,7 @@ const EducationTrainingComponent = () => {
               {errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.endDate && <span className={InputErrorMsgClass}>Please enter an end date</span>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`educationRecords.${index}.qualification`}
                 className={LblClass}>
@@ -118,15 +200,15 @@ const EducationTrainingComponent = () => {
         type="button" 
         onClick={() => appendEducation({ establishment: '', qualification: '', startDate: '', endDate: '' })}>Add Education</button>
 
-      <h2 className='text-sm font-bold my-2'>Training</h2>
-      <p className='text-sm my-2'>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role.</p>
+      <h2 className={Title}>Training</h2>
+      <p className={Para}>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role.</p>
       {training.length < 1 && <h3>No Training to report.</h3>}
-      <ul className="education-list">
+      <ul className="space-y-6">
         {training.map((item, index) => (
-          <li className='p-2 m-2 border border-gray-200 bg-gray-100 rounded relative' key={item.id}>
+          <li className='space-y-6 p-2 border border-gray-200 bg-gray-50 rounded relative' key={item.id}>
             <button
               title="Remove Training"
-              className={`${Btn} my-0 bg-red-600 hover:bg-red-500 top-0 right-0 absolute`}
+              className={`p-2 w-8 text-white font-bold rounded bg-red-600 hover:bg-red-500 top-0 right-0 absolute`}
               type="button"
               onClick={() => removeTraining(index)}>X</button>
             
@@ -201,6 +283,7 @@ const EducationTrainingComponent = () => {
         className={Btn}
         type="button"
         onClick={() => appendTraining({ subject: '', qualification: '', startDate: '', endDate: '' })}>Add Training</button>
+      </div>
 
       <div className="my-2">
         <button

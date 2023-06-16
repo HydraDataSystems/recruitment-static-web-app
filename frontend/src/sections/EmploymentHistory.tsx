@@ -4,6 +4,7 @@ import {
   useRef,
   useCallback,
 } from 'react';
+
 import { 
   useForm, 
   useFieldArray,
@@ -20,7 +21,16 @@ import { EmploymentHistory, EmploymentRecord } from '../global';
 import { isDateBefore, isDateAfter } from '../helpers';
 import AccordianItem from '../component/AccordianItem';
 
-import { Btn, LblClass, InputClass, InputClassError, InputContainerClass, InputErrorMsgClass } from '../helpers';
+import { 
+  Title,
+  Para,
+  Btn, 
+  LblClass, 
+  InputClass, 
+  InputClassError, 
+  InputContainerClass, 
+  InputErrorMsgClass 
+} from '../helpers';
 
 interface EmploymentRecordsProps {
   control: Control<EmploymentHistory>;
@@ -51,7 +61,16 @@ const defaultEmploymentRecord: EmploymentRecord = {
   endDate: ''
 }
 
-const EmploymentRecords = ({ control, register, trigger, setValue, getValues, onAddSection, employmentRecords, errors}: EmploymentRecordsProps) => {
+const EmploymentRecords = ({ 
+    control, 
+    register, 
+    trigger, 
+    setValue, 
+    getValues, 
+    onAddSection, 
+    employmentRecords, 
+    errors
+  }: EmploymentRecordsProps ) => {
   const [clicked, setClicked] = useState<number | null>(employmentRecords.length > 0 ? employmentRecords.length - 1 : 0);
   
   const handleToggle = (index: number) => {
@@ -97,7 +116,8 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
             removeItem={() => remove(index)}
             error={errors.employmentRecords?.[index] ? true : false}
           >
-            <div className="my-2">
+            <div className="space-y-6">
+            <div>
               <label 
                 htmlFor={`employmentRecords.${index}.name`}
                 className={LblClass}>
@@ -105,13 +125,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.name ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.name`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.name && <p className={InputErrorMsgClass}>Company Name is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.address.addressLine1`}
                 className={LblClass}
@@ -120,13 +141,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.address?.addressLine1 ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.address.addressLine1`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.address?.addressLine1 && <p className={InputErrorMsgClass}>Address Line 1 is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.address.addressLine2`}
                 className={LblClass}
@@ -135,12 +157,13 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.address?.addressLine2 ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.address.addressLine2`)} />
               </div>
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.address.town`}
                 className={LblClass}
@@ -149,13 +172,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.address?.town ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.address.town`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.address?.town && <p className={InputErrorMsgClass}>Town is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.address.county`}
                 className={LblClass}
@@ -164,12 +188,13 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.address?.county ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.address.county`)} />
               </div>
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.address.postcode`}
                 className={LblClass}
@@ -178,13 +203,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.address?.postcode ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.address.postcode`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.address?.postcode && <p className={InputErrorMsgClass}>Postcode is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.contact`}
                 className={LblClass}>
@@ -192,13 +218,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.contact ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.contact`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.contact && <p className={InputErrorMsgClass}>Contact is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.telephone`}
                 className={LblClass}
@@ -207,13 +234,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.telephone ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.telephone`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.telephone && <p className={InputErrorMsgClass}>Telephone is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.email`}
                 className={LblClass}
@@ -229,7 +257,7 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               {errors.employmentRecords?.[index]?.email && <p className={InputErrorMsgClass}>Email is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.position`}
                 className={LblClass}
@@ -238,13 +266,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.position ? InputClassError : InputClass}
                   {...register(`employmentRecords.${index}.position`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.position && <p className={InputErrorMsgClass}>Position is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.reasonForLeaving`}
                 className={LblClass}
@@ -253,13 +282,14 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               </label>
               <div className={InputContainerClass}>
                 <input
+                  type="text"
                   className={errors.employmentRecords?.[index]?.reasonForLeaving ? InputClassError : InputClass}  
                   {...register(`employmentRecords.${index}.reasonForLeaving`, { required: true })} />
               </div>
               {errors.employmentRecords?.[index]?.reasonForLeaving && <p className={InputErrorMsgClass}>Reason For Leaving is required</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.startDate`}
                 className={LblClass}
@@ -290,7 +320,7 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               {errors.employmentRecords?.[index]?.startDate?.type === 'isBeforePreviousStartDate' && <p className={InputErrorMsgClass}>Start Date must be before previous Start Date</p>}
             </div>
 
-            <div className="my-2">
+            <div>
               <label
                 htmlFor={`employmentRecords.${index}.endDate`}
                 className={LblClass}
@@ -316,6 +346,7 @@ const EmploymentRecords = ({ control, register, trigger, setValue, getValues, on
               {errors.employmentRecords?.[index]?.endDate?.type === 'required' && <p className={InputErrorMsgClass}>End Date is required</p>}
               {errors.employmentRecords?.[index]?.endDate?.type === 'isAfterStartDate' && <p className={InputErrorMsgClass}>End Date must be after Start Date</p>}
               {errors.employmentRecords?.[index]?.endDate?.type === 'isBeforePreviousStartDate' && <p className={InputErrorMsgClass}>End Date must be before previous Start Date</p>}
+            </div>
             </div>
           </AccordianItem>
         ))}
@@ -381,245 +412,248 @@ const EmploymentHistoryComponent = () => {
   });
 
   return (
-    <form ref={formRef} onSubmit={onSubmit}>
-      <h2 className='text-sm font-bold my-2'>Current or most recent employer</h2>
-      
-      <div className="my-2">
-        <label 
-          htmlFor={`currentEmployment.name`}
-          className={LblClass}>
-          Company Name
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.name ? InputClassError : InputClass}  
-            {...register(`currentEmployment.name`, { required: true })} />
-        </div>
-        {errors.currentEmployment?.name && <p className={InputErrorMsgClass}>Company Name is required</p>}
+    <form
+      className="space-y-12" 
+      ref={formRef} 
+      onSubmit={onSubmit}>
+      <div>
+        <h2 className={Title}>Current or most recent employer</h2>
       </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.address.addressLine1`}
-          className={LblClass}
-        >
-          Address Line 1
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.address?.addressLine1 ? InputClassError : InputClass}  
-            {...register(`currentEmployment.address.addressLine1`, { required: true })} />
+      <div className="space-y-6">
+        <div>
+          <label 
+            htmlFor={`currentEmployment.name`}
+            className={LblClass}>
+            Company Name
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.name ? InputClassError : InputClass}  
+              {...register(`currentEmployment.name`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.name && <p className={InputErrorMsgClass}>Company Name is required</p>}
         </div>
-        {errors.currentEmployment?.address?.addressLine1 && <p className={InputErrorMsgClass}>Address Line 1 is required</p>}
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.address.addressLine2`}
-          className={LblClass}
-        >
-          Address Line 2
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.address?.addressLine2 ? InputClassError : InputClass}  
-            {...register(`currentEmployment.address.addressLine2`)} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.address.addressLine1`}
+            className={LblClass}
+          >
+            Address Line 1
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.address?.addressLine1 ? InputClassError : InputClass}  
+              {...register(`currentEmployment.address.addressLine1`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.address?.addressLine1 && <p className={InputErrorMsgClass}>Address Line 1 is required</p>}
         </div>
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.address.town`}
-          className={LblClass}
-        >
-          Town
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.address?.town ? InputClassError : InputClass}  
-            {...register(`currentEmployment.address.town`, { required: true })} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.address.addressLine2`}
+            className={LblClass}
+          >
+            Address Line 2
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.address?.addressLine2 ? InputClassError : InputClass}  
+              {...register(`currentEmployment.address.addressLine2`)} />
+          </div>
         </div>
-        {errors.currentEmployment?.address?.town && <p className={InputErrorMsgClass}>Town is required</p>}
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.address.county`}
-          className={LblClass}
-        >
-          County
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.address?.county ? InputClassError : InputClass}  
-            {...register(`currentEmployment.address.county`)} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.address.town`}
+            className={LblClass}
+          >
+            Town
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.address?.town ? InputClassError : InputClass}  
+              {...register(`currentEmployment.address.town`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.address?.town && <p className={InputErrorMsgClass}>Town is required</p>}
         </div>
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.address.postcode`}
-          className={LblClass}
-        >
-          Postcode
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.address?.postcode ? InputClassError : InputClass}  
-            {...register(`currentEmployment.address.postcode`, { required: true })} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.address.county`}
+            className={LblClass}
+          >
+            County
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.address?.county ? InputClassError : InputClass}  
+              {...register(`currentEmployment.address.county`)} />
+          </div>
         </div>
-        {errors.currentEmployment?.address?.postcode && <p className={InputErrorMsgClass}>Postcode is required</p>}
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.contact`}
-          className={LblClass}>
-          Contact
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.contact ? InputClassError : InputClass}  
-            {...register(`currentEmployment.contact`, { required: true })} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.address.postcode`}
+            className={LblClass}
+          >
+            Postcode
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.address?.postcode ? InputClassError : InputClass}  
+              {...register(`currentEmployment.address.postcode`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.address?.postcode && <p className={InputErrorMsgClass}>Postcode is required</p>}
         </div>
-        {errors.currentEmployment?.contact && <p className={InputErrorMsgClass}>Contact is required</p>}
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.telephone`}
-          className={LblClass}
-        >
-          Telephone
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.telephone ? InputClassError : InputClass}  
-            {...register(`currentEmployment.telephone`, { required: true })} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.contact`}
+            className={LblClass}>
+            Contact
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.contact ? InputClassError : InputClass}  
+              {...register(`currentEmployment.contact`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.contact && <p className={InputErrorMsgClass}>Contact is required</p>}
         </div>
-        {errors.currentEmployment?.telephone && <p className={InputErrorMsgClass}>Telephone is required</p>}
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.email`}
-          className={LblClass}
-        >
-          Email
-        </label>
-        <div className={InputContainerClass}>
-          <input  
-            type="email"
-            className={errors.currentEmployment?.email ? InputClassError : InputClass}
-            {...register(`currentEmployment.email`, { required: true })} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.telephone`}
+            className={LblClass}
+          >
+            Telephone
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.telephone ? InputClassError : InputClass}  
+              {...register(`currentEmployment.telephone`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.telephone && <p className={InputErrorMsgClass}>Telephone is required</p>}
         </div>
-        {errors.currentEmployment?.email && <p className={InputErrorMsgClass}>Email is required</p>}
-      </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.position`}
-          className={LblClass}
-        >
-          Position
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.position ? InputClassError : InputClass}
-            {...register(`currentEmployment.position`, { required: true })} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.email`}
+            className={LblClass}
+          >
+            Email
+          </label>
+          <div className={InputContainerClass}>
+            <input  
+              type="email"
+              className={errors.currentEmployment?.email ? InputClassError : InputClass}
+              {...register(`currentEmployment.email`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.email && <p className={InputErrorMsgClass}>Email is required</p>}
         </div>
-        {errors.currentEmployment?.position && <p className={InputErrorMsgClass}>Position is required</p>}
-      </div>
 
-      {/* <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.reasonForLeaving`}
-          className={LblClass}
-        >
-          Reason For Leaving
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            className={errors.currentEmployment?.reasonForLeaving ? InputClassError : InputClass}  
-            {...register(`currentEmployment.reasonForLeaving`)} />
+        <div>
+          <label
+            htmlFor={`currentEmployment.position`}
+            className={LblClass}
+          >
+            Position
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="text"
+              className={errors.currentEmployment?.position ? InputClassError : InputClass}
+              {...register(`currentEmployment.position`, { required: true })} />
+          </div>
+          {errors.currentEmployment?.position && <p className={InputErrorMsgClass}>Position is required</p>}
         </div>
-        {errors.currentEmployment?.reasonForLeaving && <p className={InputErrorMsgClass}>Reason For Leaving is required</p>}
-      </div> */}
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.startDate`}
-          className={LblClass}
-        >
-          Start Date
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            type="date"  
-            className={errors.currentEmployment?.startDate ? InputClassError : InputClass}
-            max={new Date().toISOString().split('T')[0]}
-            {...register(`currentEmployment.startDate`, { 
-              onChange: (e) => { 
-                trigger(`currentEmployment.startDate`)
-                trigger(`currentEmployment.endDate`) },
-              required: true,
-              validate: {
-                isBeforeEndDate: (value) => {
-                  const endDate = getValues(`currentEmployment.endDate`);
-                  
-                  if(endDate) {
-                    return isDateBefore(value, getValues(`currentEmployment.endDate`));
+        <div>
+          <label
+            htmlFor={`currentEmployment.startDate`}
+            className={LblClass}
+          >
+            Start Date
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="date"  
+              className={errors.currentEmployment?.startDate ? InputClassError : InputClass}
+              max={new Date().toISOString().split('T')[0]}
+              {...register(`currentEmployment.startDate`, { 
+                onChange: (e) => { 
+                  trigger(`currentEmployment.startDate`)
+                  trigger(`currentEmployment.endDate`) },
+                required: true,
+                validate: {
+                  isBeforeEndDate: (value) => {
+                    const endDate = getValues(`currentEmployment.endDate`);
+                    
+                    if(endDate) {
+                      return isDateBefore(value, getValues(`currentEmployment.endDate`));
+                    }
+
+                    return true;
                   }
-
-                  return true;
+                  //isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
                 }
-                //isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
-              }
-            })} />
+              })} />
+          </div>
+          {errors.currentEmployment?.startDate?.type === 'required' && <p className={InputErrorMsgClass}>Start Date is required</p>}
+          {errors.currentEmployment?.startDate?.type === 'isBeforeEndDate' && <p className={InputErrorMsgClass}>Start Date must be before End Date</p>}
+          {errors.currentEmployment?.startDate?.type === 'isBeforePreviousStartDate' && <p className={InputErrorMsgClass}>Start Date must be before previous Start Date</p>}
         </div>
-        {errors.currentEmployment?.startDate?.type === 'required' && <p className={InputErrorMsgClass}>Start Date is required</p>}
-        {errors.currentEmployment?.startDate?.type === 'isBeforeEndDate' && <p className={InputErrorMsgClass}>Start Date must be before End Date</p>}
-        {errors.currentEmployment?.startDate?.type === 'isBeforePreviousStartDate' && <p className={InputErrorMsgClass}>Start Date must be before previous Start Date</p>}
+
+        <div>
+          <label
+            htmlFor={`currentEmployment.endDate`}
+            className={LblClass}
+          >
+            End Date
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="date"
+              className={errors.currentEmployment?.endDate ? InputClassError : InputClass}
+              max={new Date().toISOString().split('T')[0]}
+              {...register(`currentEmployment.endDate`, { 
+                onChange: (e) => { 
+                  trigger(`currentEmployment.startDate`) 
+                  trigger(`currentEmployment.endDate`) },
+                //required: true,
+                validate: {
+                  isAfterStartDate: async (value) => {
+                    const startDate = getValues(`currentEmployment.startDate`); 
+                    if(startDate && value) {
+                      return isDateAfter(value, getValues(`currentEmployment.startDate`))
+                    }
+                    return true;
+                  },
+                  //isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
+                } 
+              })} />
+          </div>
+          {errors.currentEmployment?.endDate?.type === 'required' && <p className={InputErrorMsgClass}>End Date is required</p>}
+          {errors.currentEmployment?.endDate?.type === 'isAfterStartDate' && <p className={InputErrorMsgClass}>End Date must be after Start Date</p>}
+          {errors.currentEmployment?.endDate?.type === 'isBeforePreviousStartDate' && <p className={InputErrorMsgClass}>End Date must be before previous Start Date</p>}
+        </div>
       </div>
 
-      <div className="my-2">
-        <label
-          htmlFor={`currentEmployment.endDate`}
-          className={LblClass}
-        >
-          End Date
-        </label>
-        <div className={InputContainerClass}>
-          <input
-            type="date"
-            className={errors.currentEmployment?.endDate ? InputClassError : InputClass}
-            max={new Date().toISOString().split('T')[0]}
-            {...register(`currentEmployment.endDate`, { 
-              onChange: (e) => { 
-                trigger(`currentEmployment.startDate`) 
-                trigger(`currentEmployment.endDate`) },
-              //required: true,
-              validate: {
-                isAfterStartDate: async (value) => {
-                  const startDate = getValues(`currentEmployment.startDate`); 
-                  if(startDate && value) {
-                    return isDateAfter(value, getValues(`currentEmployment.startDate`))
-                  }
-                  return true;
-                },
-                //isBeforePreviousStartDate: (value) => getValues(`currentEmployment.startDate`) ? isDateBefore(value, getValues(`currentEmployment.startDate`)) : true
-              } 
-            })} />
-        </div>
-        {errors.currentEmployment?.endDate?.type === 'required' && <p className={InputErrorMsgClass}>End Date is required</p>}
-        {errors.currentEmployment?.endDate?.type === 'isAfterStartDate' && <p className={InputErrorMsgClass}>End Date must be after Start Date</p>}
-        {errors.currentEmployment?.endDate?.type === 'isBeforePreviousStartDate' && <p className={InputErrorMsgClass}>End Date must be before previous Start Date</p>}
+      <div>
+      <h2 className={Title}>Employment History</h2>
+      <p className={Para}>Please list all additional employment, starting with the most recent, including self-employment and periods of voluntary work since leaving full time education.</p>
+      <p className={Para}>Although not all jobs you have held may seem relevant to your application, it is important for you to give as much information as you can as you may have developed transferable skills in the job which you can highlight later in your application. Also, many jobs are subject to a Disclosure and Barring Service (DBS) check and it is important to demonstrate that there are not unexplained gaps in your career.</p>
       </div>
 
-      <h2 className='text-sm font-bold my-2'>Employment History</h2>
-      <p className='text-sm my-2'>Please list all additional employment, starting with the most recent, including self-employment and periods of voluntary work since leaving full time education.</p>
-      <p className='text-sm my-2'>Although not all jobs you have held may seem relevant to your application, it is important for you to give as much information as you can as you may have developed transferable skills in the job which you can highlight later in your application. Also, many jobs are subject to a Disclosure and Barring Service (DBS) check and it is important to demonstrate that there are not unexplained gaps in your career.</p>
-      
       <EmploymentRecords
         {...{ control, register, setValue, getValues, errors, trigger, onAddSection, employmentRecords }} />
 
