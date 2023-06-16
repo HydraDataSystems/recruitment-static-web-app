@@ -10,10 +10,8 @@ export default function NavIndicator() {
     const sectionKeys = [...Object.keys(sections)];
 
     return (
-        <nav className="flex items-center justify-center p-2 bg-gray-50" aria-label="Progress">
-            <p className="text-sm font-medium">
-                {sectionKeys.findIndex((section) => section === currentSection) + 1} of {sectionKeys.length}
-            </p>
+        <nav className="p-2" aria-label="Progress">
+            <div className="flex items-center justify-center">
             <ol className="ml-6 flex items-center space-x-4">
                 {sectionKeys.map((name) => (
                 <li key={name}>
@@ -37,6 +35,10 @@ export default function NavIndicator() {
                 </li>
                 ))}
             </ol>
+            </div>
+            <p className="mt-2 text-center text-xs font-medium text-gray-600">
+                Step {sectionKeys.findIndex((section) => section === currentSection) + 1} of {sectionKeys.length}
+            </p>
         </nav>
     )
 }

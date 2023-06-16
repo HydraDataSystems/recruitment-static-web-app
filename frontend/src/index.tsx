@@ -171,7 +171,7 @@ root.render(
       <div className='bg-gray-50'>
       <div className="container mx-auto sm:px-6 lg:px-8">
         <div className="p-2">
-          <h1 className={`${Title} text-3xl`}>Cascade Application Form</h1>
+          <h1 className={`mt-2 mb-2 font-semibold leading-7 text-gray-900 text-2xl text-center md:text-3xl`}>Cascade Application Form</h1>
         </div>
         <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-6">
           <div className="px-4 py-5 sm:p-6">
