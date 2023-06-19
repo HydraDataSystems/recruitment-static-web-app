@@ -11,6 +11,7 @@ export const CheckboxContainer = "flex items-center mr-2 text-sm font-medium lea
 export const Title = 'mt-1 text-base font-semibold leading-7 text-gray-900';
 export const Subtitle = 'mt-1 text-md leading-6 text-gray-600';
 export const Para = "mt-1 text-sm leading-6 text-gray-600";
+
 export const isDateBefore = (date: Date | string, dateToCompare: Date | string): boolean => {
   if (typeof date === 'string') {
     date = new Date(date);
@@ -30,4 +31,5 @@ export const isDateAfter = (date: Date | string, dateToCompare: Date | string): 
   };
   return date.getTime() > dateToCompare.getTime();
 }
+
 

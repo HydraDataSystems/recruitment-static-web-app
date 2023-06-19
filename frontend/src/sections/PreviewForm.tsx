@@ -1,12 +1,13 @@
 import { Fragment, useState, ChangeEvent } from 'react';
 import { PDFViewer, pdf, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
-import { useStateMachine } from 'little-state-machine';
+import useFormState from "../hooks/useFormState";
 import { Section, SectionRow } from '../PreviewPDF';
 import { Address } from '../global';
 import { createEntry } from '../service';
+import { Btn, LblClass, Title, Para } from '../helpers';
 
 const PreviewForm = () => {
-  const { state } = useStateMachine();
+  const { state, clearForm } = useFormState();
 
   const styles = StyleSheet.create({
     page: {
@@ -55,6 +56,10 @@ const PreviewForm = () => {
   });
 
   const [cv, setCv] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [noCv, setNoCv] = useState<boolean>(false);
+  const [isSubmittingError, setIsSubmittingError] = useState<boolean>(false);
+  const [isSubmittingSuccess, setIsSubmittingSuccess] = useState<boolean>(false);
 
   const getAddress = (address: Address) => 
     `${address.addressLine1}, ${address.addressLine2}, ${address.town}, ${address.county}, ${address.postcode}`;
@@ -307,26 +312,121 @@ const PreviewForm = () => {
   );
 
   const submitApplication = async () => {
+    if (!cv) {
+      setNoCv(true);
+      window.scrollTo(0, 0);
+      return;
+    } else {
+      setNoCv(false);
+    }
+
+    setIsSubmitting(true);
     const subjectPDF = pdf(renderDoc());
     const blob = await subjectPDF.toBlob();
     const file = new File([blob], `${state.sections.personalDetails.firstName}-${state.sections.personalDetails.lastName}-application.pdf`, {lastModified: (new Date()).getTime()});
     
-    createEntry(state, file, cv);
+    const response = await createEntry(state, file, cv);
+    console.log(response);
+    if(response !== "SUCCESS") {
+      setIsSubmittingError(true);
+      window.scrollTo(0, 0);
+    } else {
+      setIsSubmittingError(false);
+      setIsSubmittingSuccess(true);
+      clearForm();
+      window.scrollTo(0, 0);
+    }
+
+    setIsSubmitting(false);
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
+    setNoCv(false);
     setCv(file);
   }
 
 
   return (
     <>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={() => submitApplication()}>Submit Your Application</button>
-      <PDFViewer width={`100%`} height={`1000px`}>
-        {renderDoc()}
-      </PDFViewer>
+      {isSubmitting && (
+        <>
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div className="inline-block">
+              <div
+                className="h-12 w-12 animate-spin ml-auto mr-auto mb-2 rounded-full border-4 border-solid border-white border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status">
+              </div>
+              <span className="text-white font-bold text-lg">Submitting Application...</span>
+            </div>
+          </div>
+        </div>
+        </>
+      )}
+
+      {isSubmittingError && (
+        <>
+          <div className="space-y-12">
+            <div>
+              <h2 className={Title}>Error Submitting Application</h2>
+              <p className={`${Para} text-red-600`}>There was an error submitting your application.</p>
+              <p className={Para}>
+                Please download the application form from the PDF viewer and email your submission
+                along with your CV to: <a href="mailto:">someone@cascade-care.com</a>
+              </p>
+            </div>
+            <PDFViewer width={`100%`} height={`1000px`}>
+            {renderDoc()}
+          </PDFViewer>
+          </div>
+        </>
+      )}
+
+      {isSubmittingSuccess && (
+        <>
+          <div className="space-y-12">
+            <div>
+              <h2 className={Title}>Application Submitted</h2>
+              <p className={Para}>
+                Thank you for submitting your application. We will be in touch shortly.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {!isSubmittingError && !isSubmittingSuccess && (
+      <div className='space-y-12'>
+      
+        <div>
+          <h2 className={Title}>Preview and Submit Your Application</h2>
+        </div>
+
+        
+        <div>
+          <label
+            htmlFor="cv" 
+            className={LblClass}>Your CV</label>
+          <input 
+            id="cv"
+            className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-indigo-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:text-white file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-indigo-600 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-indigo-500 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+            type="file" onChange={handleFileChange} />
+          {noCv && (
+            <p className="text-red-600">Please upload your CV</p>
+          )}
+        </div>
+        
+        <PDFViewer width={`100%`} height={`1000px`}>
+          {renderDoc()}
+        </PDFViewer>
+
+        <button
+          className={Btn} 
+          onClick={() => submitApplication()}>Submit Your Application</button>
+      </div>
+      )}
     </>
   );
 }

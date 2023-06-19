@@ -14,6 +14,6 @@ export async function createEntry(data: GlobalState, pdf: File, cv: File | null)
         method: 'POST',
         body: formData,
     });
-
-    return await response.json();
+    
+    return await response.text();
 }

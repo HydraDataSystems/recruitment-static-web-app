@@ -40,11 +40,7 @@ const sendFile = async (file: Buffer, fileName: string, toItem: number, colId: s
         body: payload,
     };
 
-    await fetch(url, options)
-        .then(res => res.json())
-        .then(json => console.log(json));
-
-    return;
+    return await fetch(url, options)
 }
 
 const createItem = async (firstName: string, lastName: string): Promise<number> => {
@@ -84,12 +80,35 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     const itemId = await createItem(firstName, lastName);
 
-    await sendFile(content, pdfFile.filename, itemId, "files");
-    await sendFile(contentCV, cvFile.filename, itemId, "files6");
+    let formResponse;
+    let cvResponse;
 
-    context.res = {
-        body: "Item may have been created and file might of been sent, add error handling to be sure.",
-    };
+    try {
+        formResponse = await sendFile(content, pdfFile.filename, itemId, "files");
+    } catch (error) {
+        context.res = {
+            body: "Error sending Application Form to monday.com",
+        };
+    }
+
+    try {
+        cvResponse = await sendFile(contentCV, cvFile.filename, itemId, "files6");
+    } catch (error) {
+        context.res = {
+            body: "Error sending CV to monday.com",
+        };
+    }
+    
+
+    if(formResponse.ok && cvResponse.ok) {
+        context.res = {
+            body: "SUCCESS",
+        };
+    } else {
+        context.res = {
+            body: "Something went wrong with the upload",
+        };
+    }   
 }
 
 export default httpTrigger;

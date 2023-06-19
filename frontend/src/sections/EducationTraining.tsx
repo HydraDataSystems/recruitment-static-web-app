@@ -127,7 +127,7 @@ const EducationTrainingComponent = () => {
           <li className='space-y-6 p-2 border border-gray-200 bg-gray-50 rounded relative' key={item.id}>
             <button
               title="Remove Education"
-              className={`p-2 w-8 text-white font-bold rounded bg-red-600 hover:bg-red-500 top-0 right-0 absolute`} 
+              className={`p-2 w-8 text-white font-bold rounded bg-red-600 hover:bg-red-500 top-2 right-2 absolute`} 
               type="button" 
               onClick={() => removeEducation(index)}>X</button>
             <div>
@@ -208,7 +208,7 @@ const EducationTrainingComponent = () => {
           <li className='space-y-6 p-2 border border-gray-200 bg-gray-50 rounded relative' key={item.id}>
             <button
               title="Remove Training"
-              className={`p-2 w-8 text-white font-bold rounded bg-red-600 hover:bg-red-500 top-0 right-0 absolute`}
+              className={`p-2 w-8 text-white font-bold rounded bg-red-600 hover:bg-red-500 top-2 right-2 absolute`}
               type="button"
               onClick={() => removeTraining(index)}>X</button>
             

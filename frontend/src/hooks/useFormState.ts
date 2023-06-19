@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
-import { updateSection, updateEmploymentHistorySection, onMountSection } from "../actions";
+import { updateSection, updateEmploymentHistorySection, onMountSection, clearForm } from "../actions";
 import { SECTION_ROUTES, SECTION_ORDER } from "../constants";
 
 function useFormState() {
@@ -11,6 +11,7 @@ function useFormState() {
   const navigate = useNavigate();
 
   const { actions, state } = useStateMachine({ 
+    clearForm,
     updateSection, 
     updateEmploymentHistorySection, 
     onMountSection 
@@ -44,6 +45,7 @@ function useFormState() {
   }
 
   return {
+    clearForm: actions.clearForm,
     updateSection: actions.updateSection,
     updateEmploymentHistorySection: actions.updateEmploymentHistorySection,
     onMountSection: actions.onMountSection,
