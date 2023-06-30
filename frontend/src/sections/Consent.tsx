@@ -57,8 +57,7 @@ const ConsentComponent = () => {
         </p>
         <p className={Para}>
           You can ask us to stop using your personal data in this way at any time by speaking
-          to Mr Peter Stillings or by emailing us at <a className="text-indigo-700 hover:text-indigo-500" href="mailto:peter@cascade-care.com">peter@cascade-care.com</a>
-          , or Tony Palmer <a className="text-indigo-700 hover:text-indigo-500" href="mailto:tonyp@cascade-care.com">tonyp@cascade-care.com</a>, or you can speak with your homes manager.
+          to your Homes Manager. 
         </p>
       </div>
       <div>
