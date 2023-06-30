@@ -53,6 +53,7 @@ const EducationTrainingComponent = () => {
     <form className="space-y-12" onSubmit={onSubmit}>
       <div> 
         <h2 className={Title}>Education</h2>
+        <p className={Para}>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role. Your entries will be ordered by the most recent first.</p>
       </div>
 
       <div className="space-y-6">
@@ -119,7 +120,7 @@ const EducationTrainingComponent = () => {
           )}
         </>
       )} 
-      <p className={Para}>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role. Your entries will be ordered by the most recent first.</p>
+      
       {education.length < 1 && <h3>No Education to report.</h3>}
       
       <ul className="space-y-6">
@@ -153,7 +154,7 @@ const EducationTrainingComponent = () => {
               </label>
               <div className={InputContainerClass}>
                 <input
-                  type="date"
+                  type="month"
                   className={errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.startDate ? InputClassError : InputClass}
                   {...register(`educationRecords.${index}.startDate`, { required: true })} />
               </div>
@@ -168,7 +169,7 @@ const EducationTrainingComponent = () => {
               </label>
               <div className={InputContainerClass}>
                 <input
-                  type="date"
+                  type="month"
                   className={errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.endDate ? InputClassError : InputClass}
                   {...register(`educationRecords.${index}.endDate`, { required: true })}
                 />
@@ -200,8 +201,10 @@ const EducationTrainingComponent = () => {
         type="button" 
         onClick={() => appendEducation({ establishment: '', qualification: '', startDate: '', endDate: '' })}>Add Education</button>
 
-      <h2 className={Title}>Training</h2>
-      <p className={Para}>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role.</p>
+      <div>
+        <h2 className={Title}>Training</h2>
+        <p className={Para}>If you are shortlisted for an interview you will be asked to provide evidence of your qualifications relevant to the role. If you have no additional training to add, you can remove this field by clicking the red "x".</p>
+      </div>
       {training.length < 1 && <h3>No Training to report.</h3>}
       <ul className="space-y-6">
         {training.map((item, index) => (
@@ -236,7 +239,7 @@ const EducationTrainingComponent = () => {
               </label>
               <div className={InputContainerClass}>
                 <input
-                  type="date"
+                  type="month"
                   className={errors.trainingRecords && errors.trainingRecords[index] && errors.trainingRecords[index]?.startDate ? InputClassError : InputClass}
                   {...register(`trainingRecords.${index}.startDate`, { required: true })}
                 />
@@ -252,7 +255,7 @@ const EducationTrainingComponent = () => {
               </label>
               <div className={InputContainerClass}>
                 <input
-                  type="date"
+                  type="month"
                   className={errors.trainingRecords && errors.trainingRecords[index] && errors.trainingRecords[index]?.endDate ? InputClassError : InputClass}
                   {...register(`trainingRecords.${index}.endDate`, { required: true })}
                 />

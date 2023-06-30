@@ -100,7 +100,7 @@ const RefereesComponent = () => {
     e.preventDefault();
     
     if(!requiredEntries()) {
-      return setFormRequirements('Please review form requirements, 2 character references or 2 professional references and 1 character reference are required');
+      return setFormRequirements('2 professional references and 1 character reference are required. If you are unable to provide 2 professional references, please provide 1 professional reference and 2 character references. Character references must not be a family member.');
     };
 
     handleSubmit((data) => {
@@ -449,7 +449,8 @@ const RefereesComponent = () => {
         <button
           className={Btn}
           type="button" onClick={() => { 
-            append(defaultReference) 
+            append(defaultReference)
+            setClicked(watchEntries.length); 
           }}>
           Add Reference
         </button>

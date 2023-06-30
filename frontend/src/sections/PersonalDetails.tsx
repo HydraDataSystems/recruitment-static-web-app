@@ -13,7 +13,8 @@ import {
   InputClass, 
   InputClassError,
   InputErrorMsgClass,
-  Btn
+  Btn,
+  Para
  } from '../helpers';
 
 const PersonalDetailsComponent = () => {
@@ -58,6 +59,7 @@ const PersonalDetailsComponent = () => {
     <form className='space-y-12' onSubmit={onSubmit}>
       <div>
         <h2 className={Title}>Personal Details</h2>
+        <p className={Para}>To facilitate a smooth application process, please provide the requested information about yourself.</p>
       </div>
 
       <div className='space-y-6'>
@@ -131,7 +133,7 @@ const PersonalDetailsComponent = () => {
                   <input
                     type="text"
                     className={errors.otherNamesDetails && errors.otherNamesDetails[index] && errors.otherNamesDetails[index]?.firstName ? InputClassError : InputClass}
-                    {...register(`otherNamesDetails.${index}.firstName`, { required: true })} />
+                    {...register(`otherNamesDetails.${index}.firstName`)} />
                 </div>
                 {errors.otherNamesDetails && errors.otherNamesDetails[index] && errors.otherNamesDetails[index]?.firstName && <p className={InputErrorMsgClass}>First Name is required</p>}
               </div>
@@ -570,8 +572,8 @@ const PersonalDetailsComponent = () => {
                 className={errors.licenceType ? SelectClassError : SelectClass}
                 {...register('licenceType', { required: true })}>
                   <option value="" disabled>Please Select</option>
-                  <option value="FULL">Full</option>
-                  <option value="PROVISIONAL">Provisional</option>
+                  <option value="FULL">UK Full</option>
+                  <option value="PROVISIONAL">UK Provisional</option>
                   <option value="OTHER">Other</option>
               </select>
             </div>

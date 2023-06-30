@@ -34,6 +34,7 @@ import {
 
 interface EmploymentRecordsProps {
   control: Control<EmploymentHistory>;
+  watch: any;
   register: UseFormRegister<EmploymentHistory>;
   setValue: UseFormSetValue<EmploymentHistory>;
   getValues: UseFormGetValues<EmploymentHistory>;
@@ -65,8 +66,8 @@ const EmploymentRecords = ({
     control, 
     register, 
     trigger, 
+    watch,
     setValue, 
-    getValues, 
     onAddSection, 
     employmentRecords, 
     errors
@@ -84,6 +85,8 @@ const EmploymentRecords = ({
     control,
     name: 'employmentRecords'
   });
+
+  const employmentEntries = watch('employmentRecords');
 
   useEffect(() => {
     if(employmentRecords.length > 0) {
@@ -358,6 +361,7 @@ const EmploymentRecords = ({
         type="button" onClick={() => { 
           onAddSection()
           append(defaultEmploymentRecord) 
+          setClicked(employmentEntries.length);
         }}>
         Add Employment Record
       </button>
@@ -379,6 +383,7 @@ const EmploymentHistoryComponent = () => {
     handleSubmit, 
     getValues,
     setValue,
+    watch,
     trigger,
     formState: { errors, isValid, isSubmitSuccessful } } = useForm<EmploymentHistory>({ defaultValues: {
       currentEmployment: state.sections.employmentHistory.currentEmployment,
@@ -418,6 +423,7 @@ const EmploymentHistoryComponent = () => {
       onSubmit={onSubmit}>
       <div>
         <h2 className={Title}>Current or most recent employer</h2>
+        <p className={Para}>Please provide details about your current or most recent employer. This information will help us understand your professional background and experience.</p>
       </div>
 
       <div className="space-y-6">
@@ -655,7 +661,7 @@ const EmploymentHistoryComponent = () => {
       </div>
 
       <EmploymentRecords
-        {...{ control, register, setValue, getValues, errors, trigger, onAddSection, employmentRecords }} />
+        {...{ control, register, setValue, getValues, errors, trigger, onAddSection, employmentRecords, watch }} />
 
       <div className="my-2">
         <button

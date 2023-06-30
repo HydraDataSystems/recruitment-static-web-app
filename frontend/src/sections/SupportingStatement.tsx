@@ -62,7 +62,7 @@ const SupportingStatementComponent = () => {
       <label
         htmlFor="care"
         className={LblClass}>
-        <strong>Care</strong> For &amp; respect yourself, your peers &amp; the environment.
+        <strong className="text-lg font-bold mr-4">Care</strong> For &amp; respect yourself, your peers &amp; the environment.
       </label>
       <div className={InputContainerClass}>
         <textarea
@@ -78,7 +78,7 @@ const SupportingStatementComponent = () => {
         <label
           htmlFor="achieve"
           className={LblClass}>
-          <strong>Achieve</strong> Beyond previous expectations &amp; compete for equality.
+          <strong className="text-lg font-bold mr-4">Achieve</strong> Beyond previous expectations &amp; compete for equality.
         </label>
         <div className={InputContainerClass}>
           <textarea
@@ -94,7 +94,7 @@ const SupportingStatementComponent = () => {
         <label
           htmlFor="safe"
           className={LblClass}>
-          <strong>Safe</strong> Keep everyonse safe, take positive &amp; appropriate risks.
+          <strong className="text-lg font-bold mr-4">Safe</strong> Keep everyonse safe, take positive &amp; appropriate risks.
         </label>
         <div className={InputContainerClass}>
           <textarea
@@ -110,7 +110,7 @@ const SupportingStatementComponent = () => {
         <label
           htmlFor="consistent"
           className={LblClass}>
-          <strong>Consistent</strong> Establish clear channels of communication to enable consistency.
+          <strong className="text-lg font-bold mr-4">Consistent</strong> Establish clear channels of communication to enable consistency.
         </label>
         <div className={InputContainerClass}>
           <textarea
@@ -126,7 +126,7 @@ const SupportingStatementComponent = () => {
         <label
           htmlFor="active"
           className={LblClass}>
-          <strong>Active</strong> Be active &amp; have a healthy approach to everything we do.
+          <strong className="text-lg font-bold mr-4">Active</strong> Be active &amp; have a healthy approach to everything we do.
         </label>
         <div className={InputContainerClass}>
           <textarea
@@ -142,7 +142,7 @@ const SupportingStatementComponent = () => {
         <label
           htmlFor="diverse"
           className={LblClass}>
-          <strong>Diverse</strong> Embrace uniqueness &amp; engage in the diversity of British values.
+          <strong className="text-lg font-bold mr-4">Diverse</strong> Embrace uniqueness &amp; engage in the diversity of British values.
         </label>
         <div className={InputContainerClass}>
           <textarea
@@ -158,7 +158,7 @@ const SupportingStatementComponent = () => {
         <label
           htmlFor="enjoy"
           className={LblClass}>
-          <strong>Enjoy</strong> Living, learning &amp; challenging ourselves.
+          <strong className="text-lg font-bold mr-4">Enjoy</strong> Living, learning &amp; challenging ourselves.
         </label>
         <div className={InputContainerClass}>
           <textarea

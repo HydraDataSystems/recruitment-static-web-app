@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import useFormState from '../hooks/useFormState';
 import { Position } from '../global';
 import { 
+  Title,
   LblClass, 
   SelectClass, 
   SelectClassError, 
@@ -44,7 +45,7 @@ const PositionComponent = () => {
   return (
     <form className="space-y-12" onSubmit={onSubmit}>
       <div>
-        <h2 className='text-base font-semibold leading-7 text-gray-900'>Position</h2>
+        <h2 className={Title}>Position</h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">Please note that no applicant will be unfairly discriminated against. This includes discrimination on account of age, cultural, religious political belief, disability, ethnicity, gender, race, relationship status, sexual orientation, and or Trade Union membership or stewardship.</p>
         <p className="mt-1 text-sm leading-6 text-gray-600">If you have any special requirements to support you to complete this form (e.g. the need for large print or additional time) please contact the <a href="https://cascade-care.com/our-team">Registered Manager.</a></p>
       </div>
@@ -156,7 +157,7 @@ const PositionComponent = () => {
             htmlFor='workingPattern'
             className={LblClass}
           >
-            What's your preffered working pattern?
+            What's your preferred working pattern?
           </label>
           <div className={InputContainerClass}>
           <select
