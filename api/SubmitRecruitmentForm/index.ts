@@ -66,17 +66,20 @@ const createItem = async (firstName: string, lastName: string): Promise<number> 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
     const { fields, files } = await parseMultipartFormData(req);
-    const firstName = fields.filter(field => field.name === "firstName")[0].value;
-    const lastName = fields.filter(field => field.name === "lastName")[0].value;
+    const firstName = fields.filter(field => field.name === "firstName")[0].value ?? "unassigned";
+    const lastName = fields.filter(field => field.name === "lastName")[0].value ?? "unassigned";
 
     let pdfFile = files.filter(file => file.name === "pdf")[0];
     let cvFile = files.filter(file => file.name === "cv")[0];
 
     await fs.writeFile(path.join(os.tmpdir(), pdfFile.filename), pdfFile.bufferFile);
-    await fs.writeFile(path.join(os.tmpdir(), cvFile.filename), cvFile.bufferFile);
+
+    if(cvFile) {
+        await fs.writeFile(path.join(os.tmpdir(), cvFile.filename), cvFile.bufferFile);
+    }
 
     const content = await fs.readFile(path.join(os.tmpdir(), pdfFile.filename));
-    const contentCV = await fs.readFile(path.join(os.tmpdir(), cvFile.filename));
+    const contentCV = cvFile ? await fs.readFile(path.join(os.tmpdir(), cvFile.filename)) : null;
 
     const itemId = await createItem(firstName, lastName);
 
@@ -91,14 +94,17 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
     }
 
-    try {
-        cvResponse = await sendFile(contentCV, cvFile.filename, itemId, "files6");
-    } catch (error) {
-        context.res = {
-            body: "Error sending CV to monday.com",
-        };
+    if(contentCV !== null) {
+        try {
+            cvResponse = await sendFile(contentCV, cvFile.filename, itemId, "files6");
+        } catch (error) {
+            context.res = {
+                body: "Error sending CV to monday.com",
+            };
+        }
+    } else {
+        cvResponse = { ok: true };
     }
-    
 
     if(formResponse.ok && cvResponse.ok) {
         context.res = {
