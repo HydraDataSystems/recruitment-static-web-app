@@ -29,7 +29,7 @@ const EmploymentGapsComponent = () => {
   
   const defaultValues:Omit<EmploymentGaps, "status"> = {
     employmentOverlap: [...employmentOverlapCapture],
-    acknowledgedOverlap: employmentGaps.acknowledgedOverlap,
+    acknowledgedOverlap: employmentGaps.acknowledgedOverlap ?? "NO",
     currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture,
     currentEmploymentToApplicationGapReason: '',
     placements: employmentGapsCapture.map((employmentGap) => 

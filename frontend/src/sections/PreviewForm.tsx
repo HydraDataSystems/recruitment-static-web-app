@@ -205,13 +205,18 @@ const PreviewForm = () => {
       </View>
 
       <Section title="Employment Overlap">
-        {state.sections.employmentGaps.employmentOverlap.length ? state.sections.employmentGaps.employmentOverlap.map((overlap, index) => (
-          <Fragment key={`overlap-${index}`}>
-            <SectionRow title={`From ${overlap.startDate} to ${overlap.endDate} there was overlap in your employment at these locations: ${overlap.placesOfEmployment.join(", ")}`} />
-          </Fragment>
-        )) : <SectionRow title={`No employment overlap`}>No Employment Overlap</SectionRow>}
+        <>
+          {state.sections.employmentGaps.employmentOverlap.length ? state.sections.employmentGaps.employmentOverlap.map((overlap, index) => (
+            <Fragment key={`overlap-${index}`}>
+              <SectionRow title={`From ${overlap.startDate} to ${overlap.endDate} there was overlap in your employment at these locations.`}>{overlap.placesOfEmployment.join(", ")}</SectionRow>
+            </Fragment>
+          )) : <SectionRow title={`No employment overlap`}>No Employment Overlap</SectionRow>}
+          {state.sections.employmentGaps.employmentOverlap && (
+            <SectionRow title={`I acknowledge that I have indicated that I have overlapping employment.`}>{state.sections.employmentGaps.acknowledgedOverlap}</SectionRow>
+          )}
+        </>
       </Section>
-      
+
       <Section title="Employment Gaps">
         {state.sections.employmentGaps.placements.length ? state.sections.employmentGaps.placements.map((placement, index) => (
           <Fragment key={`placement-${index}`}>
