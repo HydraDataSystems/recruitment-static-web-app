@@ -82,12 +82,18 @@ export type EmploymentHistory = {
   employmentRecords: Array<EmploymentRecord>;
   employmentGaps: Array<EmploymentGap>;
   employmentOverlap: Array<EmploymentOverlap>;
+  educationToEmploymentGap: number | null;
+  currentEmploymentToApplicationGap: number | null;
   status: SectionStatus;
 }
 
 export type EmploymentGaps = {
   employmentOverlap: Array<EmploymentOverlap>;
   placements: Array<EmploymentGapReason>;
+  educationToEmploymentGap: number | null;
+  educationToEmploymentGapReason: string;
+  currentEmploymentToApplicationGap: number | null;
+  currentEmploymentToApplicationGapReason: string;
   status: SectionStatus;
 }
 

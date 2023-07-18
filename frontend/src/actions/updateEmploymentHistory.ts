@@ -1,6 +1,7 @@
 import { GlobalState } from "little-state-machine";
 import { EmploymentGap, EmploymentOverlap, EmploymentHistory, EmploymentRecord, SectionStatus } from '../global';
 import { MIN_EMPLOYMENT_GAP_IN_DAYS } from '../constants';
+import { get } from "react-hook-form";
 export default function updateEmploymentHistorySection(state: GlobalState, payload: EmploymentHistory) {
   const currentEmployment = payload.currentEmployment;
   const employmentRecords = payload.employmentRecords;
@@ -103,9 +104,54 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
     return overlaps;
   }
 
+  function getCurrentEmploymentToApplicationGap(currentEmployment: EmploymentRecord) {
+    if(currentEmployment.endDate !== '') {
+      const today = new Date();
+      const currentEmploymentEndDate = new Date(currentEmployment.endDate);
+      const gapInDays = Math.round((today.getTime() - currentEmploymentEndDate.getTime()) / (1000 * 3600 * 24));
+      return gapInDays >= MIN_EMPLOYMENT_GAP_IN_DAYS ? gapInDays : null;
+    } else {
+      return null;
+    }
+  }
+
+  function getEducationToEmploymentGap(state: GlobalState) {
+    let latestEducationDate: number = 0;
+    let firstEmploymentDate: number = (new Date()).getTime();
+
+    state.sections.educationTraining.educationRecords.forEach((record) => {
+      if(record.endDate !== '') {
+        const endDate = new Date(record.endDate).getTime();
+        if(endDate > latestEducationDate) {
+          latestEducationDate = endDate;
+        }
+      }
+    });
+
+    state.sections.employmentHistory.employmentRecords.forEach((record) => {
+      if(record.startDate !== '') {
+        const startDate = new Date(record.startDate).getTime();
+        if(startDate < firstEmploymentDate) {
+          firstEmploymentDate = startDate;
+        }
+      }
+    });
+
+    if(latestEducationDate > 0 && firstEmploymentDate > 0) {
+      const gapInDays = Math.round((firstEmploymentDate - latestEducationDate) / (1000 * 3600 * 24));
+      return gapInDays >= MIN_EMPLOYMENT_GAP_IN_DAYS ? gapInDays : null;
+    } else {
+      return null;
+    }
+  }
+
+
+
   const groupedRecords = groupOverlappingDates(sortedRecords);
   const gaps = getGapsFromGroupedRecords(groupedRecords);
   const overlaps = getOverlapFromGroupedRecords(groupedRecords);
+  const currentEmploymentToApplicationGap = getCurrentEmploymentToApplicationGap(currentEmployment);
+  const educationToEmploymentGap = getEducationToEmploymentGap(state);
 
   return {
     ...state,
@@ -114,6 +160,8 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
       employmentHistory: {
         currentEmployment: { ...payload.currentEmployment }, //state.sections.employmentHistory.currentEmployment,
         employmentRecords: [...payload.employmentRecords],
+        educationToEmploymentGap: educationToEmploymentGap,
+        currentEmploymentToApplicationGap: currentEmploymentToApplicationGap,
         employmentGaps: [...gaps],
         employmentOverlap: [...overlaps],
         status: "COMPLETE" as SectionStatus

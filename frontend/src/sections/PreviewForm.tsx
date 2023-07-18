@@ -199,6 +199,23 @@ const PreviewForm = () => {
           </Fragment>
         )) : <SectionRow title={`No employment gaps`}>No Employment Gaps</SectionRow>}
       </Section>
+      <Section title="Employment Overlap">
+        {state.sections.employmentGaps.employmentOverlap.length ? state.sections.employmentGaps.employmentOverlap.map((overlap, index) => (
+          <Fragment key={`overlap-${index}`}>
+            <SectionRow title={`From ${overlap.startDate} to ${overlap.endDate} there was overlap in your employment at these locations: ${overlap.placesOfEmployment.join(", ")}`} />
+          </Fragment>
+        )) : <SectionRow title={`No employment overlap`}>No Employment Overlap</SectionRow>}
+      </Section>
+      <Section title="Current Employment to Application Gap">
+        {state.sections.employmentGaps.currentEmploymentToApplicationGap && state.sections.employmentGaps.currentEmploymentToApplicationGap > 0 && (
+          <SectionRow title={`Between leaving your current employment and applying for this job there is a gap of ${state.sections.employmentGaps.currentEmploymentToApplicationGap} days. Please explain why?`}>{state.sections.employmentGaps.currentEmploymentToApplicationGapReason}</SectionRow>
+        )}
+      </Section>
+      <Section title="Education to Employment Gap">
+        {state.sections.employmentGaps.educationToEmploymentGap && state.sections.employmentGaps.educationToEmploymentGap > 0 && (
+          <SectionRow title={`Between leaving education and starting employment there is a gap of ${state.sections.employmentGaps.educationToEmploymentGap} days. Please explain why?`}>{state.sections.employmentGaps.educationToEmploymentGapReason}</SectionRow>
+        )}
+      </Section>
     </Page>
 
   const PDFPage6 = () =>
@@ -323,9 +340,9 @@ const PreviewForm = () => {
         <Text style={styles.pageTitle}>Social Media and Consent</Text>
       </View>
       <Section title="Social Media and Consent">
-        <SectionRow title="Pre-screen of Social Media">{state.sections.consent.prescreen}</SectionRow>
-        <SectionRow title="ASDAN">{state.sections.consent.asdan}</SectionRow>
-        <SectionRow title="Social Media (Twitter, Facebook)">{state.sections.consent.social}</SectionRow>
+        <SectionRow title="Pre-screen of Social Media">{state.sections.consent.prescreen === "YES" ? "Yes" : "No"}</SectionRow>
+        <SectionRow title="ASDAN">{state.sections.consent.asdan === "YES" ? "Yes" : "No"}</SectionRow>
+        <SectionRow title="Social Media (Twitter, Facebook)">{state.sections.consent.social === "YES" ? "Yes" : "No"}</SectionRow>
       </Section>
     </Page>
 

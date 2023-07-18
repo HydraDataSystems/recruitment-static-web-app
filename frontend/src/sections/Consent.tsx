@@ -74,7 +74,7 @@ const ConsentComponent = () => {
               className="mr-2 leading-tight"
               type="checkbox"
               value="YES"
-              {...register("prescreen", { required: true })} />
+              {...register("prescreen")} />
             Pre-screen of Social Media
           </label>
           {errors.prescreen && <p className={InputErrorMsgClass}>This field is required</p>}
@@ -91,7 +91,7 @@ const ConsentComponent = () => {
               className="mr-2 leading-tight"
               type="checkbox"
               value="YES"
-              {...register("asdan", { required: true })} />
+              {...register("asdan")} />
             ASDAN
           </label>
           {errors.asdan && <p className={InputErrorMsgClass}>This field is required</p>}
@@ -105,7 +105,7 @@ const ConsentComponent = () => {
               className="mr-2 leading-tight"
               type="checkbox"
               value="YES"
-              {...register("social", { required: true })} />
+              {...register("social")} />
             Social Media (Twitter, Facebook)
           </label>
           {errors.social && <p className={InputErrorMsgClass}>This field is required</p>}

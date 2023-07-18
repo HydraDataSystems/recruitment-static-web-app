@@ -217,7 +217,7 @@ const EmploymentRecords = ({
               <label
                 htmlFor={`employmentRecords.${index}.contact`}
                 className={LblClass}>
-                Contact
+                Contact Name
               </label>
               <div className={InputContainerClass}>
                 <input
@@ -265,7 +265,7 @@ const EmploymentRecords = ({
                 htmlFor={`employmentRecords.${index}.position`}
                 className={LblClass}
               >
-                Position
+                Position Held
               </label>
               <div className={InputContainerClass}>
                 <input
@@ -524,7 +524,7 @@ const EmploymentHistoryComponent = () => {
           <label
             htmlFor={`currentEmployment.contact`}
             className={LblClass}>
-            Contact
+            Contact Name
           </label>
           <div className={InputContainerClass}>
             <input
@@ -572,7 +572,7 @@ const EmploymentHistoryComponent = () => {
             htmlFor={`currentEmployment.position`}
             className={LblClass}
           >
-            Position
+            Position Held
           </label>
           <div className={InputContainerClass}>
             <input

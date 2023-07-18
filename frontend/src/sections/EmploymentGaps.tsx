@@ -16,10 +16,23 @@ const EmploymentGapsComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
 
-  const { sections : { employmentGaps, employmentHistory: { employmentGaps: employmentGapsCapture, employmentOverlap: employmentOverlapCapture } } } = state;
+  const { sections : 
+    { employmentGaps, employmentHistory: 
+      { 
+        employmentGaps: employmentGapsCapture, 
+        employmentOverlap: employmentOverlapCapture, 
+        currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture,
+        educationToEmploymentGap: educationToEmploymentGapCapture
+      } 
+    } 
+  } = state;
   
   const defaultValues:Omit<EmploymentGaps, "status"> = {
     employmentOverlap: [...employmentOverlapCapture],
+    currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture,
+    currentEmploymentToApplicationGapReason: '',
+    educationToEmploymentGap: educationToEmploymentGapCapture,
+    educationToEmploymentGapReason: '',
     placements: employmentGapsCapture.map((employmentGap) => 
       ({
         leaving: employmentGap.nameA,
@@ -88,6 +101,38 @@ const EmploymentGapsComponent = () => {
           ))}
         </ul>
       </div>
+
+      {currentEmploymentToApplicationGapCapture && currentEmploymentToApplicationGapCapture > 0 && (
+        <div>
+          <label
+            htmlFor='currentEmploymentToApplicationGapReason'
+            className={LblClass}>
+            {`Between leaving your current employment and applying for this job there is a gap of ${currentEmploymentToApplicationGapCapture} days. Please explain why`}</label>
+          <div className={InputContainerClass}>
+            <textarea
+              defaultValue={employmentGaps.currentEmploymentToApplicationGapReason}
+              className={errors.currentEmploymentToApplicationGapReason ? InputClassError : InputClass}
+              {...register('currentEmploymentToApplicationGapReason', { required: true })} />
+          </div>
+          {errors.currentEmploymentToApplicationGapReason && <p className={InputErrorMsgClass}>This field is required</p>}
+        </div>
+      )}
+
+      {educationToEmploymentGapCapture && educationToEmploymentGapCapture > 0 && (
+        <div>
+          <label
+            htmlFor='educationToEmploymentGapReason'
+            className={LblClass}>
+            {`Between leaving education and starting employment there is a gap of ${educationToEmploymentGapCapture} days. Please explain why`}</label>
+          <div className={InputContainerClass}>
+            <textarea
+              defaultValue={employmentGaps.educationToEmploymentGapReason}
+              className={errors.educationToEmploymentGapReason ? InputClassError : InputClass}
+              {...register('educationToEmploymentGapReason', { required: true })} />
+          </div>
+          {errors.educationToEmploymentGapReason && <p className={InputErrorMsgClass}>This field is required</p>}
+        </div>
+      )}
       <button
         className={Btn}
         onSubmit={onSubmit}

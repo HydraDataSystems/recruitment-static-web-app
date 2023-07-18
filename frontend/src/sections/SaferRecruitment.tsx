@@ -51,9 +51,9 @@ const SaferRecruitmentComponent = () => {
           (We cannot estimate the exact time period, but we will consider this period over when a candidate accepts our job offer for the position for which we are considering you).
           When that period is over, we will either delete your data or inform you that we would like to keep it in our database for future roles.
           We have privacy policies that you can request for further information.
-          Please be assured your data will be securely stored by the Registered Manager and only used for the purposes of recruiting for this vacant post.
+          Please be assured your data will be securely stored by the Recruitment Manager and only used for the purposes of recruiting for this vacant post.
           You have a right for your data to be forgotten, to rectify or access data, to restrict processing, to withdraw  consent and to be kept informed about the processing of your data.
-          If you would like to discuss this further or withdraw your consent at any time please contact the Registered Manager or Data Protection Officer on 01603 405051.</p>
+          If you would like to discuss this further or withdraw your consent at any time please contact the <a className="text-indigo-600" href="mailto:recruitment@cascade-care.com">Recruitment Manager</a> or <a className="text-indigo-600" href="mailto:tonyp@cascade-care.com">Data Protection Officer.</a></p>
       </div>
       <div>
         <h2 className={Title}>Declaration</h2>

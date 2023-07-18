@@ -117,10 +117,16 @@ export const defaultState = {
       employmentRecords: [],
       employmentGaps: [],
       employmentOverlap: [],
+      educationToEmploymentGap: null,
+      currentEmploymentToApplicationGap: null,
       status: "INCOMPLETE" as SectionStatus
     },
     employmentGaps: {
       employmentOverlap: [],
+      currentEmploymentToApplicationGap: null,
+      currentEmploymentToApplicationGapReason: '',
+      educationToEmploymentGap: null,
+      educationToEmploymentGapReason: '',
       placements: [],
       status: "INCOMPLETE" as SectionStatus
     },

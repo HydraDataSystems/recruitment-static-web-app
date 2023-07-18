@@ -36,7 +36,10 @@ function useFormState() {
     let currentIndex = SECTION_ORDER.indexOf(currentSection);
     let nextSection = currentIndex < SECTION_ORDER.length - 1 ? SECTION_ORDER[currentIndex + 1] : "previewForm";
 
-    if(nextSection === "employmentGaps" && sections.employmentHistory.employmentGaps.length < 1) {
+    if(nextSection === "employmentGaps" 
+      && sections.employmentHistory.employmentGaps.length < 1
+      && sections.employmentHistory.educationToEmploymentGap === null
+      && sections.employmentHistory.currentEmploymentToApplicationGap === null) {
       currentIndex = SECTION_ORDER.indexOf(nextSection);
       nextSection = currentIndex < SECTION_ORDER.length - 1 ? SECTION_ORDER[currentIndex + 1] : "previewForm";
     }

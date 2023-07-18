@@ -47,7 +47,7 @@ const PositionComponent = () => {
       <div>
         <h2 className={Title}>Position</h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">Please note that no applicant will be unfairly discriminated against. This includes discrimination on account of age, cultural, religious political belief, disability, ethnicity, gender, race, relationship status, sexual orientation, and or Trade Union membership or stewardship.</p>
-        <p className="mt-1 text-sm leading-6 text-gray-600">If you have any special requirements to support you to complete this form (e.g. the need for large print or additional time) please contact the <a href="https://cascade-care.com/our-team">Registered Manager.</a></p>
+        <p className="mt-1 text-sm leading-6 text-gray-600">If you have any special requirements to support you to complete this form (e.g. the need for large print or additional time) please contact the <a className='text-indigo-600' href="mailto: recruitment@cascade-care.com">Recruitment Manager.</a></p>
       </div>
       
       <div className='space-y-6'>
@@ -63,17 +63,24 @@ const PositionComponent = () => {
               className={errors.position ? SelectClassError : SelectClass}
               {...register('position', { required: true })}>
                 <option value="" disabled>Please Select</option>
-                <option value="Support Worker - Adult Care">Support Worker - Adult Care</option>
-                <option value="Support Worker - Child Care">Support Worker - Child Care</option>
-                <option value="Deputy Manager - Adult Residential Care">Deputy Manager - Adult Residential Care</option>
-                <option value="Team Leader - Adult Care">Team Leader - Adult Care</option>
-                <option value="Team Leader - Child Care">Team Leader - Child Care</option>
-                <option value="Waking Night Worker - Child Care">Waking Night Worker - Child Care</option>
-                <option value="Deputy Manager">Deputy Manager</option>
-                <option value="Registered Manager">Registered Manager</option>
-                <option value="Health & Wellbeing Lead">Health & Wellbeing Lead</option>
-                <option value="Recruitment & Workforce Lead">Recruitment & Workforce Lead</option>
-                <option value="Teaching Assistant">Teaching Assistant</option>
+                <optgroup label="Adult Care">
+                <option value="Support Worker - adult care">Support Worker</option>
+                  <option value="Team Leader - adult Care">Team Leader</option>
+                  <option value="Waking Night Worker - adult Care">Waking Night Worker</option>
+                  <option value="Deputy Manager - adult care">Deputy Manager</option>
+                  <option value="Registered Manager - adult care">Registered Manager</option>
+                </optgroup>
+                <optgroup label="Child Care">
+                <option value="Support Worker - child care">Support Worker</option>
+                  <option value="Team Leader - child Care">Team Leader</option>
+                  <option value="Waking Night Worker - child Care">Waking Night Worker</option>
+                  <option value="Deputy Manager - child care">Deputy Manager</option>
+                  <option value="Registered Manager - child care">Registered Manager</option>
+                </optgroup>
+                <optgroup label="Education">
+                  <option value="Teacher">Teacher</option>
+                  <option value="Teaching Assistant">Teaching Assistant</option>
+                </optgroup>
                 <option value="Other">Other</option>
             </select>
           </div>
