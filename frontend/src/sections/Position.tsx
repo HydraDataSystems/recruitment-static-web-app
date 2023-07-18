@@ -114,14 +114,14 @@ const PositionComponent = () => {
             <select
               className={errors.isEducation ? SelectClassError : SelectClass}
               {...register('isEducation', { required: true })}>
-                {watchPosition === "Teaching Assistant" && (
+                {(watchPosition === "Teaching Assistant" || watchPosition === "Teacher") && (
                   <>
                   <option value="" disabled>Please Select</option>
                   <option value="YES">Yes</option>
                   </>
                 )}
                 
-                {watchPosition !== "Teaching Assistant" && watchPosition !== "Other" && (
+                {(watchPosition !== "Teaching Assistant" && watchPosition !== "Teacher") && watchPosition !== "Other" && (
                   <>
                     <option value="" disabled>Please Select</option>
                     <option value="NO">No</option>

@@ -89,9 +89,8 @@ export type EmploymentHistory = {
 
 export type EmploymentGaps = {
   employmentOverlap: Array<EmploymentOverlap>;
+  acknowledgedOverlap: YesNo;
   placements: Array<EmploymentGapReason>;
-  educationToEmploymentGap: number | null;
-  educationToEmploymentGapReason: string;
   currentEmploymentToApplicationGap: number | null;
   currentEmploymentToApplicationGapReason: string;
   status: SectionStatus;

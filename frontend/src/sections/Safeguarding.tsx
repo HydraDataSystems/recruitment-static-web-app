@@ -31,7 +31,7 @@ const SafeguardingComponent = () => {
   return (
     <form className="space-y-12" onSubmit={onSubmit}>
       <div>
-        <h2 className={Title}>Safeguarding</h2>
+        <h2 className={Title}>Overseas Checks</h2>
         <p className={Para}>The application process for criminal records checks or ‘Certificates of Good Character’ for a candidate from overseas varies from country to country. Cascade can apply to the relevant embassy in the UK where this is required. Where further help or support is needed, the Disclosure & Barring Service can be contacted for support.</p>
         <p className={Para}>A certificate is required for all candidates to Cascade who have lived outside of the UK for 12 months or more (whether continuously or in total) in the last ten years, while aged 18 or over.</p>
       </div>

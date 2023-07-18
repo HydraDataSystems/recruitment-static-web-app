@@ -29,10 +29,9 @@ const EmploymentGapsComponent = () => {
   
   const defaultValues:Omit<EmploymentGaps, "status"> = {
     employmentOverlap: [...employmentOverlapCapture],
+    acknowledgedOverlap: employmentGaps.acknowledgedOverlap,
     currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture,
     currentEmploymentToApplicationGapReason: '',
-    educationToEmploymentGap: educationToEmploymentGapCapture,
-    educationToEmploymentGapReason: '',
     placements: employmentGapsCapture.map((employmentGap) => 
       ({
         leaving: employmentGap.nameA,
@@ -67,16 +66,31 @@ const EmploymentGapsComponent = () => {
     <form className="space-y-12" onSubmit={onSubmit}>
       
       {employmentOverlapCapture.length > 0 && (
-        <div>
-          <h2 className={Title}>Employment Overlap</h2>
-          <p className={Para}>You have indicated that you have overlapping employment.</p>
-          
-            {employmentOverlapCapture.map((item, index) => (
-              <div key={index}>
-                <p className={Para}>from {item.startDate} to {item.endDate} there was overlap in your employment at these locations: {item.placesOfEmployment.join(", ")}</p>
-              </div>
-            ))}
-        </div>
+        <>
+          <div>
+            <h2 className={Title}>Employment Overlap</h2>
+            <p className={Para}>You have indicated that you have overlapping employment.</p>
+            
+              {employmentOverlapCapture.map((item, index) => (
+                <div key={index}>
+                  <p className={Para}>from {item.startDate} to {item.endDate} there was overlap in your employment at these locations: {item.placesOfEmployment.join(", ")}</p>
+                </div>
+              ))}
+          </div>
+
+          <div>
+            <label
+              htmlFor="acknowledgedOverlap"
+              className={LblClass}>
+              <input
+                type="checkbox"
+                className="mr-2"
+                {...register('acknowledgedOverlap', { required: true })} />
+                I acknowledge that I have overlapping employment as stated above
+                {errors.acknowledgedOverlap && <p className={InputErrorMsgClass}>This field is required</p>}
+            </label>
+          </div>
+        </>
       )}
 
       <div>
@@ -118,21 +132,6 @@ const EmploymentGapsComponent = () => {
         </div>
       )}
 
-      {educationToEmploymentGapCapture && educationToEmploymentGapCapture > 0 && (
-        <div>
-          <label
-            htmlFor='educationToEmploymentGapReason'
-            className={LblClass}>
-            {`Between leaving education and starting employment there is a gap of ${educationToEmploymentGapCapture} days. Please explain why`}</label>
-          <div className={InputContainerClass}>
-            <textarea
-              defaultValue={employmentGaps.educationToEmploymentGapReason}
-              className={errors.educationToEmploymentGapReason ? InputClassError : InputClass}
-              {...register('educationToEmploymentGapReason', { required: true })} />
-          </div>
-          {errors.educationToEmploymentGapReason && <p className={InputErrorMsgClass}>This field is required</p>}
-        </div>
-      )}
       <button
         className={Btn}
         onSubmit={onSubmit}

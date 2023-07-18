@@ -123,6 +123,7 @@ export const defaultState = {
     },
     employmentGaps: {
       employmentOverlap: [],
+      acknowledgedOverlap: '' as YesNo,
       currentEmploymentToApplicationGap: null,
       currentEmploymentToApplicationGapReason: '',
       educationToEmploymentGap: null,

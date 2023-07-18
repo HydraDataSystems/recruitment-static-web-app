@@ -128,6 +128,17 @@ const PreviewForm = () => {
       <View style={styles.pageTitleSection}>
         <Text style={styles.pageTitle}>Cascade Application Form</Text>
       </View>
+      {state.sections.position.isEducation &&
+      <Section title="Teaching Qualifications">
+        <SectionRow title={`Do you have Qualified Teacher Status (QTS)?`}>{state.sections.educationTraining.qts}</SectionRow>
+        {state.sections.educationTraining.qts === "YES" &&
+          <>
+          <SectionRow title={`Dfe Number`}>{state.sections.educationTraining.dfeNo}</SectionRow>
+          <SectionRow title={`Have you completed your induction year?`}>{state.sections.educationTraining.induction}</SectionRow>
+          </>
+        }
+      </Section>
+      }
       <Section title="Education">
         {state.sections.educationTraining.educationRecords.length ? state.sections.educationTraining.educationRecords.map((education, index) => (
           <Fragment key={`education-${index}`}>
@@ -192,13 +203,7 @@ const PreviewForm = () => {
       <View style={styles.pageTitleSection}>
         <Text style={styles.pageTitle}>Cascade Application Form</Text>
       </View>
-      <Section title="Employment Gaps">
-        {state.sections.employmentGaps.placements.length ? state.sections.employmentGaps.placements.map((placement, index) => (
-          <Fragment key={`placement-${index}`}>
-            <SectionRow title={`Between leaving ${placement.leaving} and starting at ${placement.arriving} there was a gap of ${placement.duration} days. Please explain why?`}>{placement.reason}</SectionRow>
-          </Fragment>
-        )) : <SectionRow title={`No employment gaps`}>No Employment Gaps</SectionRow>}
-      </Section>
+
       <Section title="Employment Overlap">
         {state.sections.employmentGaps.employmentOverlap.length ? state.sections.employmentGaps.employmentOverlap.map((overlap, index) => (
           <Fragment key={`overlap-${index}`}>
@@ -206,14 +211,18 @@ const PreviewForm = () => {
           </Fragment>
         )) : <SectionRow title={`No employment overlap`}>No Employment Overlap</SectionRow>}
       </Section>
+      
+      <Section title="Employment Gaps">
+        {state.sections.employmentGaps.placements.length ? state.sections.employmentGaps.placements.map((placement, index) => (
+          <Fragment key={`placement-${index}`}>
+            <SectionRow title={`Between leaving ${placement.leaving} and starting at ${placement.arriving} there was a gap of ${placement.duration} days. Please explain why?`}>{placement.reason}</SectionRow>
+          </Fragment>
+        )) : <SectionRow title={`No employment gaps`}>No Employment Gaps</SectionRow>}
+      </Section>
+      
       <Section title="Current Employment to Application Gap">
         {state.sections.employmentGaps.currentEmploymentToApplicationGap && state.sections.employmentGaps.currentEmploymentToApplicationGap > 0 && (
           <SectionRow title={`Between leaving your current employment and applying for this job there is a gap of ${state.sections.employmentGaps.currentEmploymentToApplicationGap} days. Please explain why?`}>{state.sections.employmentGaps.currentEmploymentToApplicationGapReason}</SectionRow>
-        )}
-      </Section>
-      <Section title="Education to Employment Gap">
-        {state.sections.employmentGaps.educationToEmploymentGap && state.sections.employmentGaps.educationToEmploymentGap > 0 && (
-          <SectionRow title={`Between leaving education and starting employment there is a gap of ${state.sections.employmentGaps.educationToEmploymentGap} days. Please explain why?`}>{state.sections.employmentGaps.educationToEmploymentGapReason}</SectionRow>
         )}
       </Section>
     </Page>
@@ -287,7 +296,7 @@ const PreviewForm = () => {
       <View style={styles.pageTitleSection}>
         <Text style={styles.pageTitle}>Cascade Application Form</Text>
       </View>
-      <Section title="Safeguarding">
+      <Section title="Overseas Checks">
         <SectionRow title={`In the last 10 years have you spent over a year, either in one stay or cumulatively (e.g. one month or week every so often, amounting to a year in total) outside of the UK?`}>
           {state.sections.safeguarding.outsideUK}
         </SectionRow>
@@ -323,7 +332,7 @@ const PreviewForm = () => {
         <Text style={styles.textBlock}>I certify that I am not disqualified from working with children or subject to sanctions imposed by a regulatory body which would restrict me from applying for this post.</Text>
       </Section>
       <Section title="Privacy">
-        <Text style={styles.textBlock}>Cascade  will only collect data for specified, explicit and legitimate use in relation to the recruitment process. By signing this application form you consent to Cascade  holding the information contained within this application form. If successfully shortlisted, data will also include shortlisting scoring  and interview records. We would like to keep this data until the vacancy is filled. (We cannot estimate the exact time period, but we will consider this period over when a candidate accepts our job offer for the position for which we are considering you). When that period is over, we will either delete your data or inform you that we would like to keep it in our database for future roles. We have privacy policies that you can request for further information. Please be assured your data will be securely stored by the Registered Manager and only used for the purposes of recruiting for this vacant post. You have a right for your data to be forgotten, to rectify or access data, to restrict processing, to withdraw  consent and to be kept informed about the processing of your data. If you would like to discuss this further or withdraw your consent at any time please contact the Registered Manager or Data Protection Officer on 01603 405051.</Text>
+        <Text style={styles.textBlock}>Cascade  will only collect data for specified, explicit and legitimate use in relation to the recruitment process. By signing this application form you consent to Cascade  holding the information contained within this application form. If successfully shortlisted, data will also include shortlisting scoring  and interview records. We would like to keep this data until the vacancy is filled. (We cannot estimate the exact time period, but we will consider this period over when a candidate accepts our job offer for the position for which we are considering you). When that period is over, we will either delete your data or inform you that we would like to keep it in our database for future roles. We have privacy policies that you can request for further information. Please be assured your data will be securely stored by the Recruitment Manager and only used for the purposes of recruiting for this vacant post. You have a right for your data to be forgotten, to rectify or access data, to restrict processing, to withdraw  consent and to be kept informed about the processing of your data. If you would like to discuss this further or withdraw your consent at any time please contact the Recruitment Manager or Data Protection Officer.</Text>
       </Section>
       <Section title="Declaration">
         <Text style={styles.textBlock}>The information in this application form is true and complete. I agree that any deliberate omission, falsification or misrepresentation in the application form will be grounds for rejecting this application or subsequent dismissal if employed by Cascade. Where applicable, I consent that Cascade  can seek clarification regarding professional registration details.</Text>
