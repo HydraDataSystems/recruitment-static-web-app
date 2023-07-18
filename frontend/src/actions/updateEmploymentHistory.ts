@@ -1,7 +1,6 @@
 import { GlobalState } from "little-state-machine";
 import { EmploymentGap, EmploymentOverlap, EmploymentHistory, EmploymentRecord, SectionStatus } from '../global';
 import { MIN_EMPLOYMENT_GAP_IN_DAYS } from '../constants';
-import { get } from "react-hook-form";
 export default function updateEmploymentHistorySection(state: GlobalState, payload: EmploymentHistory) {
   const currentEmployment = payload.currentEmployment;
   const employmentRecords = payload.employmentRecords;
