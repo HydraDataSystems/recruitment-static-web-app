@@ -21,8 +21,7 @@ const EmploymentGapsComponent = () => {
       { 
         employmentGaps: employmentGapsCapture, 
         employmentOverlap: employmentOverlapCapture, 
-        currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture,
-        educationToEmploymentGap: educationToEmploymentGapCapture
+        currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture
       } 
     } 
   } = state;
