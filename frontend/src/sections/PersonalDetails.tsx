@@ -208,6 +208,7 @@ const PersonalDetailsComponent = () => {
             className={errors.nationality ? SelectClassError : SelectClass}
             {...register('nationality', { required: true })}>
               <option value="" disabled>Please Select</option>
+              <option value="british">British</option>
               <option value="afghan">Afghan</option>
               <option value="albanian">Albanian</option>
               <option value="algerian">Algerian</option>
@@ -234,7 +235,6 @@ const PersonalDetailsComponent = () => {
               <option value="bolivian">Bolivian</option>
               <option value="bosnian">Bosnian</option>
               <option value="brazilian">Brazilian</option>
-              <option value="british">British</option>
               <option value="bruneian">Bruneian</option>
               <option value="bulgarian">Bulgarian</option>
               <option value="burkinabe">Burkinabe</option>
