@@ -169,17 +169,6 @@ const PreviewForm = () => {
       <View style={styles.pageTitleSection}>
         <Text style={styles.pageTitle}>Cascade Application Form</Text>
       </View>
-      <Section title="Current or most recent employment">
-        <SectionRow title={`Employer`}>{state.sections.employmentHistory.currentEmployment.name}</SectionRow>
-        <SectionRow title={`Address`}>{getAddress(state.sections.employmentHistory.currentEmployment.address)}</SectionRow>
-        <SectionRow title={`Contact Name`}>{state.sections.employmentHistory.currentEmployment.contact}</SectionRow>
-        <SectionRow title={`Phone`}>{state.sections.employmentHistory.currentEmployment.telephone}</SectionRow>
-        <SectionRow title={`Email`}>{state.sections.employmentHistory.currentEmployment.email}</SectionRow>
-        <SectionRow title={`Start Date`}>{(new Date(state.sections.employmentHistory.currentEmployment.startDate)).toLocaleDateString()}</SectionRow>
-        <SectionRow title={`End Date`}>{state.sections.employmentHistory.currentEmployment.endDate ? (new Date(state.sections.employmentHistory.currentEmployment.endDate)).toLocaleDateString() : "Not Ended"}</SectionRow>
-        <SectionRow title={`Position Held`}>{state.sections.employmentHistory.currentEmployment.position}</SectionRow>
-        <SectionRow title={`Reason for Leaving`}>{state.sections.employmentHistory.currentEmployment.reasonForLeaving}</SectionRow>
-      </Section>
       <Section title="Employment History">
         {state.sections.employmentHistory.employmentRecords.length ? state.sections.employmentHistory.employmentRecords.map((employment, index) => (
           <Fragment key={`employment-${index}`}>
@@ -189,7 +178,7 @@ const PreviewForm = () => {
             <SectionRow title={`Phone`}>{employment.telephone}</SectionRow>
             <SectionRow title={`Email`}>{employment.email}</SectionRow>
             <SectionRow title={`Start Date`}>{(new Date(employment.startDate)).toLocaleDateString()}</SectionRow>
-            <SectionRow title={`End Date`}>{(new Date(employment.endDate)).toLocaleDateString()}</SectionRow>
+            {employment.endDate ? <SectionRow title={`End Date`}>{(new Date(employment.endDate)).toLocaleDateString()}</SectionRow> : <SectionRow title={`End Date`}>Current</SectionRow>}
             <SectionRow title={`Position Held`}>{employment.position}</SectionRow>
             <SectionRow title={`Reason for Leaving`}>{employment.reasonForLeaving}</SectionRow>
             <View style={styles.sectionBreak} />
@@ -203,18 +192,35 @@ const PreviewForm = () => {
       <View style={styles.pageTitleSection}>
         <Text style={styles.pageTitle}>Cascade Application Form</Text>
       </View>
+      
+      <Section title="Current Employment(s)">
+          {state.sections.employmentHistory.employmentRecords.filter((record) => record.endDate === null)
+            .map((record, index) => ( 
+            <Fragment key={`record-${index}`}>
+              {(record.endDate === "Invalid Date" || record.endDate === null) && (
+                <SectionRow title={`Current Employment`}>{record.name}</SectionRow>
+              )}
+            </Fragment>
+          ))}
+      </Section>
 
       <Section title="Employment Overlap">
         <>
           {state.sections.employmentGaps.employmentOverlap.length ? state.sections.employmentGaps.employmentOverlap.map((overlap, index) => (
             <Fragment key={`overlap-${index}`}>
-              <SectionRow title={`From ${overlap.startDate} to ${overlap.endDate} there was overlap in your employment at these locations.`}>{overlap.placesOfEmployment.join(", ")}</SectionRow>
+              <SectionRow title={`From ${overlap.startDate} to ${overlap.endDate === "Invalid Date" ? "Present" : overlap.endDate} there ${overlap.endDate === "Invalid Date" ? "is" : "was"} overlap in your employment at these locations.`}>{overlap.placesOfEmployment.join(", ")}</SectionRow>
             </Fragment>
           )) : <SectionRow title={`No employment overlap`}>No Employment Overlap</SectionRow>}
           {state.sections.employmentGaps.employmentOverlap && (
-            <SectionRow title={`I acknowledge that I have indicated that I have overlapping employment.`}>{state.sections.employmentGaps.acknowledgedOverlap}</SectionRow>
+            <SectionRow title={`I acknowledge that I have overlapping employment as stated above.`}>{state.sections.employmentGaps.acknowledgedOverlap.toString()}</SectionRow>
           )}
         </>
+      </Section>
+
+      <Section title="Education to Employment Gap">
+        {state.sections.employmentGaps.educationToEmploymentGapReason && (
+          <SectionRow title={`There is a gap of ${state.sections.employmentHistory.educationToEmploymentGap} days between leaving education and your first employment. Please explain why.`}>{state.sections.employmentGaps.educationToEmploymentGapReason}</SectionRow>
+        )}
       </Section>
 
       <Section title="Employment Gaps">
@@ -225,11 +231,6 @@ const PreviewForm = () => {
         )) : <SectionRow title={`No employment gaps`}>No Employment Gaps</SectionRow>}
       </Section>
       
-      <Section title="Current Employment to Application Gap">
-        {state.sections.employmentGaps.currentEmploymentToApplicationGap && state.sections.employmentGaps.currentEmploymentToApplicationGap > 0 && (
-          <SectionRow title={`Between leaving your current employment and applying for this job there is a gap of ${state.sections.employmentGaps.currentEmploymentToApplicationGap} days. Please explain why?`}>{state.sections.employmentGaps.currentEmploymentToApplicationGapReason}</SectionRow>
-        )}
-      </Section>
     </Page>
 
   const PDFPage6 = () =>

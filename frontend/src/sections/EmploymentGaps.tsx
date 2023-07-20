@@ -20,17 +20,16 @@ const EmploymentGapsComponent = () => {
     { employmentGaps, employmentHistory: 
       { 
         employmentGaps: employmentGapsCapture, 
-        employmentOverlap: employmentOverlapCapture, 
-        currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture
+        employmentOverlap: employmentOverlapCapture,
+        educationToEmploymentGap: educationToEmploymentGapCapture
       } 
     } 
   } = state;
   
   const defaultValues:Omit<EmploymentGaps, "status"> = {
     employmentOverlap: [...employmentOverlapCapture],
+    educationToEmploymentGapReason: employmentGaps.educationToEmploymentGapReason ?? null,
     acknowledgedOverlap: employmentGaps.acknowledgedOverlap ?? "NO",
-    currentEmploymentToApplicationGap: currentEmploymentToApplicationGapCapture,
-    currentEmploymentToApplicationGapReason: '',
     placements: employmentGapsCapture.map((employmentGap) => 
       ({
         leaving: employmentGap.nameA,
@@ -64,6 +63,24 @@ const EmploymentGapsComponent = () => {
   return (
     <form className="space-y-12" onSubmit={onSubmit}>
       
+      {state.sections.employmentHistory.employmentRecords.filter(item => item.endDate === null).length > 0 ? (
+        <div>
+          <h2 className={Title}>Current Employment</h2>
+          <p className={Para}>You have indicated that you are still employed at these locations.</p>
+
+          <ul className={`text-sm list-disc list-inside ${Para}`}>
+          {state.sections.employmentHistory.employmentRecords.filter(item => item.endDate === null).map((item, index) => (
+            <li key={index}>{item.name}</li>
+          ))}
+          </ul>
+        </div>
+      ) : (
+        <div>
+          <h2 className={Title}>Current Employment</h2>
+          <p className={Para}>You have indicated that you are not currently employed.</p>
+        </div>
+      )}
+
       {employmentOverlapCapture.length > 0 && (
         <>
           <div>
@@ -72,7 +89,7 @@ const EmploymentGapsComponent = () => {
             
               {employmentOverlapCapture.map((item, index) => (
                 <div key={index}>
-                  <p className={Para}>from {item.startDate} to {item.endDate} there was overlap in your employment at these locations: {item.placesOfEmployment.join(", ")}</p>
+                  <p className={Para}>from {item.startDate} to {item.endDate === "Invalid Date" ? "Present" : item.endDate} there {item.endDate === "Invalid Date" ? 'is' : 'was'} overlap in your employment at these locations: {item.placesOfEmployment.join(", ")}</p>
                 </div>
               ))}
           </div>
@@ -83,6 +100,7 @@ const EmploymentGapsComponent = () => {
               className={LblClass}>
               <input
                 type="checkbox"
+                value="YES"
                 className="mr-2"
                 {...register('acknowledgedOverlap', { required: true })} />
                 I acknowledge that I have overlapping employment as stated above
@@ -90,6 +108,27 @@ const EmploymentGapsComponent = () => {
             </label>
           </div>
         </>
+      )}
+      {educationToEmploymentGapCapture && (
+        <div>
+          <h2 className={Title}>Education to Employment Gap</h2>
+          <p className={Para}></p>
+          
+          <div>
+            <label
+              htmlFor="educationToEmploymentGapReason"
+              className={LblClass}>
+                {`There is a gap of ${educationToEmploymentGapCapture} days between leaving education and your first employment.
+                Please explain why.`}
+            </label>
+            <div className={InputContainerClass}>
+              <textarea
+                defaultValue={employmentGaps.educationToEmploymentGapReason ?? ''}
+                className={errors.educationToEmploymentGapReason ? InputClassError : InputClass}
+                {...register('educationToEmploymentGapReason', { required: true })} />
+            </div>
+          </div>
+        </div>
       )}
 
       <div>
@@ -114,22 +153,6 @@ const EmploymentGapsComponent = () => {
           ))}
         </ul>
       </div>
-
-      {currentEmploymentToApplicationGapCapture && currentEmploymentToApplicationGapCapture > 0 && (
-        <div>
-          <label
-            htmlFor='currentEmploymentToApplicationGapReason'
-            className={LblClass}>
-            {`Between leaving your current employment and applying for this job there is a gap of ${currentEmploymentToApplicationGapCapture} days. Please explain why`}</label>
-          <div className={InputContainerClass}>
-            <textarea
-              defaultValue={employmentGaps.currentEmploymentToApplicationGapReason}
-              className={errors.currentEmploymentToApplicationGapReason ? InputClassError : InputClass}
-              {...register('currentEmploymentToApplicationGapReason', { required: true })} />
-          </div>
-          {errors.currentEmploymentToApplicationGapReason && <p className={InputErrorMsgClass}>This field is required</p>}
-        </div>
-      )}
 
       <button
         className={Btn}

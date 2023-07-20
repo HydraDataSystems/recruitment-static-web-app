@@ -38,8 +38,7 @@ function useFormState() {
 
     if(nextSection === "employmentGaps" 
       && sections.employmentHistory.employmentGaps.length < 1
-      && sections.employmentHistory.educationToEmploymentGap === null
-      && sections.employmentHistory.currentEmploymentToApplicationGap === null) {
+      && sections.employmentHistory.educationToEmploymentGap === null ) {
       currentIndex = SECTION_ORDER.indexOf(nextSection);
       nextSection = currentIndex < SECTION_ORDER.length - 1 ? SECTION_ORDER[currentIndex + 1] : "previewForm";
     }

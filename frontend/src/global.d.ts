@@ -74,25 +74,23 @@ export type EmploymentRecord = {
   position: string;
   reasonForLeaving: string;
   startDate: string;
-  endDate: string;
+  endDate: string | null;
+  isCurrentEmployment: boolean;
 }
 
 export type EmploymentHistory = {
-  currentEmployment: EmploymentRecord;
   employmentRecords: Array<EmploymentRecord>;
   employmentGaps: Array<EmploymentGap>;
   employmentOverlap: Array<EmploymentOverlap>;
   educationToEmploymentGap: number | null;
-  currentEmploymentToApplicationGap: number | null;
   status: SectionStatus;
 }
 
 export type EmploymentGaps = {
   employmentOverlap: Array<EmploymentOverlap>;
+  educationToEmploymentGapReason: string | null;
   acknowledgedOverlap: YesNo;
   placements: Array<EmploymentGapReason>;
-  currentEmploymentToApplicationGap: number | null;
-  currentEmploymentToApplicationGapReason: string;
   status: SectionStatus;
 }
 
