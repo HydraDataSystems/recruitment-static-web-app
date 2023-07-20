@@ -106,7 +106,7 @@ const ConsentComponent = () => {
               type="checkbox"
               value="YES"
               {...register("social")} />
-            Social Media (Twitter, Facebook)
+            Social Media
           </label>
           {errors.social && <p className={InputErrorMsgClass}>This field is required</p>}
         </div>

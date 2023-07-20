@@ -128,7 +128,7 @@ const PreviewForm = () => {
       <View style={styles.pageTitleSection}>
         <Text style={styles.pageTitle}>Cascade Application Form</Text>
       </View>
-      {state.sections.position.isEducation &&
+      {state.sections.position.isEducation === "YES" &&
       <Section title="Teaching Qualifications">
         <SectionRow title={`Do you have Qualified Teacher Status (QTS)?`}>{state.sections.educationTraining.qts}</SectionRow>
         {state.sections.educationTraining.qts === "YES" &&
