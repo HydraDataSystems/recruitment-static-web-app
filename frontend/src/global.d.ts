@@ -50,6 +50,7 @@ export type PersonalDetails = {
   ownTransport: YesNo;
   drivingEndorsements: string;
   visaRequired: YesNo;
+  visaExpiry: string | null;
   visaType: string;
   national_insurance_number: string;
   related_to_employee: YesNo;
@@ -74,7 +75,7 @@ export type EmploymentRecord = {
   position: string;
   reasonForLeaving: string;
   startDate: string;
-  endDate: string | null;
+  endDate: string;
   isCurrentEmployment: boolean;
 }
 

@@ -335,6 +335,7 @@ const EmploymentRecords = ({
                     {...register(`employmentRecords.${index}.isCurrentEmployment`, {
                       onChange: (e) => {
                         if(e.target.checked) {
+                          //@ts-ignore
                           setValue(`employmentRecords.${index}.endDate`, null);
                         }
                         if(!e.target.checked) {

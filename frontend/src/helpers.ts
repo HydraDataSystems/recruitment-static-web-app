@@ -8,7 +8,7 @@ export const InputErrorMsgClass = "mt-2 text-sm text-red-600";
 export const Btn = "my-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
 export const Checkbox = "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600";
 export const CheckboxContainer = "flex items-center mr-2 text-sm font-medium leading-6 text-gray-900";
-export const Title = 'mt-1 text-base font-semibold leading-7 text-gray-900 text-xl';
+export const Title = 'mt-1 text-base font-semibold leading-7 text-indigo-600 text-xl';
 export const Subtitle = 'mt-1 text-md leading-6 text-gray-900';
 export const Para = "mt-1 text-sm leading-6 text-gray-600";
 

@@ -34,8 +34,8 @@ root.render(
     <StateMachineProvider>
       <div className='bg-gray-50 h-full'>
       <div className="container mx-auto sm:px-6 lg:px-8">
-        <div className="p-2">
-          <h1 className={`mt-2 mb-2 font-semibold leading-7 text-gray-900 text-2xl text-center md:text-3xl`}>Cascade Application Form</h1>
+        <div className="p-2 text-center">
+          <h1 className={`mt-2 mb-2 font-semibold leading-7 text-gray-900 text-2xl text-center md:text-3xl inline-block`}><span className='text-indigo-600'>Cascade</span><br /><span className="break-words text-xl md:text-2xl">Application Form</span></h1>
         </div>
         <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-6">
           <div className="px-4 py-5 sm:p-6">

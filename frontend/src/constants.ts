@@ -82,6 +82,7 @@ export const defaultState = {
       ownTransport: '' as YesNo,
       drivingEndorsements: '',
       visaRequired: '' as YesNo,
+      visaExpiry: '',
       visaType: '',
       national_insurance_number: '',
       related_to_employee: '' as YesNo,

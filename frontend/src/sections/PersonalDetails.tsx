@@ -27,7 +27,8 @@ const PersonalDetailsComponent = () => {
     register, 
     control,
     handleSubmit, 
-    formState: { errors, isValid, isSubmitSuccessful }, 
+    formState: { errors, isValid, isSubmitSuccessful },
+    setValue, 
     watch 
   } = useForm({
     defaultValues: {
@@ -647,7 +648,12 @@ const PersonalDetailsComponent = () => {
           <select
             defaultValue={personalDetails.visaRequired}
             className={errors.visaRequired ? SelectClassError : SelectClass}
-            {...register('visaRequired', { required: true })}>
+            {...register('visaRequired', { required: true, onChange: (e) => {
+              if(e.target.value === "NO") {
+                setValue('visaType', '');
+                setValue('visaExpiry', '');
+              }
+            }})}>
               <option value="" disabled>Please Select</option>
               <option value="YES">Yes</option>
               <option value="NO">No</option>
@@ -657,6 +663,7 @@ const PersonalDetailsComponent = () => {
       </div>
 
       {isVisaRequired === "YES" && (
+        <>
         <div>
           <label
             htmlFor='visaType'
@@ -672,6 +679,23 @@ const PersonalDetailsComponent = () => {
           </div>
           {errors.visaType && <p className={InputErrorMsgClass}>Visa Type is required</p>}
         </div>
+
+        <div>
+          <label
+            htmlFor='visaExpiry'
+            className={LblClass}
+          >
+            When does your visa expire?
+          </label>
+          <div className={InputContainerClass}>
+            <input
+              type="date"
+              className={errors.visaExpiry ? InputClassError : InputClass}
+              {...register('visaExpiry', { required: true })} />
+          </div>
+          {errors.visaExpiry && <p className={InputErrorMsgClass}>Visa Expiry is required</p>}
+        </div>
+        </>
       )}
       
       {isVisaRequired === "NO" && (

@@ -117,6 +117,7 @@ const PreviewForm = () => {
         <SectionRow title="Driving Endorsements">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.drivingEndorsements : "Not Applicable"}</SectionRow>
         <SectionRow title="Do you require a visa to work in the UK?">{state.sections.personalDetails.visaRequired === "YES" ? state.sections.personalDetails.visaRequired : "Not Applicable"}</SectionRow>
         <SectionRow title="What type of visa do you have?">{state.sections.personalDetails.visaType ? state.sections.personalDetails.visaType : "Not Applicable"}</SectionRow>
+        <SectionRow title="Visa Expiry Date">{state.sections.personalDetails.visaExpiry ? (new Date(state.sections.personalDetails.visaExpiry)).toLocaleDateString() : "Not Applicable"}</SectionRow>
         <SectionRow title="National Insurance Number">{state.sections.personalDetails.national_insurance_number ? state.sections.personalDetails.national_insurance_number : "Not Applicable"}</SectionRow>
         <SectionRow title="Are you related to a Cascade employee?">{state.sections.personalDetails.related_to_employee === "YES" ? state.sections.personalDetails.related_to_employee : "Not Applicable"}</SectionRow>
         <SectionRow title="Name of related employee or service user">{state.sections.personalDetails.related_to_employee_details ? state.sections.personalDetails.related_to_employee_details : "Not Applicable"}</SectionRow>
@@ -211,7 +212,7 @@ const PreviewForm = () => {
               <SectionRow title={`From ${overlap.startDate} to ${overlap.endDate === "Invalid Date" ? "Present" : overlap.endDate} there ${overlap.endDate === "Invalid Date" ? "is" : "was"} overlap in your employment at these locations.`}>{overlap.placesOfEmployment.join(", ")}</SectionRow>
             </Fragment>
           )) : <SectionRow title={`No employment overlap`}>No Employment Overlap</SectionRow>}
-          {state.sections.employmentGaps.employmentOverlap && (
+          {state.sections.employmentGaps.employmentOverlap.length > 0 && (
             <SectionRow title={`I acknowledge that I have overlapping employment as stated above.`}>{state.sections.employmentGaps.acknowledgedOverlap.toString()}</SectionRow>
           )}
         </>
