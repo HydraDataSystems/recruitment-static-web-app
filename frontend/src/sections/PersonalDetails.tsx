@@ -38,7 +38,6 @@ const PersonalDetailsComponent = () => {
     handleSubmit, 
     formState: { errors, isValid, isSubmitSuccessful },
     setValue,
-    getValues, 
     watch 
   } = useForm({
     defaultValues: {
