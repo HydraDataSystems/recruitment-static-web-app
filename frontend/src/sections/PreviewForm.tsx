@@ -5,6 +5,7 @@ import { Section, SectionRow } from '../PreviewPDF';
 import { Address } from '../global';
 import { createEntry } from '../service';
 import { Btn, LblClass, Title, Para } from '../helpers';
+import { yearsAndMonthsToDate } from './PersonalDetails';
 
 const PreviewForm = () => {
   const { state, clearForm } = useFormState();
@@ -110,7 +111,7 @@ const PreviewForm = () => {
         <SectionRow title="Telephone Number">{state.sections.personalDetails.phone}</SectionRow>
         <SectionRow title="Email Address">{state.sections.personalDetails.email}</SectionRow>
         <SectionRow title="Are you a driver?">{state.sections.personalDetails.driver}</SectionRow>
-        <SectionRow title="License duration">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.licenceHeld : "Not Applicable"}</SectionRow>
+        <SectionRow title="License duration">{state.sections.personalDetails.driver === "YES" ? yearsAndMonthsToDate(new Date(state.sections.personalDetails.licenceHeld)) : "Not Applicable"}</SectionRow>
         <SectionRow title="License Type">{state.sections.personalDetails.licenceType ? state.sections.personalDetails.licenceType : 'Not Applicable'}</SectionRow>
         <SectionRow title="License Other">{state.sections.personalDetails.licenceOther ? state.sections.personalDetails.licenceOther : 'Not Applicable'}</SectionRow>
         <SectionRow title="Own Transport">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.ownTransport : "Not Applicable"}</SectionRow>

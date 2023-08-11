@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import useFormState from '../hooks/useFormState';
 import { PersonalDetails } from '../global';
+import { intervalToDuration } from 'date-fns';
 
 import { 
   Title,
@@ -17,6 +18,14 @@ import {
   Para
  } from '../helpers';
 
+export function yearsAndMonthsToDate(date: Date) {
+  const result = intervalToDuration({
+    start: date,
+    end: new Date()
+  });
+  return `${result.years} year(s), ${result.months} month(s) and ${result.days} day(s)`;
+}
+
 const PersonalDetailsComponent = () => {
 
   const { state, updateSection, nextSection } = useFormState();
@@ -28,7 +37,8 @@ const PersonalDetailsComponent = () => {
     control,
     handleSubmit, 
     formState: { errors, isValid, isSubmitSuccessful },
-    setValue, 
+    setValue,
+    getValues, 
     watch 
   } = useForm({
     defaultValues: {
@@ -55,6 +65,7 @@ const PersonalDetailsComponent = () => {
   const hasMoreNames = watch('otherNames');
   const isVisaRequired = watch('visaRequired');
   const relatedToEmployee = watch('related_to_employee');
+  const licenseTime = watch('licenceHeld');
 
   return (
     <form className='space-y-12' onSubmit={onSubmit}>
@@ -549,14 +560,15 @@ const PersonalDetailsComponent = () => {
               htmlFor='licenceHeld'
               className={LblClass}
             >
-              How long have you held your licence?
+              When did you pass your driving test?
             </label>
             <div className={InputContainerClass}>
               <input
+                type="date"
                 className={errors.licenceHeld ? InputClassError : InputClass}
-                type="number"
                 {...register('licenceHeld', { required: true })} />
             </div>
+            {licenseTime && <p className='text-sm text-gray-500 mt-2'>{`You have held your licence for ${yearsAndMonthsToDate(new Date(licenseTime))}`}</p>}
             {errors.licenceHeld && <p className={InputErrorMsgClass}>Licence Held is required</p>}
           </div>
           
