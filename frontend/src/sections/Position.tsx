@@ -60,6 +60,7 @@ const PositionComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <select
+              id='position'
               className={errors.position ? SelectClassError : SelectClass}
               {...register('position', { required: true })}>
                 <option value="" disabled>Please Select</option>
@@ -96,6 +97,7 @@ const PositionComponent = () => {
             </label>
             <div className={InputContainerClass}>
               <input
+                id='otherPosition'
                 className={errors.otherPosition ? InputClassError : InputClass}
                 {...register('otherPosition', { required: true })} />
             </div>
@@ -112,6 +114,7 @@ const PositionComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <select
+              id='isEducation'
               className={errors.isEducation ? SelectClassError : SelectClass}
               {...register('isEducation', { required: true })}>
                 {(watchPosition === "Teaching Assistant" || watchPosition === "Teacher") && (
@@ -149,6 +152,7 @@ const PositionComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <select
+              id='location'
               className={errors.location ? SelectClassError : SelectClass}
               {...register('location', { required: true })}>
                 <option value="" disabled>Please Select</option>
@@ -168,6 +172,7 @@ const PositionComponent = () => {
           </label>
           <div className={InputContainerClass}>
           <select
+            id='workingPattern'
             className={errors.workingPattern ? SelectClassError : SelectClass}
             {...register('workingPattern', { required: true })}>
               <option value="" disabled>Please Select</option>
@@ -187,6 +192,7 @@ const PositionComponent = () => {
           </label>
           <div className={InputContainerClass}>
             <input
+              id='hoursRequested'
               type="number"
               className={errors.hoursRequested ? InputClassError : InputClass}
               {...register('hoursRequested', { required: true })} />

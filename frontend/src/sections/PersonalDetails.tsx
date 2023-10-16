@@ -701,6 +701,7 @@ const PersonalDetailsComponent = () => {
           <div className={InputContainerClass}>
             <input
               type="date"
+              min={new Date().toISOString().split('T')[0]}
               className={errors.visaExpiry ? InputClassError : InputClass}
               {...register('visaExpiry', { required: true })} />
           </div>
