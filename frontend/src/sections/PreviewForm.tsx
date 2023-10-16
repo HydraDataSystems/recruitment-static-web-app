@@ -95,7 +95,7 @@ const PreviewForm = () => {
       <Section title="Personal Details">
         <SectionRow title="Name">{state.sections.personalDetails.firstName}</SectionRow>
         <SectionRow title="Surname">{state.sections.personalDetails.lastName}</SectionRow>
-        {state.sections.personalDetails.otherNamesDetails.length > 0 && (
+        {state.sections.personalDetails.otherNamesDetails.length > 0 ? (
           <SectionRow title="Other Names">
             {state.sections.personalDetails.otherNamesDetails.map((otherName, index) => (
               <Fragment key={`other-name-${index}`}>
@@ -103,6 +103,8 @@ const PreviewForm = () => {
               </Fragment>
             ))}
           </SectionRow>
+        ) : (
+          <SectionRow title="Other Names">Not Applicable</SectionRow>
         )}
         <SectionRow title="Gender">{state.sections.personalDetails.gender}</SectionRow>
         <SectionRow title="Place of Birth">{state.sections.personalDetails.placeOfBirth}</SectionRow>
@@ -115,7 +117,7 @@ const PreviewForm = () => {
         <SectionRow title="License Type">{state.sections.personalDetails.licenceType ? state.sections.personalDetails.licenceType : 'Not Applicable'}</SectionRow>
         <SectionRow title="License Other">{state.sections.personalDetails.licenceOther ? state.sections.personalDetails.licenceOther : 'Not Applicable'}</SectionRow>
         <SectionRow title="Own Transport">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.ownTransport : "Not Applicable"}</SectionRow>
-        <SectionRow title="Driving Endorsements">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.drivingEndorsements : "Not Applicable"}</SectionRow>
+        <SectionRow title="Driving Endorsements">{state.sections.personalDetails.drivingEndorsements.length > 0 ? state.sections.personalDetails.drivingEndorsements : "Not Applicable"}</SectionRow>
         <SectionRow title="Do you require a visa to work in the UK?">{state.sections.personalDetails.visaRequired === "YES" ? state.sections.personalDetails.visaRequired : "Not Applicable"}</SectionRow>
         <SectionRow title="What type of visa do you have?">{state.sections.personalDetails.visaType ? state.sections.personalDetails.visaType : "Not Applicable"}</SectionRow>
         <SectionRow title="Visa Expiry Date">{state.sections.personalDetails.visaExpiry ? (new Date(state.sections.personalDetails.visaExpiry)).toLocaleDateString() : "Not Applicable"}</SectionRow>
