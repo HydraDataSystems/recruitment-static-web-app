@@ -8,7 +8,7 @@ export async function createEntry(data: GlobalState, pdf: File, cv: File | null)
     formData.append("lastName", lastName);
     formData.append("email", email);
     formData.append("pdf", pdf, `${firstName}-${lastName}-application.pdf`);
-    cv && formData.append("cv", cv, `${firstName}-${lastName}-cv.${cv.name.split('.').pop()}}`);
+    cv && formData.append("cv", cv, `${firstName}-${lastName}-cv.${cv.name.split('.').pop()}`);
 
     const response = await fetch(`/api/submitrecruitmentform`, {
         method: 'POST',
