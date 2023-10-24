@@ -75,27 +75,6 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
           gapInDays: gapInDays
         });
       }
-
-      // Add gap between last employment and today
-      // if(i === groupedRecords.length - 2) {
-      //   const lastGroup = groupedRecords[i + 1];
-      //   const lastRecord = lastGroup.reduce(function (pre, cur) {
-      //     return Date.parse(pre.endDate ?? '') < Date.parse(cur.endDate ?? '') ? cur : pre;
-      //   });
-      //   const lastEmploymentEndDate = new Date(lastRecord.endDate ?? '');
-      //   const today = new Date();
-      //   const gapInDays = Math.round((today.getTime() - lastEmploymentEndDate.getTime()) / (1000 * 3600 * 24));
-        
-      //   if (gapInDays >= MIN_EMPLOYMENT_GAP_IN_DAYS) {
-      //     gaps.push({
-      //       nameA: lastRecord.name,
-      //       nameB: 'This Application (Today)',
-      //       startDate: lastEmploymentEndDate.toISOString().split('T')[0],
-      //       endDate: today.toISOString().split('T')[0],
-      //       gapInDays: gapInDays
-      //     });
-      //   }
-      // }
     }
 
     // iterate over grouped records again with for loop to find the latest end date in all the records, then add another gap between that date and today
