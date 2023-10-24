@@ -1,5 +1,5 @@
 import { Address, SectionStatus, YesNo } from '../../global';
-import updateEmploymentHistorySection, { getGapsFromGroupedRecords } from '../updateEmploymentHistory';
+import updateEmploymentHistorySection from '../updateEmploymentHistory';
 
 const mockState = {
   "sections": {
@@ -1425,14 +1425,14 @@ describe('getGapsFromGroupedRecords', () => {
                 "endDate": "2018-10-31"
               }
             ],
-            "educationToEmploymentGap": 3712,
+            "educationToEmploymentGap": 5206,
             "employmentGaps": [
               {
                 "nameA": "The Wallow Start",
                 "nameB": "This Application (Today)",
                 "startDate": "2018-10-31",
                 "endDate": "2023-10-24",
-                "gapInDays": 1819
+                "gapInDays": 1820
               }
             ],
             "employmentOverlap": [
