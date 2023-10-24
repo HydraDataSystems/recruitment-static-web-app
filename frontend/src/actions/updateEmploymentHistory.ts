@@ -47,7 +47,6 @@ export default function updateEmploymentHistorySection(state: GlobalState, paylo
   }
 
   function getGapsFromGroupedRecords(groupedRecords: EmploymentRecord[][]): Array<EmploymentGap> {
-    console.log(groupedRecords);
     const gaps: Array<EmploymentGap> = [];
 
     for (let i = 0; i < groupedRecords.length - 1; i++) {
