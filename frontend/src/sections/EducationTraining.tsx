@@ -49,6 +49,7 @@ const EducationTrainingComponent = () => {
     if (isValid && isSubmitSuccessful) nextSection();
   }, [isValid, isSubmitSuccessful, nextSection]);
 
+  console.log(errors);
   return (
     <form className="space-y-12" onSubmit={onSubmit}>
       <div> 
@@ -171,10 +172,11 @@ const EducationTrainingComponent = () => {
                 <input
                   type="month"
                   className={errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.endDate ? InputClassError : InputClass}
-                  {...register(`educationRecords.${index}.endDate`, { required: true })}
+                  {...register(`educationRecords.${index}.endDate`, { required: true, min: { value: watch(`educationRecords.${index}.startDate`), message: 'End date must be after start date' }})}
                 />
               </div>
-              {errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.endDate && <span className={InputErrorMsgClass}>Please enter an end date</span>}
+              {errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.endDate?.type === 'required' && <span className={InputErrorMsgClass}>This is a required field.</span>}
+              {errors.educationRecords && errors.educationRecords[index] && errors.educationRecords[index]?.endDate && <span className={InputErrorMsgClass}>{errors.educationRecords[index]?.endDate?.message}</span>}
             </div>
 
             <div>
@@ -257,10 +259,11 @@ const EducationTrainingComponent = () => {
                 <input
                   type="month"
                   className={errors.trainingRecords && errors.trainingRecords[index] && errors.trainingRecords[index]?.endDate ? InputClassError : InputClass}
-                  {...register(`trainingRecords.${index}.endDate`, { required: true })}
+                  {...register(`trainingRecords.${index}.endDate`, { required: true, min: { value: watch(`trainingRecords.${index}.startDate`), message: 'End date must be after start date' }})}
                 />
               </div>
-              {errors.trainingRecords && errors.trainingRecords[index] && errors.trainingRecords[index]?.endDate && <span className={InputErrorMsgClass}>Please enter an end date</span>}
+              {errors.trainingRecords && errors.trainingRecords[index] && errors.trainingRecords[index]?.endDate?.type === 'required' && <span className={InputErrorMsgClass}>Please enter an end date</span>}
+              {errors.trainingRecords && errors.trainingRecords[index] && errors.trainingRecords[index]?.endDate && <span className={InputErrorMsgClass}>{errors.trainingRecords[index]?.endDate?.message}</span>}
             </div>
 
             <div className="my-2">
