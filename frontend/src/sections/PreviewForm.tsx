@@ -116,13 +116,13 @@ const PreviewForm = () => {
         <SectionRow title="License duration">{state.sections.personalDetails.driver === "YES" ? yearsAndMonthsToDate(new Date(state.sections.personalDetails.licenceHeld)) : "Not Applicable"}</SectionRow>
         <SectionRow title="License Type">{state.sections.personalDetails.licenceType ? state.sections.personalDetails.licenceType : 'Not Applicable'}</SectionRow>
         <SectionRow title="License Other">{state.sections.personalDetails.licenceOther ? state.sections.personalDetails.licenceOther : 'Not Applicable'}</SectionRow>
-        <SectionRow title="Own Transport">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.ownTransport : "Not Applicable"}</SectionRow>
-        <SectionRow title="Driving Endorsements">{state.sections.personalDetails.drivingEndorsements.length > 0 ? state.sections.personalDetails.drivingEndorsements : "Not Applicable"}</SectionRow>
-        <SectionRow title="Do you require a visa to work in the UK?">{state.sections.personalDetails.visaRequired === "YES" ? state.sections.personalDetails.visaRequired : "Not Applicable"}</SectionRow>
+        <SectionRow title="Own Transport">{state.sections.personalDetails.driver === "YES" ? state.sections.personalDetails.ownTransport : "NO"}</SectionRow>
+        <SectionRow title="Driving Endorsements">{state.sections.personalDetails.drivingEndorsements.length > 0 ? state.sections.personalDetails.drivingEndorsements : "None"}</SectionRow>
+        <SectionRow title="Do you require a visa to work in the UK?">{state.sections.personalDetails.visaRequired === "YES" ? state.sections.personalDetails.visaRequired : "NO"}</SectionRow>
         <SectionRow title="What type of visa do you have?">{state.sections.personalDetails.visaType ? state.sections.personalDetails.visaType : "Not Applicable"}</SectionRow>
         <SectionRow title="Visa Expiry Date">{state.sections.personalDetails.visaExpiry ? (new Date(state.sections.personalDetails.visaExpiry)).toLocaleDateString() : "Not Applicable"}</SectionRow>
         <SectionRow title="National Insurance Number">{state.sections.personalDetails.national_insurance_number ? state.sections.personalDetails.national_insurance_number : "Not Applicable"}</SectionRow>
-        <SectionRow title="Are you related to a Cascade employee?">{state.sections.personalDetails.related_to_employee === "YES" ? state.sections.personalDetails.related_to_employee : "Not Applicable"}</SectionRow>
+        <SectionRow title="Are you related to a Cascade employee?">{state.sections.personalDetails.related_to_employee === "YES" ? state.sections.personalDetails.related_to_employee : "NO"}</SectionRow>
         <SectionRow title="Name of related employee or service user">{state.sections.personalDetails.related_to_employee_details ? state.sections.personalDetails.related_to_employee_details : "Not Applicable"}</SectionRow>
       </Section>
     </Page>
